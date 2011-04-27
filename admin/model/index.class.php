@@ -7,9 +7,10 @@ class index extends defaultClass {
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
+	
 	public function logon(){
-		$login = $this->antiInjection($_POST['login']);
-		$senha = $this->antiInjection($_POST['senha']);
+		$login = $this->antiInjection($this->values['login']);
+		$senha = $this->antiInjection($this->values['senha']);
 		$sql = array();
 		$sql[] = "
 			SELECT	u.*
@@ -28,6 +29,9 @@ class index extends defaultClass {
 		$rs = $this->dbConn->db_fetch_assoc($result['result']);
 		$this->setSession($rs);
 		return true;
+	}
+	public function logoff(){
+		$this->destroySession();
 	}
 }
 

@@ -9,9 +9,21 @@ if(session_id()==''){
 }
 class defaultClass {
 	protected $dbConn;
+	protected $values;
+	protected $files;
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
+	
+	public function setValues($values) {
+		$this->values = $values;
+	}
+	
+	public function setFiles($files) {
+		$this->files = $files;
+	}
+
+			
 	public function destroySession() {
 		unset($_SESSION['ADMIN_GET_READY_GO']);
 		session_destroy();
