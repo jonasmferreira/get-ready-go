@@ -191,8 +191,48 @@ class usuario extends defaultClass{
 		);
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
+			$this->dbConn->db_commit();
 			$ret['usuario_id'] = $result['success'];
 			$ret['usuario_id'] = $this->values['usuario_id'];
+		}else{
+			$this->dbConn->db_rollback();
+		}
+		return $ret;
+	}
+	public function insert(){
+		$this->dbConn->db_start_transaction();
+		$sql = array();
+		if(is_file($this->files['usuario_avatar_up']['tmp_file'])){
+			$fileName = microtime(true)."_".$this->files['usuario_avatar_up']['name'];
+			if(move_uploaded_file($this->files['usuario_avatar_up']['tmp_file'], $this->avatarFolder.$fileName)){
+				$this->values['usuario_avatar'] = $fileName;
+			}else{
+				$this->values['usuario_avatar'] = "";
+			}
+		}
+		$sql[] = "
+			INSERT INTO	tb_usuario SET
+				usuario_nivel_id = '{$this->values['usuario_nivel_id']}'
+				,usuario_nome = '{$this->values['usuario_nome']}'
+				,usuario_login = '{$this->values['usuario_login']}'
+				,usuario_senha = '{$this->values['usuario_senha']}'
+				,usuario_email = '{$this->values['usuario_email']}'				
+		";
+		if(isset($this->values['usuario_avatar'])&&trim($this->values['usuario_avatar'])!=''){
+			$sql[] = ",usuario_avatar = '{$this->values['usuario_avatar']}'";
+		}
+		
+		$ret = array(
+			'success'=>false
+			,'usuario_id' =>''
+		);
+		$result = $this->dbConn->db_execute(implode("\n",$sql));
+		if($result['success']===true){
+			$this->dbConn->db_commit();
+			$ret['usuario_id'] = $result['success'];
+			$ret['usuario_id'] = $result['last_id'];
+		}else{
+			$this->dbConn->db_rollback();
 		}
 		return $ret;
 	}
