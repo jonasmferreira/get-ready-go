@@ -11,6 +11,10 @@ class usuario extends defaultClass{
 		$path_root_usuarioClass = "{$path_root_usuarioClass}{$DS}..{$DS}..{$DS}";
 		$this->dbConn = new DataBaseClass();
 		$this->avatarFolder = "{$path_root_usuarioClass}atavars{$DS}";
+		if(!is_dir($this->avatarFolder)){
+			mkdir($this->avatarFolder,0777);
+			chmod($this->avatarFolder,0777);
+		}
 	}
 	public function getLista(){
 		$sql = array();
@@ -22,6 +26,7 @@ class usuario extends defaultClass{
 					,u.usuario_senha
 					,u.usuario_email
 					,u.usuario_avatar
+					,u.usuario_status
 					,un.usuario_nivel_titulo
 			FROM	tb_usuario u
 			
@@ -41,6 +46,9 @@ class usuario extends defaultClass{
 		}
 		if(isset($this->values['usuario_email'])&&trim($this->values['usuario_email'])!=''){
 			$sql[] = "AND	u.usuario_email = '{$this->values['usuario_email']}'";
+		}
+		if(isset($this->values['usuario_status'])&&trim($this->values['usuario_status'])!=''){
+			$sql[] = "AND	u.usuario_status = '{$this->values['usuario_email']}'";
 		}
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']){
@@ -180,6 +188,7 @@ class usuario extends defaultClass{
 				,usuario_login = '{$this->values['usuario_login']}'
 				,usuario_senha = '{$this->values['usuario_senha']}'
 				,usuario_email = '{$this->values['usuario_email']}'				
+				,usuario_status = '{$this->values['usuario_status']}'
 		";
 		if(isset($this->values['usuario_avatar'])&&trim($this->values['usuario_avatar'])!=''){
 			$sql[] = ",usuario_avatar = '{$this->values['usuario_avatar']}'";
@@ -216,7 +225,8 @@ class usuario extends defaultClass{
 				,usuario_nome = '{$this->values['usuario_nome']}'
 				,usuario_login = '{$this->values['usuario_login']}'
 				,usuario_senha = '{$this->values['usuario_senha']}'
-				,usuario_email = '{$this->values['usuario_email']}'				
+				,usuario_email = '{$this->values['usuario_email']}'
+				,usuario_status = '{$this->values['usuario_status']}'
 		";
 		if(isset($this->values['usuario_avatar'])&&trim($this->values['usuario_avatar'])!=''){
 			$sql[] = ",usuario_avatar = '{$this->values['usuario_avatar']}'";
