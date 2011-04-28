@@ -181,6 +181,7 @@ class post extends defaultClass{
 		$sql[] = "
 			UPDATE	tb_post SET
 					post_id = '{$this->values['post_id']}'
+					,categoria_id = '{$this->values['categoria_id']}'
 					,usuario_id = '{$this->values['usuario_id']}'
 					,post_titulo = '{$this->values['post_titulo']}'
 					,post_thumb_home = '{$this->values['post_thumb_home']}'
@@ -201,7 +202,7 @@ class post extends defaultClass{
 		$sql[] = "WHERE post_id = '{$this->values['post_id']}'";
 		$ret = array(
 			'success'=>false
-			,'post_id' =>''
+			,'post_id' =>$this->values['post_id']
 		);
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
@@ -224,6 +225,7 @@ class post extends defaultClass{
 		$sql[] = "
 			INSERT INTO	tb_post SET
 				post_id = '{$this->values['post_id']}'
+				,categoria_id = '{$this->values['categoria_id']}'
 				,usuario_id = '{$this->values['usuario_id']}'
 				,post_titulo = '{$this->values['post_titulo']}'
 				,post_thumb_home = '{$this->values['post_thumb_home']}'
