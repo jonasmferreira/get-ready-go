@@ -68,6 +68,7 @@ class post extends defaultClass{
 		if($result['total'] > 0){
 			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
 				$rs['galerias'] = $this->galeriaPost($rs['post_id']);
+				$rs['comentarios'] = $this->comentarioPost($rs['post_id']);
 				array_push($res, $rs);
 			}
 		}
@@ -113,9 +114,38 @@ class post extends defaultClass{
 		$rs = array();
 		if($result['total'] > 0){
 			$rs['galerias'] = $this->galeriaPost($rs['post_id']);
+			$rs['comentarios'] = $this->comentarioPost($rs['post_id']);
 			$rs = $this->dbConn->db_fetch_assoc($result['result']);
 		}
 		return $rs;
+	}
+	public function comentarioPost($post_id){
+		$sql = array();
+		$sql[] = "
+			SELECT	comentario_id
+					,post_id
+					,comentario_autor
+					,comentario_email
+					,comentario_conteudo
+					,comentario_dt_criacao
+					,comentario_dtcomp_criacao
+					,comentario_dt_alteracao
+					,comentario_dtcomp_alteracao
+			FROM	tb_comentario
+			WHERE	1 = 1
+			AND		post_id = '{$post_id}'
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+		}
+		return $res;
 	}
 	public function galeriaPost($post_id){
 		$sql = array();
