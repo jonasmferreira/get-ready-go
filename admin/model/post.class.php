@@ -181,7 +181,6 @@ class post extends defaultClass{
 		$sql[] = "
 			UPDATE	tb_post SET
 					post_id = '{$this->values['post_id']}'
-					,post_id = '{$this->values['post_id']}'
 					,usuario_id = '{$this->values['usuario_id']}'
 					,post_titulo = '{$this->values['post_titulo']}'
 					,post_thumb_home = '{$this->values['post_thumb_home']}'
@@ -225,7 +224,6 @@ class post extends defaultClass{
 		$sql[] = "
 			INSERT INTO	tb_post SET
 				post_id = '{$this->values['post_id']}'
-				,post_id = '{$this->values['post_id']}'
 				,usuario_id = '{$this->values['usuario_id']}'
 				,post_titulo = '{$this->values['post_titulo']}'
 				,post_thumb_home = '{$this->values['post_thumb_home']}'
