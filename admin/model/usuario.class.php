@@ -165,8 +165,11 @@ class usuario extends defaultClass{
 		);
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
+			$this->dbConn->db_commit();
 			$ret['success'] = $result['success'];
 			$ret['usuario_id'] = $this->values['usuario_id'];
+		}else{
+			$this->dbConn->db_rollback();
 		}
 		return $ret;
 	}

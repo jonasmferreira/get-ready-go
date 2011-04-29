@@ -63,7 +63,7 @@ class categoria extends defaultClass{
 	}
 	public function edit(){
 		$result = false;
-		if(isset($this->values['usuario_id'])&&trim($this->values['usuario_id'])!=''){
+		if(isset($this->values['categoria_id'])&&trim($this->values['categoria_id'])!=''){
 			$result = $this->update();
 		}else{
 			$result = $this->insert();
@@ -87,8 +87,11 @@ class categoria extends defaultClass{
 		);
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
+			$this->dbConn->db_commit();
 			$ret['success'] = $result['success'];
 			$ret['categoria_id'] = $this->values['categoria_id'];
+		}else{
+			$this->dbConn->db_rollback();
 		}
 		return $ret;
 	}
