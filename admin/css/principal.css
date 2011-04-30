@@ -1,0 +1,55 @@
+/* 
+    Document   : principal
+    Created on : 30/04/2011, 19:49:51
+    Author     : jonas
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+* { 
+    padding:0;
+	margin:0;
+}
+body{
+	font-family: helvetica,tahoma,verdana,sans-serif;
+    font-size: 13px;
+    padding: 0px 20px 20px;
+}
+#topo{
+	float:left;
+	display:inline;
+	width:100%;
+	height:150px;
+	background-color:#D3E1F1;
+}
+#logo{
+	float:left;
+	display:inline;
+	width:100%;
+	height:122px;
+}
+#topmenu{
+	float:left;
+	display:inline;
+	width:100%;
+}
+#conteudo{
+	float:left;
+	display:inline;
+	width:100%;
+	background-color:#c9c9c9;
+	min-height: 500px;
+}
+#rodape{
+	float:left;
+	display:inline;
+	width:100%;
+	height:30px;
+	background-color:#F00;
+}
+
