@@ -10,46 +10,254 @@
    TODO customize this sample style
    Syntax recommendation http://www.w3.org/TR/REC-CSS2/
 */
-
-* { 
-    padding:0;
-	margin:0;
+*{
+	padding: 0;
+	margin: 0;
+	
 }
 body{
-	font-family: helvetica,tahoma,verdana,sans-serif;
-    font-size: 13px;
-    padding: 0px 20px 20px;
+	padding: 0;
+	margin: 0;
+	background-color: #DFE8F6;
+	font-family: helvetica, arial sans-serif;
+	font-size:12px;
 }
-#topo{
-	float:left;
-	display:inline;
-	width:100%;
-	height:150px;
-	background-color:#D3E1F1;
+#main{
+	position:relative;
+	top:122px;
+	margin:0px auto;
+	border:1px #99BBE8 solid;
+	width: 99%;
+	height: 75%;
+	text-align: left;
+	overflow:auto;
 }
-#logo{
-	float:left;
-	display:inline;
+#header{
+	background-color: #D4E0F2;
+	position:fixed;
 	width:100%;
 	height:122px;
+	top:0px;
+}
+#header #area{
+	width: 99%;
+	height:80px;
+	margin: 5px auto 5px auto;
+	position: relative;
+	border:1px #99BBE8 solid;
+	color:#000;
+	font-weight: bold;
+}
+#header #area #logo{
+	/*position:relative;*/
+	float:left;
+	width:150px;
+	height:80px;
+	display:inline;
+}
+#header #area #info{
+	font-size: 13px;
+    left: 50%;
+	top:16px;
+    margin-left: -125px;
+    position: absolute;
+    text-align: center;
+    width: 250px;
+}
+#header #area #logoff{
+	position: relative;
+	float:right;
+	display:inline;
+	width:180px;
+	text-align: center;
+	font-size: 13px;
 }
 #topmenu{
-	float:left;
-	display:inline;
-	width:100%;
+    font-weight: bold;
+    margin: 5px auto;
+    position: relative;
 }
-#conteudo{
-	float:left;
-	display:inline;
-	width:100%;
-	background-color:#c9c9c9;
-	min-height: 500px;
-}
-#rodape{
-	float:left;
-	display:inline;
+#footer{
+	background-color: #D4E0F2;
+	position:fixed;
 	width:100%;
 	height:30px;
-	background-color:#F00;
+	bottom:0px;
+}
+#footer #area{
+	width: 99%;
+	margin: 5px auto 5px auto;
+	position: relative;
+	border:1px #99BBE8 solid;
+	text-align: center;
+	color:#000;
+	font-weight: bold;
+}
+.clickable{
+	cursor:pointer !important;
+}
+.bold{
+	font-weight: bold !important;
+}
+.al-l{
+	text-align:left !important;
+}
+.al-r{
+	text-align:right !important;
+}
+.al-c{
+	text-align:center !important;
+}
+
+table .clickable a{
+	text-decoration: none !important;
+	color: #1c5d79;
+	border:none;
+}
+
+/*
+
+=====================================
+
+ * Data Tables and Cascading Style Sheets Gallery *
+
+ *  http://icant.co.uk/csstablegallery/index.php  *
+
+ * Author: Velizar Garvalov at  http://www.vhg-design.com/ *
+
+ =====================================
+
+*/
+
+
+
+table {
+	width: 100%;
+	margin:0;
+ 	padding:0;
+	font-family: "Trebuchet MS", Trebuchet, Arial, sans-serif;
+	color: #1c5d79;
+}
+
+table, tr, th, td {
+	border-collapse: collapse;
+}
+
+caption {
+	margin:0;
+ 	padding:0;
+	background: #f3f3f3;
+	height: 40px;
+	line-height: 40px;
+	text-indent: 28px;
+	font-family: "Trebuchet MS", Trebuchet, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #555d6d;
+	text-align: left;
+	letter-spacing: 3px;
+	border-top: dashed 1px #c2c2c2;
+	border-bottom: dashed 1px #c2c2c2;
+}
+/* HEAD */
+thead {
+	background-color: #FFFFFF;
+	border: none;
+}
+
+thead tr th {
+	height: 32px;
+	line-height: 32px;
+	text-align: center;
+	color: #1c5d79;
+	background-image: url(col_bg.gif);
+	background-repeat: repeat-x;
+	border-left:solid 1px #FF9900;
+	border-right:solid 1px #FF9900;
+	border-collapse: collapse;
+}
+
+/* BODY */
+
+tbody tr {
+	background: #dfedf3;
+	font-size: 13px;
+}
+
+tbody tr.odd {
+	background: #F0FFFF;
+}
+
+tbody tr:hover, tbody tr.odd:hover {
+	background: #ffffff;
+}
+
+tbody tr th, tbody tr td {
+	padding: 6px;
+	border: solid 1px #326e87;
+}
+
+tbody tr th {
+	background: #1c5d79;
+	font-family: "Trebuchet MS", Trebuchet, Arial, sans-serif;
+	font-size: 12px;
+	padding: 6px;
+	text-align: center;
+	font-weight: bold;
+	color: #FFFFFF;
+	border-bottom: solid 1px white;
+}
+
+tbody tr th:hover {
+	background: #ffffff;
+}
+
+/* LINKS */
+table a {
+	color: #FF6600;
+	text-decoration: none;
+	font-size: 13px;
+	border-bottom: solid 1px white;
+}
+
+table a:hover {
+	color: #FF9900;
+	border-bottom: none;
+}
+
+/* FOOTER */
+tfoot {
+	background: #f3f3f3;
+	height: 24px;
+	line-height: 24px;
+	font-family: "Trebuchet MS", Trebuchet, Arial, sans-serif;
+	font-size: 14px;
+	font-weight: bold;
+	color: #555d6d;
+	text-align: center;
+	letter-spacing: 3px;
+	border-top: solid 2px #326e87;
+	border-bottom: dashed 1px #c2c2c2;
+}
+
+tfoot tr th, tfoot tr td {
+	/*padding: .1em .6em;*/
+}
+
+tfoot tr th {
+	border-top: solid 1px #326e87;
+}
+
+tfoot tr td {
+	text-align: right;
+}
+.clear{
+	clear:both;
+}
+
+.error{
+	border:1px solid #F00 !important;
+/*	background-color: #BC0B0B;*/
+	border-color: #BC0B0B;
 }
 
