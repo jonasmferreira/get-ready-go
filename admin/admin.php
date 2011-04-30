@@ -33,11 +33,18 @@
 		</script>
 	</head>
 	<body>
-		<div id="topo">
-			<div id="logo">&nbsp;</div>
+		
+		<div id="header">
+			<div id="area">
+				<div id="logo">&nbsp;</div>
+				<div id="info"></div>
+				<div id="logoff"></div>
+			</div>
 			<div id="topmenu"></div>
 		</div>
-		<div id="conteudo">&nbsp;</div>
-		<div id="rodape">&nbsp;</div>
+		<div id="main"></div>
+		<div id="footer">
+			<div id="area">Copyright &copy; 2011 - Get Ready Go - Todos os direitos reservados </div>
+		</div>
 	</body>
 </html>
