@@ -20,6 +20,12 @@ Ext.onReady(function(){
 	});
     var tb = Ext.create('Ext.toolbar.Toolbar',{
 		id:'menuToolbar'
+		,style: {
+            overflow: 'visible'     // For the Combo popup
+			,margin: '5px auto'
+			,width:'99%'
+			
+        }
 		,items:[
 			{
                 text:'Testes',
