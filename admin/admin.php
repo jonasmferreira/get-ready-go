@@ -5,7 +5,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		
+		<title>Sistema de Gernciamento de Conteúdo - Get Ready Go</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<!-- Ext includes -->
 		<link rel="stylesheet" type="text/css" href="js/ext-4.0.0/resources/css/ext-all.css" />
 		<script type="text/javascript" src="js/ext-4.0.0/bootstrap.js"></script>
@@ -37,7 +38,11 @@
 		<div id="header">
 			<div id="area">
 				<div id="logo">&nbsp;</div>
-				<div id="info"></div>
+				<div id="info">
+					Bem Vindo[a] Jonas <br />
+					Sistema de Gernciamento de Conteúdo<br />
+					Get Ready Go
+				</div>
 				<div id="logoff"></div>
 			</div>
 			<div id="topmenu"></div>
