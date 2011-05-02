@@ -106,5 +106,13 @@ class defaultClass {
 			header('Location: index.php');
 		}
 	}
+	public function convertExtReturn($data,$success,$totalCount){
+		$arr = array(
+			'data'=>$data
+			,'totalCount'=>$totalCount
+			,'success'=>$success
+		);
+		return $arr;
+	}
 }
 ?>

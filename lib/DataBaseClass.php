@@ -91,6 +91,7 @@ class DataBaseClass{
 		$msg[] = "\n";
 		@chmod($fileName, 0777);
 		file_put_contents($fileName, implode("\r\n",$msg), FILE_APPEND);
+		@chmod($fileName, 0777);
 
 	}
 	public function utf8Encode2Decode($string)

@@ -16,7 +16,7 @@ class usuario extends defaultClass{
 			chmod($this->avatarFolder,0777);
 		}
 	}
-	public function getLista(){
+	public function getLista($returnExt=true){
 		$sql = array();
 		$sql[] = "
 			SELECT	u.usuario_id
@@ -51,6 +51,7 @@ class usuario extends defaultClass{
 			$sql[] = "AND	u.usuario_status = '{$this->values['usuario_email']}'";
 		}
 		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
 		if(!$result['success']){
 			return false;
 		}
@@ -59,6 +60,9 @@ class usuario extends defaultClass{
 			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
 				array_push($res, $rs);
 			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
 		}
 		return $res;
 	}
