@@ -5,7 +5,7 @@ class DataBaseClass{
     private $dbConnection = null;
     private $dbHost = "localhost";
     private $dbUser = "root";
-    private $dbPassword = "";
+    private $dbPassword = "cat200200";
     private $dbName = "get_ready_go";
 	private $dbDriver = "mysql";
 

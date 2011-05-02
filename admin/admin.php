@@ -1,11 +1,15 @@
 <?php
-
-
+	$path_root_DefaultClass = dirname(__FILE__);
+	$DS = DIRECTORY_SEPARATOR;
+	$path_root_DefaultClass = "{$path_root_DefaultClass}{$DS}..{$DS}";
+	require_once "{$path_root_DefaultClass}admin{$DS}model{$DS}default.class.php";
+	$obj = new DefaultClass();
+	$obj->verifyLogin();
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Sistema de Gernciamento de Conteúdo - Get Ready Go</title>
+		<title>Sistema de Gerenciamento de Conteúdo - Get Ready Go</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<!-- Ext includes -->
 		<link rel="stylesheet" type="text/css" href="js/ext-4.0.0/resources/css/ext-all.css" />

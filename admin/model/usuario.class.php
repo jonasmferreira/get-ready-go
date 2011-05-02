@@ -2,7 +2,7 @@
 $path_root_usuarioClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_usuarioClass = "{$path_root_usuarioClass}{$DS}..{$DS}..{$DS}";
-require_once "{$path_root_usuarioClass}admin{$DS}class{$DS}default.class.php";
+require_once "{$path_root_usuarioClass}admin{$DS}model{$DS}default.class.php";
 class usuario extends defaultClass{
 	private $avatarFolder;
 	public function __construct() {

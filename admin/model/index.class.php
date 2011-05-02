@@ -2,7 +2,7 @@
 $path_root_indexClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_indexClass = "{$path_root_indexClass}{$DS}..{$DS}..{$DS}";
-require_once "{$path_root_indexClass}admin{$DS}class{$DS}default.class.php";
+require_once "{$path_root_indexClass}admin{$DS}model{$DS}default.class.php";
 class index extends defaultClass {
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
@@ -10,7 +10,7 @@ class index extends defaultClass {
 	
 	public function logon(){
 		$login = $this->antiInjection($this->values['login']);
-		$senha = $this->antiInjection($this->values['senha']);
+		$senha = $this->antiInjection(md5($this->values['senha']));
 		$sql = array();
 		$sql[] = "
 			SELECT	u.*

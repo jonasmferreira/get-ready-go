@@ -2,7 +2,7 @@
 $path_root_publicidadeClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_publicidadeClass = "{$path_root_publicidadeClass}{$DS}..{$DS}..{$DS}";
-require_once "{$path_root_publicidadeClass}admin{$DS}class{$DS}default.class.php";
+require_once "{$path_root_publicidadeClass}admin{$DS}model{$DS}default.class.php";
 class publicidade extends defaultClass{
 	private $publicidadeFolder;
 	public function __construct() {

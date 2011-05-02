@@ -2,7 +2,7 @@
 $path_root_categoriaClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_categoriaClass = "{$path_root_categoriaClass}{$DS}..{$DS}..{$DS}";
-require_once "{$path_root_categoriaClass}admin{$DS}class{$DS}default.class.php";
+require_once "{$path_root_categoriaClass}admin{$DS}model{$DS}default.class.php";
 class categoria extends defaultClass{
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();

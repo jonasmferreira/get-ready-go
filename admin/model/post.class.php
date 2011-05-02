@@ -2,7 +2,7 @@
 $path_root_postClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_postClass = "{$path_root_postClass}{$DS}..{$DS}..{$DS}";
-require_once "{$path_root_postClass}admin{$DS}class{$DS}default.class.php";
+require_once "{$path_root_postClass}admin{$DS}model{$DS}default.class.php";
 class post extends defaultClass{
 	private $postFolder;
 	public function __construct() {

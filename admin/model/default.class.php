@@ -25,24 +25,27 @@ class defaultClass {
 
 			
 	public function destroySession() {
-		unset($_SESSION['ADMIN_GET_READY_GO']);
+		unset($_SESSION['GET_READY_GO']);
 		session_destroy();
 	}
 	public function setSession($session,$value=null) {
 		if(!is_array($session)){
-			$_SESSION['ADMIN_GET_READY_GO'][$session] = $value;
+			$_SESSION['GET_READY_GO'][$session] = $value;
 		}else if(is_array($session) && count($session)>0){
 			foreach($session AS $k=>$v){
-				$_SESSION['ADMIN_GET_READY_GO'][$k] = $v;
+				$_SESSION['GET_READY_GO'][$k] = $v;
 			}
 		}
 	}
+	public function getSessions(){
+		return $_SESSION['GET_READY_GO'];
+	}
 	public function unsetSession($session) {
 		if(!is_array($session)){
-			unset($_SESSION['ADMIN_GET_READY_GO'][$session]);
+			unset($_SESSION['GET_READY_GO'][$session]);
 		}else{
 			foreach($session AS $k=>$v){
-				unset($_SESSION['ADMIN_GET_READY_GO'][$v]);
+				unset($_SESSION['GET_READY_GO'][$v]);
 			}
 		}
 	}
@@ -96,6 +99,12 @@ class defaultClass {
 		$aScript[] = "console.log('{$msg}');";
 		$aScript[] = '</script>';
 		echo implode("\r\n",$aScript);
+	}
+	public function verifyLogin(){
+		$session = $this->getSessions();
+		if(!isset($session['usuario_id'])&&trim($session['usuario_id'])==''){
+			header('Location: index.php');
+		}
 	}
 }
 ?>
