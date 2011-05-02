@@ -15,5 +15,10 @@
 				header('Location: ../admin.php');
 			}
 		break;
+		case 'logoff':
+			$obj->destroySession();
+			header('Location: ../admin.php');
+		break;
 	}
+	
 ?>

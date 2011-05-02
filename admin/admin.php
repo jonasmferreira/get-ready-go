@@ -5,12 +5,14 @@
 	require_once "{$path_root_DefaultClass}admin{$DS}model{$DS}default.class.php";
 	$obj = new DefaultClass();
 	$obj->verifyLogin();
+	$sessionAdmin = $obj->getSessions();
 ?>
 <!DOCTYPE html>
 <html>
 	<head>
 		<title>Sistema de Gerenciamento de Conteúdo - Get Ready Go</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
 		<!-- Ext includes -->
 		<link rel="stylesheet" type="text/css" href="js/ext-4.0.0/resources/css/ext-all.css" />
 		<script type="text/javascript" src="js/ext-4.0.0/bootstrap.js"></script>
@@ -18,12 +20,16 @@
 		<!-- Shared example includes -->
 		<script type="text/javascript" src="js/menus.js"></script>
 		
-		<script type="text/javascript" src="js/ext-4.0.0/examples/shared/examples.js"></script>
-		<script type="text/javascript" src="js/ext-4.0.0/examples/shared/states.js"></script>
+		<!-- Jquery Includes -->
+		<link href="js/css/redmond/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css"  />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
 		
-		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+		<!-- js default include -->
+		<script type="text/javascript" src="js/utils.js"></script>
+		
+		<!-- js admin include -->
+		<script type="text/javascript" src="js/admin.js"></script>
 		
 		<!-- CSS Principal -->
 		<link rel="stylesheet" type="text/css" href="css/principal.css" />
@@ -43,11 +49,11 @@
 			<div id="area">
 				<div id="logo">&nbsp;</div>
 				<div id="info">
-					Bem Vindo[a] Jonas <br />
-					Sistema de Gernciamento de Conteúdo<br />
+					Bem Vindo[a] <?=$sessionAdmin['usuario_nome']?> <br />
+					Sistema de Gerenciamento de Conteúdo<br />
 					Get Ready Go
 				</div>
-				<div id="logoff"></div>
+				<div id="logoff"><a href="javascript:void(0)" id="logoff" >Sair</a></div>
 			</div>
 			<div id="topmenu"></div>
 		</div>

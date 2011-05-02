@@ -17,13 +17,20 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>Sistema de Gerenciamento de Conteúdo - Get Ready Go - Login</title>
-		<link href="css/login.css" rel="stylesheet" type="text/css" />
-		<link href="js/css/redmond/jquery-ui-1.8.11.custom.css rel="stylesheet" type="text/css"  />
 		<link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-		<script type="text/javascript" src="js/jquery.js"></script>
-		<script type="text/javascript" src="js/jquery.ui.js"></script>
 		
+		<!-- Jquery Includes -->
+		<link href="js/css/redmond/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css"  />
+		<script type="text/javascript" src="js/jquery.js"></script>
+		<script type="text/javascript" src="js/jquery-ui.js"></script>
+		
+		<!-- js default include -->
 		<script type="text/javascript" src="js/utils.js"></script>
+		
+		<!-- CSS Principal -->
+		<link href="css/login.css" rel="stylesheet" type="text/css" />
+		
+		<!-- js admin include -->
 		<script type="text/javascript" src="js/index.js"></script>
 	</head>
 	<body>

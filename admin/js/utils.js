@@ -33,3 +33,42 @@ var newAlert = function(mensagem,tempo){
 		}
 	}).html(mensagem);
 }
+
+
+var newConfirm = function(mensagem,funcao,tempo){
+	tempo = (tempo == undefined) ? 400 : tempo;
+	$.fx.speeds._default = tempo;
+	jQuery('<div class="newConfirm"></div>').dialog({
+		'modal':true,
+		'title':'A L E R T A',
+		'show': "explode",
+		'hide': 'explode',
+		'buttons':{
+			'Sim':function(){
+				$(this).dialog('destroy');
+				window.setTimeout(function(){
+					$(".newConfirm").remove();
+					var retorno = {
+						'retorno': true
+					};
+					if(typeof(funcao)=="function"){
+						funcao(true);
+						//funcao(true);
+					}
+				},300);
+			}
+			,'Não':function(){
+				$(this).dialog('destroy');
+				window.setTimeout(function(){
+					$(".newConfirm").remove();
+					var retorno = {
+						'retorno': false
+					};
+					if(typeof(funcao)=="function"){
+						funcao(false);
+					}
+				},300);
+			}
+		}
+	}).html(mensagem);
+}
