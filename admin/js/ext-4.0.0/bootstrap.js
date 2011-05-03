@@ -9,7 +9,14 @@
  * Will load ext-all.js (minified) otherwise
  */
 (function() {
-
+	var idioma = "pt-BR";
+	if(navigator.browserLanguage) { 
+		idioma = navigator.browserLanguage;   
+	}
+	else if(navigator.language) {
+		idioma = navigator.language;
+	}
+	idioma = idioma.replace("-","_");
     var scripts = document.getElementsByTagName('script'),
         localhostTests = [
             /^localhost$/,
@@ -54,6 +61,6 @@
     }
 
     document.write('<script type="text/javascript" src="' + path + 'ext-all' + ((isDevelopment) ? '-debug' : '') + '.js"></script>');
-	document.write('<script type="text/javascript" src="' + path + 'locale/ext-lang-pt_BR.js"></script>');
+	document.write('<script type="text/javascript" src="' + path + 'locale/ext-lang-'+idioma+'.js"></script>');
 
 })();
