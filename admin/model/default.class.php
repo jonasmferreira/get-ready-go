@@ -11,6 +11,11 @@ class defaultClass {
 	protected $dbConn;
 	protected $values;
 	protected $files;
+	protected $sort_field;
+	protected $sort_direction;
+	protected $limit_start;
+	protected $limit_max;
+	
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
@@ -22,7 +27,23 @@ class defaultClass {
 	public function setFiles($files) {
 		$this->files = $files;
 	}
-
+	public function setSort($jSort){
+		$jSort = json_decode($jSort);
+		$this->setSortField($jSort[0]->property);
+		$this->setSortDirection($jSort[0]->direction);
+	}
+	public function setSortField($sort_field){
+		$this->sort_field = $sort_field;
+	}//MÉTODO setSortField
+	public function setSortDirection($sort_direction){
+		$this->sort_direction = $sort_direction;
+	}//MÉTODO setSortField
+	public function setLimitStart($limit_start){
+		$this->limit_start = $limit_start;
+	}//MÉTODO setLimitStart
+	public function setLimitMax($limit_max){
+		$this->limit_max = $limit_max;
+	}//MÉTODO setLimitMax
 			
 	public function destroySession() {
 		unset($_SESSION['GET_READY_GO']);
@@ -113,6 +134,24 @@ class defaultClass {
 			,'success'=>$success
 		);
 		return $arr;
+	}
+	public function getMaxCount($query){
+		$sql = array();
+		$sql[] = "
+			SELECT COUNT(*) as qtde
+			FROM	(
+				{$query}
+			) AS qt
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		$rs = array();
+		if($result['total'] > 0){
+			$rs = $this->dbConn->db_fetch_assoc($result['result']);
+		}
+		return $rs['qtde'];
 	}
 }
 ?>

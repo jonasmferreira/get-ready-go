@@ -19,37 +19,51 @@ class usuario extends defaultClass{
 	public function getLista($returnExt=true){
 		$sql = array();
 		$sql[] = "
-			SELECT	u.usuario_id
-					,u.usuario_nivel_id
-					,u.usuario_nome
-					,u.usuario_login
-					,u.usuario_senha
-					,u.usuario_email
-					,u.usuario_avatar
-					,u.usuario_status
-					,un.usuario_nivel_titulo
-			FROM	tb_usuario u
-			
-			JOIN	tb_usuario_nivel un
-			ON		un.usuario_nivel_id = u.usuario_nivel_id
-			
-			WHERE	1 = 1
+			SELECT a.* 
+			FROM	(
+		";
+		$sql[] = "
+				SELECT	u.usuario_id
+						,u.usuario_nivel_id
+						,u.usuario_nome
+						,u.usuario_login
+						,u.usuario_senha
+						,u.usuario_email
+						,u.usuario_avatar
+						,u.usuario_status
+						,un.usuario_nivel_titulo
+				FROM	tb_usuario u
+
+				JOIN	tb_usuario_nivel un
+				ON		un.usuario_nivel_id = u.usuario_nivel_id
+
+				WHERE	1 = 1
 		";
 		if(isset($this->values['usuario_nivel_id'])&&trim($this->values['usuario_nivel_id'])!=''){
-			$sql[] = "AND	u.usuario_nivel_id = '{$this->values['usuario_nivel_id']}'";
+			$sql[] = "	AND	u.usuario_nivel_id = '{$this->values['usuario_nivel_id']}'";
 		}
 		if(isset($this->values['usuario_nome'])&&trim($this->values['usuario_nome'])!=''){
-			$sql[] = "AND	u.usuario_nome = '{$this->values['usuario_nome']}'";
+			$sql[] = "	AND	u.usuario_nome = '{$this->values['usuario_nome']}'";
 		}
 		if(isset($this->values['usuario_login'])&&trim($this->values['usuario_login'])!=''){
-			$sql[] = "AND	u.usuario_login = '{$this->values['usuario_login']}'";
+			$sql[] = "	AND	u.usuario_login = '{$this->values['usuario_login']}'";
 		}
 		if(isset($this->values['usuario_email'])&&trim($this->values['usuario_email'])!=''){
-			$sql[] = "AND	u.usuario_email = '{$this->values['usuario_email']}'";
+			$sql[] = "	AND	u.usuario_email = '{$this->values['usuario_email']}'";
 		}
 		if(isset($this->values['usuario_status'])&&trim($this->values['usuario_status'])!=''){
-			$sql[] = "AND	u.usuario_status = '{$this->values['usuario_email']}'";
+			$sql[] = "	AND	u.usuario_status = '{$this->values['usuario_email']}'";
 		}
+		$sql[] = ") AS a";
+		$totalCount = $this->getMaxCount(implode("\n",$sql));
+		
+		if(isset($this->sort_field)&&trim($this->sort_field)!=''){
+			$sql[] = "ORDER BY {$this->sort_field} {$this->sort_direction}";
+		}
+		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
+			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
+		}
+		
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		$success = $result['success'];
 		if(!$result['success']){
@@ -62,6 +76,7 @@ class usuario extends defaultClass{
 			}
 		}
 		if($returnExt){
+			
 			return $this->convertExtReturn($res, $success,count($res));
 		}
 		return $res;

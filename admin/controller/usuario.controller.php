@@ -8,6 +8,9 @@
 	switch($_REQUEST['action']){
 		case 'getLista':
 		default:
+			if(isset($_REQUEST['start'])==true) $obj->setLimitStart($_REQUEST['start']);
+			if(isset($_REQUEST['limit'])==true) $obj->setLimitMax($_REQUEST['limit']);
+			if(isset($_REQUEST['sort'])==true) $obj->setSort($_REQUEST['sort']);
 			$aJson = array();
 			$aJson = $obj->getLista();
 			echo json_encode($aJson);

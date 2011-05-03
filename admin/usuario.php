@@ -8,7 +8,7 @@
 ?>
 <!-- js admin include -->
 <script type="text/javascript" src="js/usuario.js"></script>
-<div id="grid"></div>
+<div id="grid">aaaa</div>
 <?	
 	include_once("{$path_root_usuarioView}admin{$DS}includes{$DS}footer.php");
 ?>
