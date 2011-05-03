@@ -141,3 +141,7 @@ table .clickable a{
 	border-color: #BC0B0B;
 }
 
+#grid{
+	float:left;
+	height:100%;
+}

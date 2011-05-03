@@ -34,6 +34,7 @@
 		
 		<!-- CSS Principal -->
 		<link rel="stylesheet" type="text/css" href="css/principal.css" />
+		<link href="css/Icons.css" rel="stylesheet" type="text/css"  />
 
 		<script>
 			$(document).ready(function() {

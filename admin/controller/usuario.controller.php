@@ -8,11 +8,19 @@
 	switch($_REQUEST['action']){
 		case 'getLista':
 		default:
-			if(isset($_REQUEST['start'])==true) $obj->setLimitStart($_REQUEST['start']);
-			if(isset($_REQUEST['limit'])==true) $obj->setLimitMax($_REQUEST['limit']);
-			if(isset($_REQUEST['sort'])==true) $obj->setSort($_REQUEST['sort']);
+			$obj->setLimitStart($_REQUEST['start']);
+			$obj->setLimitMax($_REQUEST['limit']);
+			$obj->setSort($_REQUEST['sort']);
+			
+			$obj->setValues($_REQUEST);
+			
 			$aJson = array();
 			$aJson = $obj->getLista();
+			echo json_encode($aJson);
+		break;
+		case 'getUsuarioNivel':
+			$aJson = array();
+			$aJson = $obj->getUsuarioNivel();
 			echo json_encode($aJson);
 		break;
 	}

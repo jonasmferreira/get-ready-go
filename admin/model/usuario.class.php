@@ -230,4 +230,28 @@ class usuario extends defaultClass{
 		}
 		return $ret;
 	}
+	public function getUsuarioNivel($returnExt=true){
+		$sql = array();
+		$sql[] = "
+				SELECT	un.usuario_nivel_id
+						,un.usuario_nivel_titulo
+				FROM	tb_usuario_nivel un
+				WHERE	1 = 1
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
+		}
+		return $res;
+	}
 }

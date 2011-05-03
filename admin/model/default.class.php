@@ -129,7 +129,7 @@ class defaultClass {
 	}
 	public function convertExtReturn($data,$success,$totalCount){
 		$arr = array(
-			'data'=>$data
+			'data'=>$this->utf8_array_encode($data)
 			,'totalCount'=>$totalCount
 			,'success'=>$success
 		);
