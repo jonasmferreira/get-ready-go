@@ -23,5 +23,23 @@
 			$aJson = $obj->getUsuarioNivel();
 			echo json_encode($aJson);
 		break;
+		case 'getOne':
+			$aJson = array();
+			$obj->setValues($_REQUEST);
+			$aJson = $obj->getOne();
+			echo json_encode($aJson);
+		break;
+		case 'edit':
+			$obj->setValues($_REQUEST);
+			$obj->setFiles($_FILES);
+			$result = $obj->edit();
+			if($result['success']===false){
+				$obj->setSession('msgEdit', 'Erro ao tentar criar/editar Usuário!');
+				header('Location: ../usuario.php');
+			}else{
+				$obj->setSession('msgEdit', 'Usuário salvo com Sucesso!');
+				header('Location: ../usuarioEdicao.php?usuario_id='.$result['usuario_id']);
+			}
+		break;
 	}
 ?>

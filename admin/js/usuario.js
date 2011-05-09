@@ -168,6 +168,28 @@ Ext.onReady(function(){
 			}
 		}
 	});
+	var novoButton = Ext.create('Ext.Button', {
+		itemId:"novoButton"
+		,text:''
+		,tooltip:'Novo Usuário'
+		,iconCls:'icon-add'
+		,listeners:{
+			scope:this
+			,click:function(button){
+				window.location.href = 'usuarioEdicao.php';
+			}
+		}
+	});
+	
+	var selModelUsuarioGrid = Ext.create('Ext.selection.RowModel',{
+			
+			listeners: {
+				scope:this
+				,select: function(smObj, record, index) {
+					console.log(record.data.usuario_id)
+				}
+			}
+	});
 
 	
 	
@@ -183,12 +205,26 @@ Ext.onReady(function(){
 			,{header: 'Login',  dataIndex: 'usuario_login',sortable: true}
 			,{header: 'E-mail',  dataIndex: 'usuario_email',sortable: true}
 			,{header: 'Avatar',  dataIndex: 'usuario_avatar',sortable: true}
-			,{header: 'Status',  dataIndex: 'usuario_status',sortable: true}
+			,{
+				header: 'Status',  
+				dataIndex: 'usuario_status',
+				sortable: true,
+				renderer:function(val){
+					if(val > 0){
+						return 'Ativo'
+					}else{
+						return 'Inativo'
+					}
+				}
+			}
 			,{header: 'Nível',  dataIndex: 'usuario_nivel_titulo',sortable: true}
 		]
-		//,view: GridView
-		/*width: 800,
-		height: 600,*/
+		,listeners: {
+			scope:this
+			,itemdblclick:function(obj, record, item, index, e) {
+				window.location.href = "usuarioEdicao.php?usuario_id="+record.data.usuario_id
+			}
+		}
 		,layout:'fit'
 		,dockedItems: [
 			{
@@ -223,7 +259,18 @@ Ext.onReady(function(){
 					,{xtype:'tbspacer',width:10}
 					,resetButton
 					
+					,'->'
+					,novoButton
 					
+					
+				]
+			}
+			,{
+				xtype: 'toolbar',
+				dock: 'top',
+				items: [
+					'->'
+					,{xtype:'label',html:'<b>Para editar, double-click no registro!</b>'}
 				]
 			}
 		]	
@@ -232,7 +279,6 @@ Ext.onReady(function(){
 		,viewConfig: {
             trackOver: false
         }
-		,disableSelection: true
 	}); 
 	//pass along browser window resize events to the panel
     Ext.EventManager.onWindowResize(usuarioGrid.doLayout, usuarioGrid);

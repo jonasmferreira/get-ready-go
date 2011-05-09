@@ -81,7 +81,7 @@ class usuario extends defaultClass{
 		}
 		return $res;
 	}
-	public function getOne(){
+	public function getOne($returnExt=true){
 		$sql = array();
 		$sql[] = "
 			SELECT	u.usuario_id
@@ -91,6 +91,7 @@ class usuario extends defaultClass{
 					,u.usuario_senha
 					,u.usuario_email
 					,u.usuario_avatar
+					,u.usuario_status
 					,un.usuario_nivel_titulo
 			FROM	tb_usuario u
 			
@@ -103,12 +104,18 @@ class usuario extends defaultClass{
 			$sql[] = "AND	u.usuario_id = '{$this->values['usuario_id']}'";
 		}
 		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
 		if(!$result['success']){
 			return false;
 		}
 		$rs = array();
+		
 		if($result['total'] > 0){
 			$rs = $this->dbConn->db_fetch_assoc($result['result']);
+		}
+		
+		if($returnExt){
+			return $this->convertExtReturn($rs, $success,$result['total']);
 		}
 		return $rs;
 	}
