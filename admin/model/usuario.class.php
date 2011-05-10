@@ -10,7 +10,7 @@ class usuario extends defaultClass{
 		$DS = DIRECTORY_SEPARATOR;
 		$path_root_usuarioClass = "{$path_root_usuarioClass}{$DS}..{$DS}..{$DS}";
 		$this->dbConn = new DataBaseClass();
-		$this->avatarFolder = "{$path_root_usuarioClass}atavars{$DS}";
+		$this->avatarFolder = "{$path_root_usuarioClass}avatars{$DS}";
 		if(!is_dir($this->avatarFolder)){
 			mkdir($this->avatarFolder,0777);
 			chmod($this->avatarFolder,0777);
@@ -81,7 +81,7 @@ class usuario extends defaultClass{
 		}
 		return $res;
 	}
-	public function getOne($returnExt=true){
+	public function getOne(){
 		$sql = array();
 		$sql[] = "
 			SELECT	u.usuario_id
@@ -112,10 +112,6 @@ class usuario extends defaultClass{
 		
 		if($result['total'] > 0){
 			$rs = $this->dbConn->db_fetch_assoc($result['result']);
-		}
-		
-		if($returnExt){
-			return $this->convertExtReturn($rs, $success,$result['total']);
 		}
 		return $rs;
 	}
@@ -165,14 +161,15 @@ class usuario extends defaultClass{
 	public function update(){
 		$this->dbConn->db_start_transaction();
 		$sql = array();
-		if(is_file($this->files['usuario_avatar_up']['tmp_file'])){
-			$fileName = microtime(true)."_".$this->files['usuario_avatar_up']['name'];
-			if(move_uploaded_file($this->files['usuario_avatar_up']['tmp_file'], $this->avatarFolder.$fileName)){
-				$this->values['usuario_avatar'] = $fileName;
-			}else{
-				$this->values['usuario_avatar'] = "";
-			}
+		
+		$fileName = str_replace(".","",microtime(true))."_".$this->files['usuario_avatar_up']['name'];
+		if(move_uploaded_file($this->files['usuario_avatar_up']['tmp_name'], $this->avatarFolder.$fileName)){
+			$this->values['usuario_avatar'] = $fileName;
+		}else{
+			$this->values['usuario_avatar'] = "";
 		}
+		
+		
 		$sql[] = "
 			UPDATE	tb_usuario SET
 				usuario_nivel_id = '{$this->values['usuario_nivel_id']}'
@@ -202,14 +199,14 @@ class usuario extends defaultClass{
 	public function insert(){
 		$this->dbConn->db_start_transaction();
 		$sql = array();
-		if(is_file($this->files['usuario_avatar_up']['tmp_file'])){
-			$fileName = microtime(true)."_".$this->files['usuario_avatar_up']['name'];
-			if(move_uploaded_file($this->files['usuario_avatar_up']['tmp_file'], $this->avatarFolder.$fileName)){
-				$this->values['usuario_avatar'] = $fileName;
-			}else{
-				$this->values['usuario_avatar'] = "";
-			}
+		
+		$fileName = str_replace(".","",microtime(true))."_".$this->files['usuario_avatar_up']['name'];
+		if(move_uploaded_file($this->files['usuario_avatar_up']['tmp_name'], $this->avatarFolder.$fileName)){
+			$this->values['usuario_avatar'] = $fileName;
+		}else{
+			$this->values['usuario_avatar'] = "";
 		}
+		
 		$sql[] = "
 			INSERT INTO	tb_usuario SET
 				usuario_nivel_id = '{$this->values['usuario_nivel_id']}'

@@ -23,12 +23,6 @@
 			$aJson = $obj->getUsuarioNivel();
 			echo json_encode($aJson);
 		break;
-		case 'getOne':
-			$aJson = array();
-			$obj->setValues($_REQUEST);
-			$aJson = $obj->getOne();
-			echo json_encode($aJson);
-		break;
 		case 'edit':
 			$obj->setValues($_REQUEST);
 			$obj->setFiles($_FILES);

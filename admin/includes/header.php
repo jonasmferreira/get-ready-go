@@ -35,8 +35,9 @@
 		<script type="text/javascript" src="js/admin.js"></script>
 		
 		<!-- CSS Principal -->
-		<link rel="stylesheet" type="text/css" href="css/principal.css" />
+		<link href="css/principal.css" rel="stylesheet" type="text/css" />
 		<link href="css/Icons.css" rel="stylesheet" type="text/css"  />
+		<link href="css/forms.css" rel="stylesheet" type="text/css"  />
 		
 
 		<script>

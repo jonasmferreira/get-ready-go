@@ -1,3 +1,9 @@
+(function($){
+	$(document).ready(function(){
+		$("button").button();
+	});
+})(jQuery);
+
 function verifyObrigatorio(){
 	if(jQuery(".obrigatorio").length > 0){
 		jQuery(".obrigatorio").removeClass('erro');
@@ -72,3 +78,4 @@ var newConfirm = function(mensagem,funcao,tempo){
 		}
 	}).html(mensagem);
 }
+
