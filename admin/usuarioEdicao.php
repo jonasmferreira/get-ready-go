@@ -20,9 +20,16 @@
 	}
 	$obj->unsetSession('msgEdit');
 ?>
+
 <!-- js admin include -->
 <script type="text/javascript" src="js/usuarioEdicao.js"></script>
-<div id="grid"></div>
-<?	
+<form class="jqtransform" id="formulario">
+<div class="rowElem">
+<label for="name">Name: </label>
+<input type="text" name="name" />
+</div>
+<div class="rowElem"><input type="submit" value="send" /><div>
+</form>
+<?php
 	include_once("{$path_root_usuarioView}admin{$DS}includes{$DS}footer.php");
 ?>

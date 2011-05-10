@@ -6,6 +6,6 @@
 	
 ?>
 
-<?	
+<?php
 	include_once("{$path_root_adminView}admin{$DS}includes{$DS}footer.php");
 ?>

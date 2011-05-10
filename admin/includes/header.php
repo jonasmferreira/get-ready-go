@@ -25,9 +25,11 @@
 		<link href="js/css/redmond/jquery-ui-1.8.11.custom.css" rel="stylesheet" type="text/css"  />
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.js"></script>
+		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
 		
 		<!-- js default include -->
 		<script type="text/javascript" src="js/utils.js"></script>
+		
 		
 		<!-- js admin include -->
 		<script type="text/javascript" src="js/admin.js"></script>
@@ -35,6 +37,7 @@
 		<!-- CSS Principal -->
 		<link rel="stylesheet" type="text/css" href="css/principal.css" />
 		<link href="css/Icons.css" rel="stylesheet" type="text/css"  />
+		
 
 		<script>
 			$(document).ready(function() {
