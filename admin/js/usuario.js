@@ -188,7 +188,7 @@ Ext.onReady(function(){
 	});
 	var novoButton = Ext.create('Ext.Button', {
 		itemId:"novoButton"
-		,text:''
+		,text:'Novo Usuário'
 		,tooltip:'Novo Usuário'
 		,iconCls:'icon-add'
 		,listeners:{
