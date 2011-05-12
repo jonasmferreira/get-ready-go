@@ -35,7 +35,7 @@
 	</head>
 	<body>
 		<div class="header">
-			<img src="img/cat_logo.png" alt="Sistema de Gerenciamento de Conteúdo - Get Ready Go" />
+			<img src="img/logo.png" alt="Sistema de Gerenciamento de Conteúdo - Get Ready Go" />
 		</div>
 		<div class="form">
 			<div class="error">
