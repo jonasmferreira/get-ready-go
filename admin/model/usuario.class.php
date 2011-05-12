@@ -43,13 +43,13 @@ class usuario extends defaultClass{
 			$sql[] = "	AND	u.usuario_nivel_id = '{$this->values['usuario_nivel_id']}'";
 		}
 		if(isset($this->values['usuario_nome'])&&trim($this->values['usuario_nome'])!=''){
-			$sql[] = "	AND	u.usuario_nome = '{$this->values['usuario_nome']}'";
+			$sql[] = "	AND	u.usuario_nome LIKE '%{$this->values['usuario_nome']}%'";
 		}
 		if(isset($this->values['usuario_login'])&&trim($this->values['usuario_login'])!=''){
-			$sql[] = "	AND	u.usuario_login = '{$this->values['usuario_login']}'";
+			$sql[] = "	AND	u.usuario_login LIKE '%{$this->values['usuario_login']}%'";
 		}
 		if(isset($this->values['usuario_email'])&&trim($this->values['usuario_email'])!=''){
-			$sql[] = "	AND	u.usuario_email = '{$this->values['usuario_email']}'";
+			$sql[] = "	AND	u.usuario_email LIKE '%{$this->values['usuario_email']}%'";
 		}
 		if(isset($this->values['usuario_status'])&&trim($this->values['usuario_status'])!=''){
 			$sql[] = "	AND	u.usuario_status = '{$this->values['usuario_email']}'";
