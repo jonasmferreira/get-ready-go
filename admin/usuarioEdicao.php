@@ -70,8 +70,8 @@
 				<li>Status:</li>
 				<li>
 					<select id="usuario_status" name="usuario_status" class="obrigatorio">
-						<option value="1"<?=($res['usuario_nivel_id']=='1'?' selected="selected"':'')?>>Ativo</option>
-						<option value="0"<?=($res['usuario_nivel_id']=='0'?' selected="selected"':'')?>>Inativo</option>
+						<option value="1"<?=($res['usuario_status']=='1'?' selected="selected"':'')?>>Ativo</option>
+						<option value="0"<?=($res['usuario_status']=='0'?' selected="selected"':'')?>>Inativo</option>
 					</select>
 				</li>
 			</ul><br clear="all" />
