@@ -81,7 +81,7 @@
 					<?	if(is_file("{$path_root_usuarioView}avatars{$DS}{$res['usuario_avatar']}")):?>
 					<img src="../avatars/<?=$res['usuario_avatar']?>" border="0" alt="avatar" />
 					<?	else:?>
-					Nenhum <?="{$path_root_usuarioView}avatars{$DS}{$res['usuario_avatar']}"?>
+					Nenhum Avatar
 					<?	endif;?>
 				</li>
 			</ul>
