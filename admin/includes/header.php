@@ -10,7 +10,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Sistema de Gerenciamento de Conteúdo - Get Ready Go</title>
+		<title>CMS - Get Ready Go</title>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		
 		<!-- Ext includes -->
@@ -56,8 +56,7 @@
 				<div id="logo">&nbsp;</div>
 				<div id="info">
 					Bem Vindo[a] <?=$sessionAdmin['usuario_nome']?> <br />
-					Sistema de Gerenciamento de Conteúdo<br />
-					Get Ready Go
+					CMS - Get Ready Go
 				</div>
 				<div id="logoff"><a href="javascript:void(0)" id="logoff" >Sair</a></div>
 			</div>
