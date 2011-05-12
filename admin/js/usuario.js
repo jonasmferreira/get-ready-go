@@ -165,6 +165,24 @@ Ext.onReady(function(){
 				usuarioLoginText.setValue('');
 				usuarioEmailText.setValue('');
 				usuarioStatusCombo.setValue('');
+				
+				var usuario_nivel_id = usuarioNivelCombo.getValue();
+				var usuario_nome = usuarioNomeText.getValue();
+				var usuario_login = usuarioLoginText.getValue();
+				var usuario_email = usuarioEmailText.getValue();
+				var usuario_status = usuarioStatusCombo.getValue();
+				//console.log(usuarioGrid.getStore());
+				usuarioGrid.getStore().load({
+					params:{
+						'usuario_nivel_id': usuario_nivel_id
+						,'usuario_nome': usuario_nome
+						,'usuario_login': usuario_login
+						,'usuario_email': usuario_email
+						,'usuario_status': usuario_status
+					}
+				});
+				
+				
 			}
 		}
 	});
