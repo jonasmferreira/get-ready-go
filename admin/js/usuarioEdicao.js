@@ -11,5 +11,10 @@
 			$("#formSalvar input[type=text], #formSalvar input[type=password]").val('');
 			$("#formSalvar select option:first").attr('selected','selected');
 		});
+		
+		$("#voltar").click(function(){
+			window.location.href = 'usuario.php';
+		});
+		
 	});
 })(jQuery);
