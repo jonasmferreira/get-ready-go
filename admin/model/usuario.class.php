@@ -176,7 +176,9 @@ class usuario extends defaultClass{
 				,usuario_nome = '{$this->values['usuario_nome']}'
 				,usuario_login = '{$this->values['usuario_login']}'
 				,usuario_senha = '{$this->values['usuario_senha']}'
-				,usuario_email = '{$this->values['usuario_email']}'				
+				,usuario_email = '{$this->values['usuario_email']}'
+				,usuario_status = '{$this->values['usuario_status']}'
+				
 		";
 		if(isset($this->values['usuario_avatar'])&&trim($this->values['usuario_avatar'])!=''){
 			$sql[] = ",usuario_avatar = '{$this->values['usuario_avatar']}'";
