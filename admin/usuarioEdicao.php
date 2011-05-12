@@ -16,9 +16,13 @@
 		";
 	}
 	$obj->unsetSession('msgEdit');
-	$session = $objUsuario->setValues($_REQUEST);
-	$res = $objUsuario->getOne();
 	
+	//echo "<pre>" . print_r($_REQUEST,true) . "</pre>";
+
+	$session = $objUsuario->setValues($_REQUEST);
+	if(!empty($_REQUEST)){
+		$res = $objUsuario->getOne();
+	}
 ?>
 
 <!-- js admin include -->
@@ -86,6 +90,8 @@
 	<div class="botoes">
 		<button id="salvar">Salvar</button>
 		<button id="limparCadastro">Limpar</button>
+		<button id="voltar">Voltar</button>
+
 	</div>
 </div>
 <?php
