@@ -219,10 +219,17 @@ Ext.onReady(function(){
 		,resizeble:true
 		,columns: [
 			{header: 'Código',  dataIndex: 'usuario_id',sortable: true}
+			,{
+				header: 'Avatar',  
+				dataIndex: 'usuario_avatar', 
+				sortable: true,
+				renderer:function(val){
+					return '<img width="30%" height="30%" alt="avatar" src="../avatars/'+val+'" />';
+				}
+			}
 			,{header: 'Usuário',  dataIndex: 'usuario_nome',sortable: true}
 			,{header: 'Login',  dataIndex: 'usuario_login',sortable: true}
 			,{header: 'E-mail',  dataIndex: 'usuario_email',sortable: true}
-			,{header: 'Avatar',  dataIndex: 'usuario_avatar',sortable: true}
 			,{
 				header: 'Status',  
 				dataIndex: 'usuario_status',
