@@ -7,8 +7,12 @@ class categoria extends defaultClass{
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
-	public function getLista(){
+	public function getLista($returnExt=true){
 		$sql = array();
+		$sql[] = "
+			SELECT a.* 
+			FROM	(
+		";
 		$sql[] = "
 			SELECT	categoria_id
 					,categoria_nome
@@ -24,7 +28,18 @@ class categoria extends defaultClass{
 		if(isset($this->values['categoria_galeria'])&&trim($this->values['categoria_galeria'])!=''){
 			$sql[] = "AND	categoria_galeria = '{$this->values['categoria_galeria']}'";
 		}
+		$sql[] = ") AS a";
+		$totalCount = $this->getMaxCount(implode("\n",$sql));
+		
+		if(isset($this->sort_field)&&trim($this->sort_field)!=''){
+			$sql[] = "ORDER BY {$this->sort_field} {$this->sort_direction}";
+		}
+		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
+			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
+		}
+		
 		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
 		if(!$result['success']){
 			return false;
 		}
@@ -33,6 +48,9 @@ class categoria extends defaultClass{
 			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
 				array_push($res, $rs);
 			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
 		}
 		return $res;
 	}

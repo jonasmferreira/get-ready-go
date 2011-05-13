@@ -3,7 +3,7 @@ $path_root_enqueteClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_enqueteClass = "{$path_root_enqueteClass}{$DS}..{$DS}..{$DS}";
 require_once "{$path_root_enqueteClass}admin{$DS}model{$DS}default.class.php";
-class categoria extends defaultClass{
+class enquete extends defaultClass{
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
