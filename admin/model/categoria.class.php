@@ -23,7 +23,7 @@ class categoria extends defaultClass{
 			WHERE	1 = 1
 		";
 		if(isset($this->values['categoria_nome'])&&trim($this->values['categoria_nome'])!=''){
-			$sql[] = "AND	categoria_nome = '{$this->values['categoria_nome']}'";
+			$sql[] = "AND	categoria_nome LIKE '%{$this->values['categoria_nome']}%'";
 		}
 		if(isset($this->values['categoria_galeria'])&&trim($this->values['categoria_galeria'])!=''){
 			$sql[] = "AND	categoria_galeria = '{$this->values['categoria_galeria']}'";
