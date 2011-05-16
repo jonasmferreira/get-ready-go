@@ -170,7 +170,7 @@ Ext.onReady(function(){
 	
 	//var GridView = Ext.create('Ext.grid.GridView',{});
 	var categoriaGrid = Ext.create('Ext.grid.Panel', {
-		title: 'Usuário'
+		title: 'Categoria'
 		,id:"categoriaGrid"
 		,store: categoriaStore
 		,resizeble:true
