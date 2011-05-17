@@ -38,7 +38,7 @@ Ext.onReady(function(){
 				,listeners:{
 					scope:this
 					,click:function(){
-						alert("opa");
+						window.location.href="post.php"
 					}
 				}	
 			}
