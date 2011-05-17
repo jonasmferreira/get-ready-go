@@ -291,5 +291,59 @@ class post extends defaultClass{
 		}
 		return $ret;
 	}
+	
+	public function getCategoria($returnExt=true){
+		$sql = array();
+		$sql[] = "
+				SELECT	c.categoria_id
+						,c.categoria_nome
+				FROM	tb_categoria c
+				WHERE	1 = 1
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
+		}
+		return $res;
+	}
+
+	public function getUsuario($returnExt=true){
+		$sql = array();
+		$sql[] = "
+				SELECT	u.usuario_id
+						,CONCAT(u.usuario_nome,' (',un.usuario_nivel_titulo,')') AS usuario_nome_nivel
+				FROM	tb_usuario_nivel un
+				JOIN	tb_usuario u
+				ON		un.usuario_nivel_id = u.usuario_nivel_id
+				WHERE	1 = 1
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
+		}
+		return $res;
+	}
+	
+	
 }
 ?>
