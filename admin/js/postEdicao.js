@@ -13,7 +13,7 @@
 		});
 		
 		$("#voltar").click(function(){
-			window.location.href = 'usuario.php';
+			window.location.href = 'post.php';
 		});
 		
 	});
