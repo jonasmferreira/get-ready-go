@@ -1,4 +1,7 @@
 <?php
+
+	date_default_timezone_set('America/Sao_Paulo');
+
 	$path_root_DefaultClass = dirname(__FILE__);
 	$DS = DIRECTORY_SEPARATOR;
 	$path_root_DefaultClass = "{$path_root_DefaultClass}{$DS}..{$DS}..{$DS}";
