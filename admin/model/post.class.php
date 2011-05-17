@@ -190,6 +190,9 @@ class post extends defaultClass{
 	public function edit(){
 		$result = false;
 		if(isset($this->values['post_id'])&&trim($this->values['post_id'])!=''){
+			$this->values['post_dt_alteracao']= date('Y-m-d');
+			$this->values['post_dtcomp_alteracao']= date('Y-m-d H:i:s');
+			
 			$result = $this->update();
 		}else{
 			$result = $this->insert();
@@ -200,7 +203,12 @@ class post extends defaultClass{
 	public function update(){
 		$this->dbConn->db_start_transaction();
 		$sql = array();
+		
+		file_put_contents("files.txt",print_r($this->files,true),FILE_APPEND);
+
+		
 		if(is_file($this->files['post_imagem']['tmp_file'])){
+
 			$fileName = microtime(true)."_".$this->files['post_imagem']['name'];
 			if(move_uploaded_file($this->files['post_imagem']['tmp_file'], $this->postFolder.$fileName)){
 				$this->values['post_imagem'] = $fileName;
@@ -208,6 +216,18 @@ class post extends defaultClass{
 				$this->values['post_imagem'] = "";
 			}
 		}
+		
+		if(is_file($this->files['post_thumb_home']['tmp_file'])){
+
+			$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
+			if(move_uploaded_file($this->files['post_thumb_home']['tmp_file'], $this->postFolder.$fileThumbName)){
+				$this->values['post_thumb_home'] = $fileThumbName;
+			}else{
+				$this->values['post_thumb_home'] = "";
+			}
+		
+		}
+
 		$sql[] = "
 			UPDATE	tb_post SET
 					post_id = '{$this->values['post_id']}'
@@ -229,6 +249,10 @@ class post extends defaultClass{
 		if(isset($this->values['post_imagem'])&&trim($this->values['post_imagem'])!=''){
 			$sql[] = ",post_imagem = '{$this->values['post_imagem']}'";
 		}
+		if(isset($this->values['post_thumb_home'])&&trim($this->values['post_thumb_home'])!=''){
+			$sql[] = ",post_thumb_home = '{$this->values['post_thumb_home']}'";
+		}
+
 		$sql[] = "WHERE post_id = '{$this->values['post_id']}'";
 		$ret = array(
 			'success'=>false
@@ -247,7 +271,9 @@ class post extends defaultClass{
 	public function insert(){
 		$this->dbConn->db_start_transaction();
 		$sql = array();
+		
 		if(is_file($this->files['post_imagem']['tmp_file'])){
+
 			$fileName = microtime(true)."_".$this->files['post_imagem']['name'];
 			if(move_uploaded_file($this->files['post_imagem']['tmp_file'], $this->postFolder.$fileName)){
 				$this->values['post_imagem'] = $fileName;
@@ -255,6 +281,18 @@ class post extends defaultClass{
 				$this->values['post_imagem'] = "";
 			}
 		}
+		
+		if(is_file($this->files['post_thumb_home']['tmp_file'])){
+
+			$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
+			if(move_uploaded_file($this->files['post_thumb_home']['tmp_file'], $this->postFolder.$fileThumbName)){
+				$this->values['post_thumb_home'] = $fileThumbName;
+			}else{
+				$this->values['post_thumb_home'] = "";
+			}
+		
+		}
+		
 		$sql[] = "
 			INSERT INTO	tb_post SET
 				post_id = '{$this->values['post_id']}'
@@ -275,6 +313,9 @@ class post extends defaultClass{
 		";
 		if(isset($this->values['post_imagem'])&&trim($this->values['post_imagem'])!=''){
 			$sql[] = ",post_imagem = '{$this->values['post_imagem']}'";
+		}
+		if(isset($this->values['post_thumb_home'])&&trim($this->values['post_thumb_home'])!=''){
+			$sql[] = ",post_thumb_home = '{$this->values['post_thumb_home']}'";
 		}
 		
 		$ret = array(
