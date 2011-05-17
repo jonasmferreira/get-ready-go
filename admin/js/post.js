@@ -225,7 +225,7 @@ Ext.onReady(function(){
 			listeners: {
 				scope:this
 				,select: function(smObj, record, index) {
-					console.log(record.data.post_id)
+					//console.log(record.data.post_id)
 				}
 			}
 	});
@@ -238,6 +238,7 @@ Ext.onReady(function(){
 		,id:"postGrid"
 		,store: postStore
 		,resizeble:true
+		,border:false
 		,columns: [
 			{header: 'Código',  dataIndex: 'post_id',sortable: true}
 			,{header: 'Categoria',  dataIndex: 'categoria_id',sortable: true}
@@ -315,16 +316,15 @@ Ext.onReady(function(){
 					,{xtype:'tbspacer',width:10}
 					,resetButton
 					
-					,'->'
-					,novoButton
-					
 				]
 			}
 			,{
 				xtype: 'toolbar',
 				dock: 'top',
 				items: [
-					'->'
+					novoButton
+					,{xtype:'tbspacer', width:20}
+					,{xtype:'tbseparator'}
 					,{xtype:'label',html:'<b>Para editar, double-click no registro!</b>'}
 				]
 			}
