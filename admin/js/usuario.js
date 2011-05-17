@@ -204,7 +204,7 @@ Ext.onReady(function(){
 			listeners: {
 				scope:this
 				,select: function(smObj, record, index) {
-					console.log(record.data.usuario_id)
+					//console.log(record.data.usuario_id)
 				}
 			}
 	});
