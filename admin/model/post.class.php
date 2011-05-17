@@ -262,7 +262,6 @@ class post extends defaultClass{
 		if($result['success']===true){
 			$this->dbConn->db_commit();
 			$ret['success'] = $result['success'];
-			$ret['post_id'] = $result['last_id'];
 		}else{
 			$this->dbConn->db_rollback();
 		}
