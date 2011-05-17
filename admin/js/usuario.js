@@ -204,7 +204,7 @@ Ext.onReady(function(){
 			listeners: {
 				scope:this
 				,select: function(smObj, record, index) {
-					//console.log(record.data.usuario_id)
+					//console.log(record.data.usuario_id);
 				}
 			}
 	});
@@ -284,23 +284,20 @@ Ext.onReady(function(){
 					,{xtype:'tbspacer',width:10}
 					,resetButton
 					
-					,'->'
-					,novoButton
-					
-					
 				]
 			}
 			,{
 				xtype: 'toolbar',
 				dock: 'top',
 				items: [
-					'->'
+					novoButton
+					,{xtype:'tbspacer', width:20}
+					,{xtype:'tbseparator'}
 					,{xtype:'label',html:'<b>Para editar, double-click no registro!</b>'}
 				]
 			}
 		]	
 		,renderTo: 'grid'
-		
 		,viewConfig: {
             trackOver: false
         }
