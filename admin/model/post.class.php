@@ -207,20 +207,20 @@ class post extends defaultClass{
 		file_put_contents("files.txt",print_r($this->files,true),FILE_APPEND);
 
 		
-		if(is_file($this->files['post_imagem']['tmp_file'])){
+		if(is_file($this->files['post_imagem']['tmp_name'])){
 
 			$fileName = microtime(true)."_".$this->files['post_imagem']['name'];
-			if(move_uploaded_file($this->files['post_imagem']['tmp_file'], $this->postFolder.$fileName)){
+			if(move_uploaded_file($this->files['post_imagem']['tmp_name'], $this->postFolder.$fileName)){
 				$this->values['post_imagem'] = $fileName;
 			}else{
 				$this->values['post_imagem'] = "";
 			}
 		}
 		
-		if(is_file($this->files['post_thumb_home']['tmp_file'])){
+		if(is_file($this->files['post_thumb_home']['tmp_name'])){
 
 			$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
-			if(move_uploaded_file($this->files['post_thumb_home']['tmp_file'], $this->postFolder.$fileThumbName)){
+			if(move_uploaded_file($this->files['post_thumb_home']['tmp_name'], $this->postFolder.$fileThumbName)){
 				$this->values['post_thumb_home'] = $fileThumbName;
 			}else{
 				$this->values['post_thumb_home'] = "";
