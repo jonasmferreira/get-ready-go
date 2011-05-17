@@ -30,8 +30,12 @@
 		break;
 	
 		case 'edit':
+
+			file_put_contents("files.txt",print_r($_FILES,true),FILE_APPEND);
+			
 			$obj->setValues($_REQUEST);
-			//$obj->setFiles($_FILES);
+			$obj->setFiles($_FILES);
+			
 			$result = $obj->edit();
 			if($result['success']===false){
 				$obj->setSession('msgEdit', 'Erro ao tentar criar/editar Post!');
