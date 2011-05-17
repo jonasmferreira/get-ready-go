@@ -18,12 +18,14 @@
 	}
 	$obj->unsetSession('msgEdit');
 	
-	//echo "<pre>" . print_r($_REQUEST,true) . "</pre>";
 
 	$session = $objPost->setValues($_REQUEST);
 	if(!empty($_REQUEST)){
 		$res = $objPost->getOne();
 	}
+	
+	echo "<pre>" . print_r($res,true) . "</pre>";
+	
 ?>
 
 <!-- js admin include -->
@@ -74,6 +76,17 @@
 			</ul><br clear="all" />
 
 			<ul style="width:600px">
+				<li>Palavras Chave:</li>
+				<li><input type="text" name="post_palavra_chave" class="obrigatorio" id="post_palavra_chave" value="<?php echo empty($res['post_palavra_chave']) ? '' : $res['post_palavra_chave'] ?>" /></li>
+			</ul>
+<br clear="all" />
+
+			<ul style="width:600px;">
+				<li>Conteúdo:</li>
+				<li><input type="textarea" height=300 name="post_conteudo" class="obrigatorio" id="post_conteudo" value="<?php echo empty($res['post_conteudo']) ? '' : $res['post_conteudo'] ?>" /></li>
+			</ul><br clear="all" />
+
+			<ul style="width:600px">
 				<li>Thumb Home:</li>
 				<li><input type="file" name="post_thumb_home" id="post_thumb_home" value="" /></li>
 			</ul>
@@ -82,7 +95,7 @@
 			<ul style="width:600px">
 				<li>Thumb Cadastrado:</li>
 				<li>
-					<?	if(is_file("{$path_root_postView}posts{$DS}{$res['usuario_avatar']}")):?>
+					<?	if(is_file("{$path_root_postView}posts{$DS}{$res['post_thumb_home']}")):?>
 					<img src="../posts/<?=$res['post_thumb_home']?>" border="0" alt="thumb home" />
 					<?	else:?>
 					Nenhum Thumb
@@ -108,16 +121,6 @@
 				</li>
 			</ul>
 			<br clear="all" />
-
-			<ul style="width:300px">
-				<li>Palavras Chave:</li>
-				<li><input type="text" name="post_palavra_chave" class="obrigatorio" id="post_palavra_chave" value="<?php echo empty($res['post_palavra_chave']) ? '' : $res['post_palavra_chave'] ?>" /></li>
-			</ul>
-
-			<ul style="width:300px">
-				<li>Conteúdo:</li>
-				<li><input type="textarea" name="post_conteudo" class="obrigatorio" id="post_conteudo" value="<?php echo empty($res['post_conteudo']) ? '' : $res['post_conteudo'] ?>" /></li>
-			</ul><br clear="all" />
 			
 			<ul style="width:150px">
 				<li>Data Criação:</li>
