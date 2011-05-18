@@ -24,7 +24,7 @@
 		$res = $objPost->getOne();
 	}
 	
-	echo "<pre>" . print_r($res,true) . "</pre>";
+	//echo "<pre>" . print_r($res,true) . "</pre>";
 	
 ?>
 
