@@ -29,6 +29,10 @@
 		<script type="text/javascript" src="js/jquery.js"></script>
 		<script type="text/javascript" src="js/jquery-ui.js"></script>
 		<script type="text/javascript" src="js/jquery.validate.min.js"></script>
+
+		<!-- CKEditor Includes -->
+		<script type="text/javascript" src="js/ckeditor/ckeditor.js"></script>
+		<script type="text/javascript" src="js/ckeditor/adapters/jquery.js"></script>
 		
 		<!-- js default include -->
 		<script type="text/javascript" src="js/utils.js"></script>
