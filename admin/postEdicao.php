@@ -83,7 +83,7 @@
 
 			<ul style="width:600px;">
 				<li>Conteúdo:</li>
-				<li><input type="textarea" height=300 name="post_conteudo" class="obrigatorio" id="post_conteudo" value="<?php echo empty($res['post_conteudo']) ? '' : $res['post_conteudo'] ?>" /></li>
+				<li><textarea height=300 name="post_conteudo" class="obrigatorio" id="post_conteudo"><?php echo empty($res['post_conteudo']) ? '' : $res['post_conteudo'] ?></textarea></li>
 			</ul><br clear="all" />
 
 			<ul style="width:600px">
