@@ -203,29 +203,19 @@ class post extends defaultClass{
 	public function update(){
 		$this->dbConn->db_start_transaction();
 		$sql = array();
-		
-		file_put_contents("files.txt",print_r($this->files,true),FILE_APPEND);
 
-		
-		if(is_file($this->files['post_imagem']['tmp_name'])){
-
-			$fileName = microtime(true)."_".$this->files['post_imagem']['name'];
-			if(move_uploaded_file($this->files['post_imagem']['tmp_name'], $this->postFolder.$fileName)){
-				$this->values['post_imagem'] = $fileName;
-			}else{
-				$this->values['post_imagem'] = "";
-			}
+		$fileName = microtime(true)."_".$this->files['post_imagem']['name'];
+		if(move_uploaded_file($this->files['post_imagem']['tmp_name'], $this->postFolder.$fileName)){
+			$this->values['post_imagem'] = $fileName;
+		}else{
+			$this->values['post_imagem'] = "";
 		}
-		
-		if(is_file($this->files['post_thumb_home']['tmp_name'])){
 
-			$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
-			if(move_uploaded_file($this->files['post_thumb_home']['tmp_name'], $this->postFolder.$fileThumbName)){
-				$this->values['post_thumb_home'] = $fileThumbName;
-			}else{
-				$this->values['post_thumb_home'] = "";
-			}
-		
+		$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
+		if(move_uploaded_file($this->files['post_thumb_home']['tmp_name'], $this->postFolder.$fileThumbName)){
+			$this->values['post_thumb_home'] = $fileThumbName;
+		}else{
+			$this->values['post_thumb_home'] = "";
 		}
 
 		$sql[] = "
@@ -234,8 +224,6 @@ class post extends defaultClass{
 					,categoria_id = '{$this->values['categoria_id']}'
 					,usuario_id = '{$this->values['usuario_id']}'
 					,post_titulo = '{$this->values['post_titulo']}'
-					,post_thumb_home = '{$this->values['post_thumb_home']}'
-					,post_imagem = '{$this->values['post_imagem']}'
 					,post_palavra_chave = '{$this->values['post_palavra_chave']}'
 					,post_conteudo = '{$this->values['post_conteudo']}'
 					
@@ -268,29 +256,25 @@ class post extends defaultClass{
 		return $ret;
 	}
 	public function insert(){
+		
 		$this->dbConn->db_start_transaction();
 		$sql = array();
 		
-		if(is_file($this->files['post_imagem']['tmp_file'])){
+		
+		if(move_uploaded_file($this->files['post_imagem']['tmp_name'], $this->postFolder.$fileName)){
+			$this->values['post_imagem'] = $fileName;
+		}else{
+			$this->values['post_imagem'] = "";
+		}
 
-			$fileName = microtime(true)."_".$this->files['post_imagem']['name'];
-			if(move_uploaded_file($this->files['post_imagem']['tmp_file'], $this->postFolder.$fileName)){
-				$this->values['post_imagem'] = $fileName;
-			}else{
-				$this->values['post_imagem'] = "";
-			}
+		$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
+		if(move_uploaded_file($this->files['post_thumb_home']['tmp_name'], $this->postFolder.$fileThumbName)){
+			$this->values['post_thumb_home'] = $fileThumbName;
+		}else{
+			$this->values['post_thumb_home'] = "";
 		}
 		
-		if(is_file($this->files['post_thumb_home']['tmp_file'])){
-
-			$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
-			if(move_uploaded_file($this->files['post_thumb_home']['tmp_file'], $this->postFolder.$fileThumbName)){
-				$this->values['post_thumb_home'] = $fileThumbName;
-			}else{
-				$this->values['post_thumb_home'] = "";
-			}
 		
-		}
 		
 		$sql[] = "
 			INSERT INTO	tb_post SET
@@ -298,16 +282,10 @@ class post extends defaultClass{
 				,categoria_id = '{$this->values['categoria_id']}'
 				,usuario_id = '{$this->values['usuario_id']}'
 				,post_titulo = '{$this->values['post_titulo']}'
-				,post_thumb_home = '{$this->values['post_thumb_home']}'
-				,post_imagem = '{$this->values['post_imagem']}'
 				,post_palavra_chave = '{$this->values['post_palavra_chave']}'
 				,post_conteudo = '{$this->values['post_conteudo']}'
-
 				,post_dt_criacao = NOW()
 				,post_dtcomp_criacao = NOW()
-
-				#,post_dt_alteracao = NOW()
-				#,post_dtcomp_alteracao = NOW()
 				,post_status = '{$this->values['post_status']}'
 		";
 		if(isset($this->values['post_imagem'])&&trim($this->values['post_imagem'])!=''){
