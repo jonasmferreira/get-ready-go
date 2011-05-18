@@ -260,7 +260,7 @@ class post extends defaultClass{
 		$this->dbConn->db_start_transaction();
 		$sql = array();
 		
-		
+		$fileName = microtime(true)."_".$this->files['post_imagem']['name'];
 		if(move_uploaded_file($this->files['post_imagem']['tmp_name'], $this->postFolder.$fileName)){
 			$this->values['post_imagem'] = $fileName;
 		}else{
