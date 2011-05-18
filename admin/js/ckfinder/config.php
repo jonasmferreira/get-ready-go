@@ -60,8 +60,7 @@ Examples:
 
 ATTENTION: The trailing slash is required.
 */
-
-$baseUrl = '/Duetec_Site/';
+$baseUrl = '/ckfinder/userfiles/';
 
 /*
 $baseDir : the path to the local directory (in the server) which points to the
@@ -290,7 +289,7 @@ $config['ChmodFiles'] = 0777 ;
 See comments above.
 Used when creating folders that does not exist.
 */
-$config['ChmodFolders'] = 0777 ;
+$config['ChmodFolders'] = 0755 ;
 
 /*
 Force ASCII names for files and folders.
