@@ -1,5 +1,8 @@
 (function($){
 	$(document).ready(function(){
+
+		$('#post_conteudo').ckeditor();
+
 		$("#salvar").click(function(){
 			if(!verifyObrigatorio()){
 				newAlert("Campos marcados são obrigatórios");
