@@ -31,7 +31,7 @@
 	
 		case 'edit':
 
-			file_put_contents("files.txt",print_r($_FILES,true),FILE_APPEND);
+			//file_put_contents("files.txt",print_r($_FILES,true),FILE_APPEND);
 			
 			$obj->setValues($_REQUEST);
 			$obj->setFiles($_FILES);
