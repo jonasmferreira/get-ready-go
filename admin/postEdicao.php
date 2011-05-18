@@ -31,7 +31,7 @@
 <!-- js admin include -->
 <script type="text/javascript" src="js/postEdicao.js"></script>
 <div class="form-main">
-	<div class="legend" ><?php echo empty($res['post_id']) ? 'Cadastro' : 'Edição' ?></div>
+	<div class="legend" >Posts - <?php echo empty($res['post_id']) ? 'Cadastro' : 'Edição' ?></div>
 	<div class="forms cadastros">
 		<form action="controller/post.controller.php?action=edit" method="post" id="formSalvar" enctype="multipart/form-data">
 			<input type="hidden" name="post_id" id="post_id" value="<?php echo empty($res['post_id']) ? '' : $res['post_id'] ?>" />

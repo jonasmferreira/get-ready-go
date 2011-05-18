@@ -28,7 +28,7 @@
 <!-- js admin include -->
 <script type="text/javascript" src="js/usuarioEdicao.js"></script>
 <div class="form-main">
-	<div class="legend" ><?php echo empty($res['usuario_id']) ? 'Cadastro' : 'Edição' ?></div>
+	<div class="legend" >Usuários - <?php echo empty($res['usuario_id']) ? 'Cadastro' : 'Edição' ?></div>
 	<div class="forms cadastros">
 		<form action="controller/usuario.controller.php?action=edit" method="post" id="formSalvar" enctype="multipart/form-data">
 			<input type="hidden" name="usuario_id" id="usuario_id" value="<?php echo empty($res['usuario_id']) ? '' : $res['usuario_id'] ?>" />
