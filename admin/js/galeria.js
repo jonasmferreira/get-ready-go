@@ -141,6 +141,7 @@ Ext.onReady(function(){
 		,columns: [
 			{header: 'Código',  dataIndex: 'galeria_id',sortable: true}
 			,{header: 'Título',  dataIndex: 'galeria_titulo',sortable: true}
+			,{header: 'QTD. Imagens',  dataIndex: 'qtde_imagens',sortable: true}
 			,{header: 'Dt. Criação',  dataIndex: 'galeria_dt_criacao',sortable: true}
 			,{header: 'Dt/Hr Criação ',  dataIndex: 'galeria_dtcomp_criacao',sortable: true}
 			,{header: 'Dt. Alteração',  dataIndex: 'galeria_dt_alteracao',sortable: true}

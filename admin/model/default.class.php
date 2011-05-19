@@ -153,5 +153,36 @@ class defaultClass {
 		}
 		return $rs['qtde'];
 	}
+	public function dateDB2BR($date) {
+		return preg_replace(
+			"/([0-9]{4})-([0-9]{2})-([0-9]{2})/i",
+			"$3/$2/$1",
+			$date
+		);
+	}
+
+	public function dateBR2DB($date) {
+		return preg_replace(
+			"/([0-9]{2})\/([0-9]{2})\/([0-9]{4})/i",
+			"$3-$2-$1",
+			$date
+		);
+	}
+	
+	public function dateDB2BRTime($date) {
+		return preg_replace(
+			"/([0-9]{4})-([0-9]{2})-([0-9]{2}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/i",
+			"$3/$2/$1 $4:$5:$6",
+			$date
+		);
+	}
+
+	public function dateBR2DBTime($date) {
+		return preg_replace(
+			"/([0-9]{2})\/([0-9]{2})\/([0-9]{4}) ([0-9]{2}):([0-9]{2}):([0-9]{2})/i",
+			"$3-$2-$1 $4:$5:$6",
+			$date
+		);
+	}
 }
 ?>

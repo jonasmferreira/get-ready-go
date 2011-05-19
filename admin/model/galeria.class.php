@@ -123,6 +123,25 @@ class galeria extends defaultClass{
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
 			$this->dbConn->db_commit();
+			if(is_array($this->values['imagem_galeria_id'])){
+				foreach($this->values['imagem_galeria_id'] AS $k=>$v){
+					$imagem = array();
+					$imagem['id'] = $v;
+					$imagem['galeria_id'] = $this->values['galeria_id'];
+					$imagem['titulo'] = $this->values['imagem_galeria_titulo'][$k];
+					
+					$imagem['thumb']['name'] = $this->files['imagem_galeria_thumb']['name'][$k];
+					$imagem['imagem']['name'] = $this->files['imagem_galeria_imagem']['name'][$k];
+					
+					$imagem['thumb']['tmp_name'] = $this->files['imagem_galeria_thumb']['tmp_name'][$k];
+					$imagem['imagem']['tmp_name'] = $this->files['imagem_galeria_imagem']['tmp_name'][$k];
+					if(trim($imagem['id'])==''){
+						$this->insertImagemGaleria($imagem);
+					}else{
+						$this->updateImagemGaleria($imagem);
+					}
+				}
+			}
 			$ret['success'] = $result['success'];
 			$ret['galeria_id'] = $this->values['galeria_id'];
 		}else{
@@ -148,16 +167,25 @@ class galeria extends defaultClass{
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
 			$this->dbConn->db_commit();
-			/*if(is_array($this->values['imagens'])){
-				foreach($this->values['imagens'] AS $k=>$v){
+			if(is_array($this->values['imagem_galeria_id'])){
+				foreach($this->values['imagem_galeria_id'] AS $k=>$v){
 					$imagem = array();
-					$imagem['titulo'] = $v['titulo'];
-					$imagem['thumb'] = $this->files['thumb'][$k];
-					$imagem['imagem'] = $this->files['imagem'][$k];
-					$this->insertImagemGaleria($imagem);
+					$imagem['id'] = $v;
+					$imagem['galeria_id'] = $result['last_id'];
+					$imagem['titulo'] = $this->values['imagem_galeria_titulo'][$k];
+					
+					$imagem['thumb']['name'] = $this->files['imagem_galeria_thumb']['name'][$k];
+					$imagem['imagem']['name'] = $this->files['imagem_galeria_imagem']['name'][$k];
+					
+					$imagem['thumb']['tmp_name'] = $this->files['imagem_galeria_thumb']['tmp_name'][$k];
+					$imagem['imagem']['tmp_name'] = $this->files['imagem_galeria_imagem']['tmp_name'][$k];
+					if(trim($imagem['id'])==''){
+						$this->insertImagemGaleria($imagem);
+					}else{
+						$this->updateImagemGaleria($imagem);
+					}
 				}
-			}*/
-			
+			}
 			
 			$ret['success'] = $result['success'];
 			$ret['galeria_id'] = $result['last_id'];
@@ -166,14 +194,48 @@ class galeria extends defaultClass{
 		}
 		return $ret;
 	}
-	public function insertImagemGaleria($imagem){
+	
+	public function deleteImagemGaleria(){
 		$DS = DIRECTORY_SEPARATOR;
-		$galeriaPath = $this->galeriaFolder."galeria_{$this->galeria_id}{$DS}";
+		$this->dbConn->db_start_transaction();
+		$sqlSelect = "SELECT * FROM tb_imagem_galeria WHERE imagem_galeria_id = '{$this->values['imagem_galeria_id']}'";
+		$resultSelect = $this->dbConn->db_query($sqlSelect);
+		if(!$resultSelect['success']){
+			return false;
+		}
+		$rs = array();
+		if($resultSelect['total'] > 0){
+			$rs = $this->dbConn->db_fetch_assoc($resultSelect['result']);
+			$galeriaPath = $this->galeriaFolder."galeria_{$rs['galeria_id']}{$DS}";
+			$thumb = $galeriaPath.$rs['imagem_galeria_thumb'];
+			$imagem = $galeriaPath.$rs['imagem_galeria_imagem'];
+		}
+		$sql = array();
+		$sql[] = "DELETE FROM tb_imagem_galeria WHERE imagem_galeria_id = '{$this->values['imagem_galeria_id']}'";
+		$result = $this->dbConn->db_execute(implode("\n",$sql));
+		if($result['success']===true){
+			$this->dbConn->db_commit();
+			if(is_file($thumb)){
+				unlink($thumb);
+			}
+			if(is_file($imagem)){
+				unlink($imagem);
+			}
+			return true;
+		}else{
+			$this->dbConn->db_rollback();
+			return false;
+		}
+	}
+	public function insertImagemGaleria($imagem){
+		$galeria_id = $imagem['galeria_id'];
+		$DS = DIRECTORY_SEPARATOR;
+		$galeriaPath = $this->galeriaFolder."galeria_{$galeria_id}{$DS}";
 		if(!is_dir($galeriaPath)){
 			mkdir($galeriaPath,0777);
 			chmod($galeriaPath,0777);
 		}
-		$galeriaThumbPath = $this->galeriaFolder."galeria_{$this->galeria_id}{$DS}thumbs{$DS}";
+		$galeriaThumbPath = $this->galeriaFolder."galeria_{$galeria_id}{$DS}thumbs{$DS}";
 		if(!is_dir($galeriaThumbPath)){
 			mkdir($galeriaThumbPath,0777);
 			chmod($galeriaThumbPath,0777);
@@ -181,7 +243,7 @@ class galeria extends defaultClass{
 		
 		$img = "";
 		$fileNameImagem = str_replace(".","",microtime(true))."_".$imagem['imagem']['name'];
-		if(trim($imagem['imagem']['name'])!='' && move_uploaded_file($imagem['imagem']['tmp_name'], $galeriaPath.$fileNameImagem)){
+		if(move_uploaded_file($imagem['imagem']['tmp_name'], $galeriaPath.$fileNameImagem)){
 			$img = $fileNameImagem;
 		}else{
 			$img = "";
@@ -189,27 +251,99 @@ class galeria extends defaultClass{
 		
 		$thumb = "";
 		$fileNameThumb = str_replace(".","",microtime(true))."_".$imagem['thumb']['name'];
-		if(trim($imagem['thumb']['name'])!='' && move_uploaded_file($imagem['thumb']['tmp_name'], $galeriaThumbPath.$fileNameThumb)){
+		if(move_uploaded_file($imagem['thumb']['tmp_name'], $galeriaThumbPath.$fileNameThumb)){
 			$thumb = $fileNameThumb;
 		}else{
 			$thumb = "";
 		}
-		if(trim($thumb)!='' && trim($img)!=''){
-			$sql = array();
-			$sql[] = "
-				INSERT INTO tb_imagem_galeria
-					galeria_id = '{$galeria_id}'
-					,imagem_galeria_titulo = '{$imagem['titulo']}'
-					,imagem_galeria_imagem = '{$img}'
-					,imagem_galeria_thumb = '{$thumb}'
-					,imagem_galeria_dt_criacao = NOW()
-					,imagem_galeria_dtcomp_criacao = NOW()
-			";
-			$result = $this->dbConn->db_execute(implode("\n",$sql));
-			return $result['success'];
-		}else{
-			return true;
+		$sql = array();
+		$sql[] = "
+			INSERT INTO tb_imagem_galeria SET
+				galeria_id = '{$galeria_id}'
+				,imagem_galeria_titulo = '{$imagem['titulo']}'
+				,imagem_galeria_dt_criacao = NOW()
+				,imagem_galeria_dtcomp_criacao = NOW()
+		";
+		if($img!=''){
+			$sql[] = ",imagem_galeria_imagem = '{$img}'";
 		}
+		if($thumb!=''){
+			$sql[] = ",imagem_galeria_thumb = '{$thumb}'";
+		}
+		$result = $this->dbConn->db_execute(implode("\n",$sql));
+		return $result['success'];
+		
+	}
+	public function updateImagemGaleria($imagem){
+		$galeria_id = $imagem['galeria_id'];
+		$DS = DIRECTORY_SEPARATOR;
+		$galeriaPath = $this->galeriaFolder."galeria_{$galeria_id}{$DS}";
+		if(!is_dir($galeriaPath)){
+			mkdir($galeriaPath,0777);
+			chmod($galeriaPath,0777);
+		}
+		$galeriaThumbPath = $this->galeriaFolder."galeria_{$galeria_id}{$DS}thumbs{$DS}";
+		if(!is_dir($galeriaThumbPath)){
+			mkdir($galeriaThumbPath,0777);
+			chmod($galeriaThumbPath,0777);
+		}
+		
+		$img = "";
+		$fileNameImagem = str_replace(".","",microtime(true))."_".$imagem['imagem']['name'];
+		if(move_uploaded_file($imagem['imagem']['tmp_name'], $galeriaPath.$fileNameImagem)){
+			$img = $fileNameImagem;
+		}else{
+			$img = "";
+		}
+		
+		$thumb = "";
+		$fileNameThumb = str_replace(".","",microtime(true))."_".$imagem['thumb']['name'];
+		if(move_uploaded_file($imagem['thumb']['tmp_name'], $galeriaThumbPath.$fileNameThumb)){
+			$thumb = $fileNameThumb;
+		}else{
+			$thumb = "";
+		}
+		$sql = array();
+		$sql[] = "
+			UPDATE tb_imagem_galeria SET
+				galeria_id = '{$galeria_id}'
+				,imagem_galeria_titulo = '{$imagem['titulo']}'
+				,imagem_galeria_dt_alteracao = NOW()
+				,imagem_galeria_dtcomp_alteracao = NOW()
+		";
+		if($img!=''){
+			$sql[] = ",imagem_galeria_imagem = '{$img}'";
+		}
+		if($thumb!=''){
+			$sql[] = ",imagem_galeria_thumb = '{$thumb}'";
+		}
+		$sql[] = "WHERE imagem_galeria_id = '{$imagem['id']}'";
+		$result = $this->dbConn->db_execute(implode("\n",$sql));
+		return $result['success'];
+	}
+	public function getListaImagens($galeria_id){
+		$sql = array();
+		$sql[] = "
+			SELECT	ig.*
+			FROM	tb_imagem_galeria ig
+			WHERE	1 = 1
+		";
+		if(isset($galeria_id)&&trim($galeria_id)!=''){
+			$sql[] = "AND	ig.galeria_id = '{$galeria_id}'";
+		}
+		
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+		}
+		return $res;
 	}
 }
 ?>

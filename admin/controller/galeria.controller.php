@@ -30,9 +30,6 @@
 		break;
 	
 		case 'edit':
-
-			file_put_contents("files.txt",print_r($_FILES,true),FILE_APPEND);
-			
 			$obj->setValues($_REQUEST);
 			$obj->setFiles($_FILES);
 			
@@ -43,6 +40,15 @@
 			}else{
 				$obj->setSession('msgEdit', 'Galeria salva com Sucesso!');
 				header('Location: ../galeriaEdicao.php?galeria_id='.$result['galeria_id']);
+			}
+		break;
+		case 'deleteImagemGaleria':
+			$obj->setValues($_REQUEST);
+			$result = $obj->deleteImagemGaleria();
+			if($result===false){
+				echo 'Erro ao tentar excluir imagem da galeria';
+			}else{
+				echo 'Imagem da galeria excluida com sucesso!';
 			}
 		break;
 	}
