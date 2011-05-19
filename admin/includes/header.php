@@ -45,6 +45,7 @@
 		<link href="css/principal.css" rel="stylesheet" type="text/css" />
 		<link href="css/Icons.css" rel="stylesheet" type="text/css"  />
 		<link href="css/forms.css" rel="stylesheet" type="text/css"  />
+		<link href="css/styleTables.css" rel="stylesheet" type="text/css"  />
 		
 
 		<script>

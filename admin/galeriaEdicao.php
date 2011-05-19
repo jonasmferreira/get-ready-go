@@ -64,7 +64,22 @@
 			<ul style="width:150px">
 				<li>Dt/Hr Alteração:</li>
 				<li><input readonly="yes" type="text" name="galeria_dtcomp_alteracao" id="galeria_dtcomp_alteracao" value="<?php echo empty($res['galeria_dtcomp_alteracao']) ? '' : $res['galeria_dtcomp_alteracao'] ?>" /></li>
-			</ul>
+			</ul><br clear="all" /><br clear="all" />
+			
+			<table id="rounded-corner" style="width:80%">
+				<caption>Imagens da Galeria</caption>
+				<thead>
+					<tr>
+						<th style="width:25px" class="rounded-company"><div class="icon-add" style="cursor:pointer" id="addImage">&nbsp</div></th>
+						<th class="rounded-q1">Nome</th>
+						<th class="rounded-q2">Thumb</th>
+						<th class="rounded-q4">Imagem</th>
+					</tr>
+				</thead>
+				<tbody>
+					
+				</tbody>
+			</table>
 		</form>
 	</div>
 	<div class="botoes">
