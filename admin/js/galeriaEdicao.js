@@ -15,6 +15,10 @@
 		$("#voltar").click(function(){
 			window.location.href = 'galeria.php';
 		});
+		$("#addImage").click(function(){
+			var td0 = "<td>nbsp;</td>";
+			var td1 = '<td><input type="text" name=""</td>';
+		});
 		
 	});
 })(jQuery);
