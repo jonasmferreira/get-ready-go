@@ -17,7 +17,7 @@
 	$objGaleria->unsetSession('msgEdit');
 
 	$session = $objGaleria->setValues($_REQUEST);
-	if(!empty($_REQUEST)){
+	if(!empty($_REQUEST['galeria_id'])){
 		$res = $objGaleria->getOne();
 		$resImg = $objGaleria->getListaImagens($res['galeria_id']);
 	}
