@@ -91,22 +91,25 @@ class publicidade extends defaultClass{
 	public function update(){
 		$this->dbConn->db_start_transaction();
 		$sql = array();
-		if(is_file($this->files['publicidade_arquivo']['tmp_file'])){
+		if(is_file($this->files['publicidade_arquivo']['tmp_name'])){
 			$fileName = microtime(true)."_".$this->files['publicidade_arquivo']['name'];
-			if(move_uploaded_file($this->files['publicidade_arquivo']['tmp_file'], $this->avatarFolder.$fileName)){
+			if(move_uploaded_file($this->files['publicidade_arquivo']['tmp_name'], $this->publicidadeFolder.$fileName)){
 				$this->values['publicidade_arquivo'] = $fileName;
 			}else{
 				$this->values['publicidade_arquivo'] = "";
 			}
 		}
+		$this->values['publicidade_dt_ativacao'] = $this->dateBR2DB($this->values['publicidade_dt_ativacao']);
+		$this->values['publicidade_dt_desativacao'] = $this->dateBR2DB($this->values['publicidade_dt_desativacao']);
+		
 		$sql[] = "
 			UPDATE	tb_publicidade SET
 				publicidade_tipomedia = '{$this->values['publicidade_tipomedia']}'
 				,publicidade_numclique = '{$this->values['publicidade_numclique']}'
 				,publicidade_dt_ativacao = '{$this->values['publicidade_dt_ativacao']}'
 				,publicidade_dt_desativacao = '{$this->values['publicidade_dt_desativacao']}'
-				,publicidade_dt_criacao = '{$this->values['publicidade_dt_criacao']}'
-				,publicidade_dtcomp_criacao	= '{$this->values['publicidade_dtcomp_criacao']}'
+				,publicidade_dt_criacao = NOW()
+				,publicidade_dtcomp_criacao	= NOW()
 		";
 		if(isset($this->values['publicidade_arquivo'])&&trim($this->values['publicidade_arquivo'])!=''){
 			$sql[] = ",publicidade_arquivo = '{$this->values['publicidade_arquivo']}'";
@@ -130,22 +133,24 @@ class publicidade extends defaultClass{
 	public function insert(){
 		$this->dbConn->db_start_transaction();
 		$sql = array();
-		if(is_file($this->files['publicidade_arquivo']['tmp_file'])){
+		if(is_file($this->files['publicidade_arquivo']['tmp_name'])){
 			$fileName = microtime(true)."_".$this->files['publicidade_arquivo']['name'];
-			if(move_uploaded_file($this->files['publicidade_arquivo']['tmp_file'], $this->avatarFolder.$fileName)){
+			if(move_uploaded_file($this->files['publicidade_arquivo']['tmp_name'], $this->publicidadeFolder.$fileName)){
 				$this->values['publicidade_arquivo'] = $fileName;
 			}else{
 				$this->values['publicidade_arquivo'] = "";
 			}
 		}
+		$this->values['publicidade_dt_ativacao'] = $this->dateBR2DBTime($this->values['publicidade_dt_ativacao']);
+		$this->values['publicidade_dt_desativacao'] = $this->dateBR2DBTime($this->values['publicidade_dt_desativacao']);
 		$sql[] = "
 			INSERT INTO	tb_publicidade SET
 				publicidade_tipomedia = '{$this->values['publicidade_tipomedia']}'
 				,publicidade_numclique = '{$this->values['publicidade_numclique']}'
 				,publicidade_dt_ativacao = '{$this->values['publicidade_dt_ativacao']}'
 				,publicidade_dt_desativacao = '{$this->values['publicidade_dt_desativacao']}'
-				,publicidade_dt_criacao = '{$this->values['publicidade_dt_criacao']}'
-				,publicidade_dtcomp_criacao	= '{$this->values['publicidade_dtcomp_criacao']}'
+				,publicidade_dt_criacao = NOW()
+				,publicidade_dtcomp_criacao	= NOW()
 		";
 		if(isset($this->values['publicidade_arquivo'])&&trim($this->values['publicidade_arquivo'])!=''){
 			$sql[] = ",publicidade_arquivo = '{$this->values['publicidade_arquivo']}'";
