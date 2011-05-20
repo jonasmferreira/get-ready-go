@@ -28,6 +28,11 @@
 			$aJson = $obj->getUsuario();
 			echo json_encode($aJson);
 		break;
+		case 'getGaleria':
+			$aJson = array();
+			$aJson = $obj->getGaleria();
+			echo json_encode($aJson);
+		break;
 	
 		case 'edit':
 
