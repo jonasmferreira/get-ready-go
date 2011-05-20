@@ -43,15 +43,6 @@ Ext.onReady(function(){
 				}	
 			}
 			,{
-                text: 'Galerias do Post'
-				,listeners:{
-					scope:this
-					,click:function(){
-						alert("opa");
-					}
-				}	
-			}
-			,{
                 text: 'Comentários'
 				,listeners:{
 					scope:this
