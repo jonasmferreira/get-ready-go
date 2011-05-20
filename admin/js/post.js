@@ -39,6 +39,13 @@ Ext.onReady(function(){
 			}
 		}
 		,simpleSortMode: true
+/*		,sorters: [
+        {
+            property : 'post_dtcomp_criacao',
+            direction: 'DESC'
+        }
+    ]
+*/
 	});
 
 	// specify segment of data you want to load using params
@@ -260,7 +267,7 @@ Ext.onReady(function(){
 				}
 			}
 			,{header: 'Keywords',  dataIndex: 'post_palavra_chave',sortable: true}
-			,{header: 'Conteúdo',  dataIndex: 'post_conteudo',sortable: true}
+			//,{header: 'Conteúdo',  dataIndex: 'post_conteudo',sortable: false, hidden:true, hideable:false}
 			,{header: 'Dt. Criação',  dataIndex: 'post_dt_criacao',sortable: true}
 			,{header: 'Dt/Hr Criação ',  dataIndex: 'post_dtcomp_criacao',sortable: true}
 			,{header: 'Dt. Alteração',  dataIndex: 'post_dt_alteracao',sortable: true}
