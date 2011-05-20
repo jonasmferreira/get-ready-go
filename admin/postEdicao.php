@@ -7,6 +7,7 @@
 	$objPost = new post();
 	$aUsuario = $objPost->getUsuario(false);
 	$aCategoria = $objPost->getCategoria(false);
+	$aGaleria = $objPost->getGaleria(false);
 	
 	$session = $objPost->getSessions();
 	if(isset($session['msgEdit'])&&trim($session['msgEdit'])!=''){
@@ -24,7 +25,8 @@
 		$res = $objPost->getOne();
 	}
 	
-	//echo "<pre>" . print_r($res,true) . "</pre>";
+	//echo "<br />REQUEST<br />";
+	//echo "<pre>" . print_r($_REQUEST,true) . "</pre>";
 	
 ?>
 
@@ -69,6 +71,18 @@
 				</li>
 			</ul><br clear="all" />
 			
+			<ul style="width:600px">
+				<li style="width:600px">Galeria Associada:</li>
+				<li style="width:600px">
+					<select style="width:600px" id="galeria_id" name="galeria_id">
+						<option value="">Selecione uma galeria</option>
+						<?	foreach($aGaleria AS $v):?>
+						<option value="<?=$v['galeria_id']?>"<?=($res['post_id']==$v['post_id']?' selected="selected"':'')?>><?=$v['galeria_titulo'].' ('. $v['galeria_dt_criacao'] . ')'?></option>
+						<?	endforeach;?>
+					</select>
+				</li>
+			</ul>
+			<br clear="all" />
 			
 			<ul style="width:600px">
 				<li>Título:</li>
