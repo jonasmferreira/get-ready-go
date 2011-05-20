@@ -60,6 +60,9 @@ class post extends defaultClass{
 		if(isset($this->values['categoria_nome'])&&trim($this->values['categoria_nome'])!=''){
 			$sql[] = "AND	c.categoria_nome = '{$this->values['categoria_nome']}'";
 		}
+
+		$sql[] = " ORDER BY post_dt_criacao DESC ";
+		
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']){
 			return false;
@@ -192,6 +195,11 @@ class post extends defaultClass{
 		if(isset($this->values['post_id'])&&trim($this->values['post_id'])!=''){
 			$this->values['post_dt_alteracao']= date('Y-m-d');
 			$this->values['post_dtcomp_alteracao']= date('Y-m-d H:i:s');
+			
+			if(!empty($this->values['galeria_id']) && $this->values['galeria_id']!=0){
+				$this->savePostGaleria($this->values['post_id'],$this->values['galeria_id']);
+			}
+			
 			
 			$result = $this->update();
 		}else{
@@ -360,6 +368,74 @@ class post extends defaultClass{
 			return $this->convertExtReturn($res, $success,count($res));
 		}
 		return $res;
+	}
+	
+	public function getGaleria($returnExt=true){
+		$sql = array();
+		$sql[] = "
+				SELECT	g.galeria_id
+						,g.galeria_titulo
+						,IF(g.galeria_status=1,'Ativa','Inativa') AS galeria_status
+						,g.galeria_dt_criacao
+						,pg.post_id
+				FROM	tb_galeria g
+				LEFT JOIN	tb_post_galeria pg
+				ON		pg.galeria_id = g.galeria_id
+				WHERE	1 = 1
+				ORDER BY galeria_dt_criacao DESC
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
+		}
+		return $res;
+	}
+
+	public function savePostGaleria($post_id,$galeria_id){
+
+		$this->dbConn->db_start_transaction();
+		$sql = array();
+		$ret = array(
+			'success'=>false
+			,'post_id' =>''
+		);
+
+		//primeiro apagamos galerias prévias associadas ao post
+		$result = $this->dbConn->db_execute("DELETE FROM tb_post_galeria WHERE post_id = $post_id");
+		if($result['success']===true){
+
+			//agora criamos a nova associação de post e galeria
+			$sql[] = "
+				INSERT INTO	tb_post_galeria SET
+					post_id = '{$post_id}'
+					,galeria_id = '{$galeria_id}'
+			";
+
+			$result = $this->dbConn->db_execute(implode("\n",$sql));
+			if($result['success']===true){
+				$this->dbConn->db_commit();
+				$ret['success'] = $result['success'];
+				$ret['post_id'] = $result['last_id'];
+			}else{
+				$this->dbConn->db_rollback();
+			}
+			
+		}else{
+			$this->dbConn->db_rollback();
+		}
+		
+		return $ret;
+		
 	}
 	
 	
