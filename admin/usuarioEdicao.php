@@ -17,7 +17,7 @@
 	}
 	$obj->unsetSession('msgEdit');
 	
-	//echo "<pre>" . print_r($_REQUEST,true) . "</pre>";
+	echo "<pre>" . print_r($_REQUEST,true) . "</pre>";
 
 	$session = $objUsuario->setValues($_REQUEST);
 	if(!empty($_REQUEST)){
