@@ -21,7 +21,7 @@
 	
 
 	$session = $objPost->setValues($_REQUEST);
-	if(!empty($_REQUEST)){
+	if(!empty($_REQUEST['post_id'])){
 		$res = $objPost->getOne();
 	}
 	
