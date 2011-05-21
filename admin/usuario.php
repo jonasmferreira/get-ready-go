@@ -5,6 +5,7 @@
 	include_once("{$path_root_usuarioView}admin{$DS}includes{$DS}header.php");
 	include_once("{$path_root_usuarioView}admin{$DS}model{$DS}usuario.class.php");
 	$objUsuario = new usuario();
+	$session = $objUsuario->getSessions();
 	if(isset($session['msgEdit'])&&trim($session['msgEdit'])!=''){
 		echo "
 			<script type=\"text/javascript\">

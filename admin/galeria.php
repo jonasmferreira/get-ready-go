@@ -5,6 +5,7 @@
 	include_once("{$path_root_galeriaView}admin{$DS}includes{$DS}header.php");
 	include_once("{$path_root_galeriaView}admin{$DS}model{$DS}galeria.class.php");
 	$objgaleria = new galeria();
+	$session = $objgaleria->getSessions();
 	if(isset($session['msgEdit'])&&trim($session['msgEdit'])!=''){
 		echo "
 			<script type=\"text/javascript\">

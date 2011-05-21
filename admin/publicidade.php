@@ -5,6 +5,7 @@
 	include_once("{$path_root_publicidadeView}admin{$DS}includes{$DS}header.php");
 	include_once("{$path_root_publicidadeView}admin{$DS}model{$DS}publicidade.class.php");
 	$objPublicidade = new publicidade();
+	$session = $objPublicidade->getSessions();
 	if(isset($session['msgEdit'])&&trim($session['msgEdit'])!=''){
 		echo "
 			<script type=\"text/javascript\">

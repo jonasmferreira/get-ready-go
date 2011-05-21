@@ -5,6 +5,7 @@
 	include_once("{$path_root_postView}admin{$DS}includes{$DS}header.php");
 	include_once("{$path_root_postView}admin{$DS}model{$DS}post.class.php");
 	$objPost = new post();
+	$session = $objPost->getSessions();
 	if(isset($session['msgEdit'])&&trim($session['msgEdit'])!=''){
 		echo "
 			<script type=\"text/javascript\">

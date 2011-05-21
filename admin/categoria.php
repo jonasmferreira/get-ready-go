@@ -4,7 +4,8 @@
 	$path_root_categoriaView = "{$path_root_categoriaView}{$DS}..{$DS}";
 	include_once("{$path_root_categoriaView}admin{$DS}includes{$DS}header.php");
 	include_once("{$path_root_categoriaView}admin{$DS}model{$DS}categoria.class.php");
-	$objUsuario = new categoria();
+	$objCategoria= new categoria();
+	$session = $objCategoria->getSessions();
 	if(isset($session['msgEdit'])&&trim($session['msgEdit'])!=''){
 		echo "
 			<script type=\"text/javascript\">
