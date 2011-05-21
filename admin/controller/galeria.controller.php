@@ -18,16 +18,6 @@
 			$aJson = $obj->getLista();
 			echo json_encode($aJson);
 		break;
-		case 'getCategoria':
-			$aJson = array();
-			$aJson = $obj->getCategoria();
-			echo json_encode($aJson);
-		break;
-		case 'getUsuario':
-			$aJson = array();
-			$aJson = $obj->getUsuario();
-			echo json_encode($aJson);
-		break;
 	
 		case 'edit':
 			$obj->setValues($_REQUEST);
