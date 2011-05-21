@@ -120,7 +120,7 @@ class post extends defaultClass{
 			$rs['comentarios'] = $this->comentarioPost($rs['post_id']);
 			$rs = $this->dbConn->db_fetch_assoc($result['result']);
 		}
-		return $rs;
+		return $this->utf8_array_encode($rs);
 	}
 	public function comentarioPost($post_id){
 		$sql = array();
@@ -340,7 +340,7 @@ class post extends defaultClass{
 		if($returnExt){
 			return $this->convertExtReturn($res, $success,count($res));
 		}
-		return $res;
+		return $this->utf8_array_encode($res);
 	}
 
 	public function getUsuario($returnExt=true){
@@ -367,7 +367,7 @@ class post extends defaultClass{
 		if($returnExt){
 			return $this->convertExtReturn($res, $success,count($res));
 		}
-		return $res;
+		return $this->utf8_array_encode($res);
 	}
 	
 	public function getGaleria($returnExt=true){
@@ -398,7 +398,7 @@ class post extends defaultClass{
 		if($returnExt){
 			return $this->convertExtReturn($res, $success,count($res));
 		}
-		return $res;
+		return $this->utf8_array_encode($res);
 	}
 
 	public function savePostGaleria($post_id,$galeria_id){

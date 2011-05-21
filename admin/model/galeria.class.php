@@ -93,7 +93,7 @@ class galeria extends defaultClass{
 		if($result['total'] > 0){
 			$rs = $this->dbConn->db_fetch_assoc($result['result']);
 		}
-		return $rs;
+		return $this->utf8_array_encode($rs);
 	}
 	public function edit(){
 		$result = false;
@@ -343,7 +343,7 @@ class galeria extends defaultClass{
 				array_push($res, $rs);
 			}
 		}
-		return $res;
+		return $this->utf8_array_encode($res);
 	}
 }
 ?>
