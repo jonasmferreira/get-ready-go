@@ -83,12 +83,12 @@ Ext.onReady(function(){
 		,listeners:{
 			scope:this
 			,click:function(button){
-				var titulo_nome = galeriaTituloText.getValue();
+				var galeria_titulo = galeriaTituloText.getValue();
 				var galeria_status = galeriaStatusCombo.getValue();
 				//console.log(usuarioGrid.getStore());
 				galeriaGrid.getStore().load({
 					params:{
-						'titulo_nome': titulo_nome
+						'galeria_titulo': galeria_titulo
 						,'galeria_status': galeria_status
 					}
 				});
@@ -105,11 +105,11 @@ Ext.onReady(function(){
 			,click:function(button){
 				galeriaTituloText.setValue('');
 				galeriaStatusCombo.setValue('');
-				var titulo_nome = galeriaTituloText.getValue();
+				var galeria_titulo = galeriaTituloText.getValue();
 				var galeria_status = galeriaStatusCombo.getValue();
 				galeriaGrid.getStore().load({
 					params:{
-						'titulo_nome': titulo_nome
+						'galeria_titulo': galeria_titulo
 						,'galeria_status': galeria_status
 					}
 				});
