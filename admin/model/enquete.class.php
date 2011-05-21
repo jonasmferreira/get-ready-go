@@ -7,35 +7,53 @@ class enquete extends defaultClass{
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
-	public function getLista(){
+	public function getLista($returnExt=true){
 		$sql = array();
 		$sql[] = "
-			SELECT	enquete_id
-					,enquete_titulo
-					,enquete_status
-					,enquete_dt_criacao
-					,enquete_dtcomp_criacao
-					,enquete_dt_alteracao
-					,enquete_dtcomp_alteracao
-			FROM	tb_enquete
+			SELECT a.* 
+			FROM	(
+		";
+		$sql[] = "
+			SELECT	e.enquete_id
+					,e.enquete_titulo
+					,e.enquete_status
+					,e.enquete_dt_criacao
+					,e.enquete_dtcomp_criacao
+					,e.enquete_dt_alteracao
+					,e.enquete_dtcomp_alteracao
+					,(SELECT COUNT(*) FROM	tb_enquete_opcao WHERE enquete_id = e.enquete_id) AS qtde_opcoes
+			FROM	tb_enquete e
 			WHERE	1 = 1
 		";
 		if(isset($this->values['enquete_titulo'])&&trim($this->values['enquete_titulo'])!=''){
-			$sql[] = "AND	enquete_titulo = '{$this->values['enquete_titulo']}'";
+			$sql[] = "AND	e.enquete_titulo LIKE '%{$this->values['enquete_titulo']}%'";
 		}
 		if(isset($this->values['enquete_status'])&&trim($this->values['enquete_status'])!=''){
-			$sql[] = "AND	enquete_status = '{$this->values['enquete_status']}'";
+			$sql[] = "AND	e.enquete_status = '{$this->values['enquete_status']}'";
 		}
+		$sql[] = ") AS a";
+		$totalCount = $this->getMaxCount(implode("\n",$sql));
+		
+		if(isset($this->sort_field)&&trim($this->sort_field)!=''){
+			$sql[] = "ORDER BY a.{$this->sort_field} {$this->sort_direction}";
+		}
+		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
+			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
+		}
+		
 		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
 		if(!$result['success']){
 			return false;
 		}
 		$res = array();
 		if($result['total'] > 0){
 			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
-				$rs['opcoes'] = $this->opcaoEnquete($rs['enquete_id']);
 				array_push($res, $rs);
 			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
 		}
 		return $res;
 	}
@@ -61,8 +79,6 @@ class enquete extends defaultClass{
 		}
 		$rs = array();
 		if($result['total'] > 0){
-			$rs['galerias'] = $this->galeriaPost($rs['post_id']);
-			$rs['comentarios'] = $this->comentarioPost($rs['post_id']);
 			$rs = $this->dbConn->db_fetch_assoc($result['result']);
 		}
 		return $rs;
@@ -120,13 +136,13 @@ class enquete extends defaultClass{
 		return true;
 	}
 	public function update(){
+		$this->dbConn->db_start_transaction();
 		$sql = array();
 		$sql[] = "
 			UPDATE	tb_enquete SET
 					enquete_titulo = '{$this->values['enquete_titulo']}'
 					,enquete_status  = '{$this->values['enquete_status']}'
-					#,enquete_dt_criacao = NOW()
-					#,enquete_dtcomp_criacao = NOW()
+					
 					,enquete_dt_alteracao = NOW()
 					,enquete_dtcomp_alteracao = NOW()
 			WHERE	enquete_id = '{$this->values['enquete_id']}'
@@ -137,19 +153,34 @@ class enquete extends defaultClass{
 		);
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
-			if($this->replaceOpcoes($this->values['opcoes'])===true){
-				$this->dbConn->db_commit();
-				$ret['success'] = $result['success'];
-				$ret['enquete_id'] = $this->values['enquete_id'];
-			}else{
-				$this->dbConn->db_rollback();
+			$enquete_id = $this->values['enquete_id'];
+			if(is_array($this->values['enquete_opcao_id'])&&count($this->values['enquete_opcao_id']>0)){
+				foreach($this->values['enquete_opcao_id'] AS $k=> $v){
+					$arr = array();
+					$arr['enquete_opcao_id']=$v;
+					$arr['enquete_opcao_id']=$enquete_id;
+					$arr['enquete_opcao_titulo'] = $this->values['enquete_opcao_titulo'][$k];
+					if(trim($v)!=''){
+						$isSaveOpcao = $this->updateOpcaoEnquete($arr);
+					}else{
+						$isSaveOpcao = $this->insertOpcaoEnquete($arr);
+					}
+					if($isSaveOpcao['success']===false){
+						$this->dbConn->db_rollback();
+						return $isSaveOpcao;
+					}
+				}
 			}
+			$this->dbConn->db_commit();
+			$ret['success'] = $result['success'];
+			$ret['enquete_id'] = $this->values['enquete_id'];
 		}else{
 			$this->dbConn->db_rollback();
 		}
 		return $ret;
 	}
 	public function insert(){
+		$this->dbConn->db_start_transaction();
 		$sql = array();
 		$sql[] = "
 			INSERT INTO	tb_enquete SET
@@ -157,8 +188,6 @@ class enquete extends defaultClass{
 					,enquete_status  = '{$this->values['enquete_status']}'
 					,enquete_dt_criacao = NOW()
 					,enquete_dtcomp_criacao = NOW()
-					#,enquete_dt_alteracao = NOW()
-					#,enquete_dtcomp_alteracao = NOW()
 		";
 		$ret = array(
 			'success'=>false
@@ -166,17 +195,76 @@ class enquete extends defaultClass{
 		);
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
-			if($this->replaceOpcoes($this->values['opcoes'])===true){
-				$this->dbConn->db_commit();
-				$ret['success'] = $result['success'];
-				$ret['enquete_id'] = $result['last_id'];
-			}else{
-				$this->dbConn->db_rollback();
+			$enquete_id = $result['last_id'];
+			if(is_array($this->values['enquete_opcao_id'])&&count($this->values['enquete_opcao_id']>0)){
+				foreach($this->values['enquete_opcao_id'] AS $k=> $v){
+					$arr = array();
+					$arr['enquete_opcao_id']=$v;
+					$arr['enquete_id']=$enquete_id;
+					$arr['enquete_opcao_titulo'] = $this->values['enquete_opcao_titulo'][$k];
+					if(trim($v)!=''){
+						$isSaveOpcao = $this->updateOpcaoEnquete($arr);
+					}else{
+						$isSaveOpcao = $this->insertOpcaoEnquete($arr);
+					}
+					if($isSaveOpcao['success']===false){
+						$this->dbConn->db_rollback();
+						return $isSaveOpcao;
+					}
+				}
 			}
+			
+			$this->dbConn->db_commit();
+			$ret['success'] = $result['success'];
+			$ret['enquete_id'] = $result['last_id'];
 		}else{
 			$this->dbConn->db_rollback();
 		}
 		return $ret;
+	}
+	private function insertOpcaoEnquete($arr){
+		
+		$sql = array();
+		$sql[] = "
+			INSERT INTO	tb_enquete_opcao SET
+				enquete_id = '{$arr['enquete_id']}'
+				,enquete_opcao_titulo = '{$arr['enquete_opcao_titulo']}'
+		";
+		$result = $this->dbConn->db_execute(implode("\n",$sql));
+		return $result;
+		
+	}
+	private function updateOpcaoEnquete($arr){
+		$sql = array();
+		$sql[] = "
+			UPDATE	tb_enquete_opcao SET
+				enquete_id = '{$arr['enquete_id']}'
+				,enquete_opcao_titulo = '{$arr['enquete_opcao_titulo']}'
+			WHERE enquete_opcao_id = '{$arr['enquete_opcao_id']}'
+		";
+		$result = $this->dbConn->db_execute(implode("\n",$sql));
+		return $result;
+	}
+	public function deleteOpcaoEnquete(){
+		$this->dbConn->db_start_transaction();
+		$sql = array();
+		$sql[] = "DELETE FROM tb_enquete_votacao WHERE enquete_opcao_id = '{$this->values['enquete_opcao_id']}'";
+		$result = $this->dbConn->db_execute(implode("\n",$sql));
+		if($result['success']===true){
+			$sql = array();
+			$sql[] = "DELETE FROM tb_enquete_opcao WHERE enquete_opcao_id = '{$this->values['enquete_opcao_id']}'";
+			$result = $this->dbConn->db_execute(implode("\n",$sql));
+			if($result['success']===true){
+				$this->dbConn->db_commit();
+				return true;
+			}else{
+				$this->dbConn->db_rollback();
+				return false;
+			}
+		}else{
+			$this->dbConn->db_rollback();
+			return false;
+		}
 	}
 }
 ?>
