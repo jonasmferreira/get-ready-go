@@ -117,6 +117,27 @@
 				</li>
 			</ul>
 			<br clear="all" />
+
+			
+			<ul style="width:600px">
+				<li>Thumb Imagem Destaque:</li>
+				<li><input type="file" name="post_thumb_imagem" id="post_thumb_imagem" value="" /></li>
+			</ul>
+			<br clear="all" />
+			
+			<ul style="width:600px">
+				<li>Thumb Destaque Cadastrado:</li>
+				<li>
+					<?	if(is_file("{$path_root_postView}posts{$DS}{$res['post_thumb_imagem']}")):?>
+					<img src="../posts/<?=$res['post_thumb_imagem']?>" border="0" alt="thumb destaque" />
+					<?	else:?>
+					Nenhum Thumb de Destaque
+					<?	endif;?>
+				</li>
+			</ul>
+			<br clear="all" />
+			
+			
 			
 			<ul style="width:600px">
 				<li>Imagem Destaque:</li>
