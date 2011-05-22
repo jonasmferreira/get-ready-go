@@ -25,6 +25,10 @@ class categoria extends defaultClass{
 		if(isset($this->values['categoria_nome'])&&trim($this->values['categoria_nome'])!=''){
 			$sql[] = "AND	categoria_nome LIKE '%{$this->values['categoria_nome']}%'";
 		}
+		if(isset($this->values['categoria_destaque_home'])&&trim($this->values['categoria_destaque_home'])!=''){
+			$sql[] = "AND	categoria_destaque_home = '{$this->values['categoria_destaque_home']}'";
+		}
+
 		if(isset($this->values['categoria_galeria'])&&trim($this->values['categoria_galeria'])!=''){
 			$sql[] = "AND	categoria_galeria = '{$this->values['categoria_galeria']}'";
 		}
