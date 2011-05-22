@@ -38,7 +38,7 @@
 		<form action="controller/post.controller.php?action=edit" method="post" id="formSalvar" enctype="multipart/form-data">
 			<input type="hidden" name="post_id" id="post_id" value="<?php echo empty($res['post_id']) ? '' : $res['post_id'] ?>" />
 			
-			<ul style="width:250px">
+			<ul style="width:170px">
 				<li>Categoria:</li>
 				<li>
 					<select id="categoria_id" name="categoria_id" class="obrigatorio">
@@ -50,7 +50,7 @@
 				</li>
 			</ul>
 
-			<ul style="width:200px">
+			<ul style="width:250px">
 				<li>Usuário:</li>
 				<li>
 					<select id="usuario_id" name="usuario_id" class="obrigatorio">
@@ -61,7 +61,7 @@
 					</select>
 				</li>
 			</ul>
-			<ul style="width:100px">
+			<ul style="width:70px">
 				<li>Status:</li>
 				<li>
 					<select id="post_status" name="post_status" class="obrigatorio">
