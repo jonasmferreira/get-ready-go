@@ -25,6 +25,7 @@ class post extends defaultClass{
 					,p.post_titulo
 					,p.post_thumb_home
 					,p.post_imagem
+					,p.post_thumb_imagem
 					,p.post_palavra_chave
 					,p.post_conteudo
 					,p.post_dt_criacao
@@ -87,6 +88,7 @@ class post extends defaultClass{
 					,p.post_titulo
 					,p.post_thumb_home
 					,p.post_imagem
+					,p.post_thumb_imagem
 					,p.post_palavra_chave
 					,p.post_conteudo
 					,p.post_dt_criacao
@@ -157,7 +159,6 @@ class post extends defaultClass{
 					,ig.galeria_id
 					,ig.imagem_galeria_titulo
 					,ig.imagem_galeria_imagem
-					,ig.imagem_galeria_thumb
 					,ig.imagem_galeria_dt_criacao
 					,ig.imagem_galeria_dtcomp_criacao
 					,ig.imagem_galeria_dt_alteracao
@@ -219,6 +220,13 @@ class post extends defaultClass{
 			$this->values['post_imagem'] = "";
 		}
 
+		$fileNameThumbDest = microtime(true)."_".$this->files['post_thumb_imagem']['name'];
+		if(move_uploaded_file($this->files['post_thumb_imagem']['tmp_name'], $this->postFolder.$fileNameThumbDest)){
+			$this->values['post_thumb_imagem'] = $fileNameThumbDest;
+		}else{
+			$this->values['post_thumb_imagem'] = "";
+		}
+
 		$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
 		if(move_uploaded_file($this->files['post_thumb_home']['tmp_name'], $this->postFolder.$fileThumbName)){
 			$this->values['post_thumb_home'] = $fileThumbName;
@@ -244,6 +252,9 @@ class post extends defaultClass{
 		";
 		if(isset($this->values['post_imagem'])&&trim($this->values['post_imagem'])!=''){
 			$sql[] = ",post_imagem = '{$this->values['post_imagem']}'";
+		}
+		if(isset($this->values['post_thumb_imagem'])&&trim($this->values['post_thumb_imagem'])!=''){
+			$sql[] = ",post_thumb_imagem = '{$this->values['post_thumb_imagem']}'";
 		}
 		if(isset($this->values['post_thumb_home'])&&trim($this->values['post_thumb_home'])!=''){
 			$sql[] = ",post_thumb_home = '{$this->values['post_thumb_home']}'";
@@ -275,6 +286,13 @@ class post extends defaultClass{
 			$this->values['post_imagem'] = "";
 		}
 
+		$fileNameThumbDest = microtime(true)."_".$this->files['post_thumb_imagem']['name'];
+		if(move_uploaded_file($this->files['post_thumb_imagem']['tmp_name'], $this->postFolder.$fileNameThumbDest)){
+			$this->values['post_thumb_imagem'] = $fileNameThumbDest;
+		}else{
+			$this->values['post_thumb_imagem'] = "";
+		}
+		
 		$fileThumbName = microtime(true)."_".$this->files['post_thumb_home']['name'];
 		if(move_uploaded_file($this->files['post_thumb_home']['tmp_name'], $this->postFolder.$fileThumbName)){
 			$this->values['post_thumb_home'] = $fileThumbName;
@@ -299,6 +317,10 @@ class post extends defaultClass{
 		if(isset($this->values['post_imagem'])&&trim($this->values['post_imagem'])!=''){
 			$sql[] = ",post_imagem = '{$this->values['post_imagem']}'";
 		}
+		if(isset($this->values['post_thumb_imagem'])&&trim($this->values['post_thumb_imagem'])!=''){
+			$sql[] = ",post_thumb_imagem = '{$this->values['post_thumb_imagem']}'";
+		}
+
 		if(isset($this->values['post_thumb_home'])&&trim($this->values['post_thumb_home'])!=''){
 			$sql[] = ",post_thumb_home = '{$this->values['post_thumb_home']}'";
 		}
