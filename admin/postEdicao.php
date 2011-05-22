@@ -50,7 +50,7 @@
 				</li>
 			</ul>
 
-			<ul style="width:250px">
+			<ul style="width:300px">
 				<li>Usuário:</li>
 				<li>
 					<select id="usuario_id" name="usuario_id" class="obrigatorio">
@@ -71,7 +71,7 @@
 				</li>
 			</ul><br clear="all" />
 			
-			<ul style="width:600px">
+			<ul style="width:580px">
 				<li style="width:600px">Galeria Associada:</li>
 				<li style="width:600px">
 					<select style="width:600px" id="galeria_id" name="galeria_id">
