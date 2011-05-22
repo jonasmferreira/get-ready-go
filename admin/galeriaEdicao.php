@@ -71,9 +71,11 @@
 				<caption>Imagens da Galeria</caption>
 				<thead>
 					<tr>
-						<th style="width:25px" class="rounded-company"><div class="icon-add" style="cursor:pointer" id="addImage">&nbsp</div></th>
-						<th class="rounded-q1">Nome</th>
-						<th class="rounded-q2">Thumb</th>
+						<th style="width:25px" class="rounded-company">
+							<div class="icon-add" style="cursor:pointer" id="addImage">&nbsp</div>
+						</th>
+						<th class="rounded-q1" style="width:350px !important;">Nome</th>
+						<!--<th class="rounded-q2">Thumb</th>-->
 						<th class="rounded-q4">Imagem</th>
 					</tr>
 				</thead>
@@ -86,18 +88,23 @@
 							<div class="icon-cancel delImage">&nbsp;</div>
 							<input type="hidden" name="imagem_galeria_id[]" value="<?=$v['imagem_galeria_id']?>" />
 						</td>
-						<td><input type="text" name="imagem_galeria_titulo[]" value="<?=$v['imagem_galeria_titulo']?>" /></td>
+						<td><input style="width:250px;" type="text" name="imagem_galeria_titulo[]" value="<?=$v['imagem_galeria_titulo']?>" /></td>
+						<!--
 						<td>
-							<?	if(is_file("{$path_root_galeriaView}galerias{$DS}galeria_{$v['galeria_id']}{$DS}thumbs{$DS}{$v['imagem_galeria_thumb']}")):
+							<?
+								/*	
+							 		if(is_file("{$path_root_galeriaView}galerias{$DS}galeria_{$v['galeria_id']}{$DS}thumbs{$DS}{$v['imagem_galeria_thumb']}")):
 									list($widthThumb, $heightThumb, $typeThumb, $attrThumb) = getimagesize("{$path_root_galeriaView}galerias{$DS}galeria_{$v['galeria_id']}{$DS}thumbs{$DS}{$v['imagem_galeria_thumb']}");
 									$widthThumb = ($widthThumb > 150)?"20%":$widthThumb;
 									$heightThumb = ($heightThumb > 150)?"20%":$heightThumb;
+								*/
 							?>
 							<img src="../galerias/galeria_<?=$v['galeria_id']."/thumbs/{$v['imagem_galeria_thumb']}"?>" alt="thumb: <?=$v['imagem_galeria_titulo']?>" border="0" width="<?=$widthThumb?>" height="<?=$heightThumb?>" />
 							<br clear="all" />
-							<?	endif;?>
+							<?/*	endif; */?>
 							<input type="file" name="imagem_galeria_thumb[]" />
 						</td>
+						-->
 						<td>
 							<?	if(is_file("{$path_root_galeriaView}galerias{$DS}galeria_{$v['galeria_id']}{$DS}{$v['imagem_galeria_imagem']}")):
 									list($widthImg, $heightImg, $typeImg, $attrImg) = getimagesize("{$path_root_galeriaView}galerias{$DS}galeria_{$v['galeria_id']}{$DS}{$v['imagem_galeria_imagem']}");
