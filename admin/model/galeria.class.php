@@ -130,10 +130,10 @@ class galeria extends defaultClass{
 					$imagem['galeria_id'] = $this->values['galeria_id'];
 					$imagem['titulo'] = $this->values['imagem_galeria_titulo'][$k];
 					
-					$imagem['thumb']['name'] = $this->files['imagem_galeria_thumb']['name'][$k];
+					//$imagem['thumb']['name'] = $this->files['imagem_galeria_thumb']['name'][$k];
 					$imagem['imagem']['name'] = $this->files['imagem_galeria_imagem']['name'][$k];
 					
-					$imagem['thumb']['tmp_name'] = $this->files['imagem_galeria_thumb']['tmp_name'][$k];
+					//$imagem['thumb']['tmp_name'] = $this->files['imagem_galeria_thumb']['tmp_name'][$k];
 					$imagem['imagem']['tmp_name'] = $this->files['imagem_galeria_imagem']['tmp_name'][$k];
 					if(trim($imagem['id'])==''){
 						$this->insertImagemGaleria($imagem);
@@ -235,6 +235,7 @@ class galeria extends defaultClass{
 			mkdir($galeriaPath,0777);
 			chmod($galeriaPath,0777);
 		}
+		
 		$galeriaThumbPath = $this->galeriaFolder."galeria_{$galeria_id}{$DS}thumbs{$DS}";
 		if(!is_dir($galeriaThumbPath)){
 			mkdir($galeriaThumbPath,0777);
@@ -249,6 +250,7 @@ class galeria extends defaultClass{
 			$img = "";
 		}
 		
+		/*
 		$thumb = "";
 		$fileNameThumb = str_replace(".","",microtime(true))."_".$imagem['thumb']['name'];
 		if(move_uploaded_file($imagem['thumb']['tmp_name'], $galeriaThumbPath.$fileNameThumb)){
@@ -256,6 +258,7 @@ class galeria extends defaultClass{
 		}else{
 			$thumb = "";
 		}
+		*/
 		$sql = array();
 		$sql[] = "
 			INSERT INTO tb_imagem_galeria SET
@@ -267,9 +270,12 @@ class galeria extends defaultClass{
 		if($img!=''){
 			$sql[] = ",imagem_galeria_imagem = '{$img}'";
 		}
+		/*
 		if($thumb!=''){
 			$sql[] = ",imagem_galeria_thumb = '{$thumb}'";
 		}
+		 */
+		
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		return $result['success'];
 		
@@ -296,6 +302,7 @@ class galeria extends defaultClass{
 			$img = "";
 		}
 		
+		/*
 		$thumb = "";
 		$fileNameThumb = str_replace(".","",microtime(true))."_".$imagem['thumb']['name'];
 		if(move_uploaded_file($imagem['thumb']['tmp_name'], $galeriaThumbPath.$fileNameThumb)){
@@ -303,6 +310,8 @@ class galeria extends defaultClass{
 		}else{
 			$thumb = "";
 		}
+		 */
+		
 		$sql = array();
 		$sql[] = "
 			UPDATE tb_imagem_galeria SET
@@ -314,9 +323,13 @@ class galeria extends defaultClass{
 		if($img!=''){
 			$sql[] = ",imagem_galeria_imagem = '{$img}'";
 		}
+		
+		/*
 		if($thumb!=''){
 			$sql[] = ",imagem_galeria_thumb = '{$thumb}'";
 		}
+		*/
+		
 		$sql[] = "WHERE imagem_galeria_id = '{$imagem['id']}'";
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		return $result['success'];
