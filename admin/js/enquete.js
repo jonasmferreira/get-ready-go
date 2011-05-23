@@ -136,20 +136,23 @@ Ext.onReady(function(){
 		title: 'Enquetes'
 		,id:"enqueteGrid"
 		,store: enqueteStore
-		,resizeble:true
+		//,resizeble:true
+		,autoScroll:true
+		,height: 400
 		,border:false
 		,columns: [
-			{header: 'Código',  dataIndex: 'enquete_id',sortable: true}
-			,{header: 'Título',  dataIndex: 'enquete_titulo',sortable: true}
-			,{header: 'QTD. Opções',  dataIndex: 'qtde_opcoes',sortable: true}
-			,{header: 'Dt. Criação',  dataIndex: 'enquete_dt_criacao',sortable: true}
-			,{header: 'Dt/Hr Criação ',  dataIndex: 'enquete_dtcomp_criacao',sortable: true}
-			,{header: 'Dt. Alteração',  dataIndex: 'enquete_dt_alteracao',sortable: true}
-			,{header: 'Dt/Hr Alteração ',  dataIndex: 'enquete_dtcomp_alteracao',sortable: true}
+			{header: 'Código',  dataIndex: 'enquete_id',sortable: true, width:60}
+			,{header: 'Título',  dataIndex: 'enquete_titulo',sortable: true,width:300}
+			,{header: 'QTD. Opções',  dataIndex: 'qtde_opcoes',sortable: true, width:80}
+			,{header: 'Dt. Criação',  dataIndex: 'enquete_dt_criacao',sortable: true, hidden:true, hideable:false}
+			,{header: 'Dt/Hr Criação ',  dataIndex: 'enquete_dtcomp_criacao',sortable: true, width:120}
+			,{header: 'Dt. Alteração',  dataIndex: 'enquete_dt_alteracao',sortable: true, width:120, hidden:true, hideable:false}
+			,{header: 'Dt/Hr Alteração ',  dataIndex: 'enquete_dtcomp_alteracao',sortable: true, width:120}
 			,{
 				header: 'Status',  
 				dataIndex: 'enquete_status',
 				sortable: true,
+				width: 70,
 				renderer:function(val){
 					if(val > 0){
 						return 'Ativo'
