@@ -21,6 +21,7 @@ class post extends defaultClass{
 		$sql[] = "
 			SELECT	p.post_id
 					,p.categoria_id
+					,c.categoria_nome
 					,p.usuario_id
 					,p.post_titulo
 					,p.post_thumb_home
@@ -76,7 +77,7 @@ class post extends defaultClass{
 				array_push($res, $rs);
 			}
 		}
-		return $res;
+		return $this->utf8_array_encode($res);
 	}
 	
 	public function getOne(){
