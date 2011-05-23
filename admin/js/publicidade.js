@@ -145,7 +145,9 @@ Ext.onReady(function(){
 		title: 'publicidades'
 		,id:"publicidadeGrid"
 		,store: publicidadeStore
-		,resizeble:true
+		//,resizeble:true
+		,autoScroll:true
+		,height: 400
 		,border:false
 		,columns: [
 			{header: 'Código',  dataIndex: 'publicidade_id',sortable: true}
