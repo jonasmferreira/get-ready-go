@@ -181,8 +181,6 @@ Ext.onReady(function(){
 						,'usuario_status': usuario_status
 					}
 				});
-				
-				
 			}
 		}
 	});
@@ -216,24 +214,29 @@ Ext.onReady(function(){
 		title: 'Usuário'
 		,id:"usuarioGrid"
 		,store: usuarioStore
-		,resizeble:true
+		//,resizeble:true
+		,autoScroll:true
+		,height: 400
 		,columns: [
-			{header: 'Código',  dataIndex: 'usuario_id',sortable: true}
-			,{
+			{header: 'Código',  dataIndex: 'usuario_id',sortable: true, width:70}
+			/*,{
 				header: 'Avatar',  
 				dataIndex: 'usuario_avatar', 
 				sortable: true,
+				hidden:true,
+				hideable:false,
 				renderer:function(val){
 					return '<img width="30%" height="30%" alt="avatar" src="../avatars/'+val+'" />';
 				}
-			}
-			,{header: 'Usuário',  dataIndex: 'usuario_nome',sortable: true}
-			,{header: 'Login',  dataIndex: 'usuario_login',sortable: true}
-			,{header: 'E-mail',  dataIndex: 'usuario_email',sortable: true}
+			}*/
+			,{header: 'Usuário',  dataIndex: 'usuario_nome',sortable: true, width:250}
+			,{header: 'Login',  dataIndex: 'usuario_login',sortable: true,width:150}
+			,{header: 'E-mail',  dataIndex: 'usuario_email',sortable: true,width:200}
 			,{
 				header: 'Status',  
 				dataIndex: 'usuario_status',
 				sortable: true,
+				width: 70,
 				renderer:function(val){
 					if(val > 0){
 						return 'Ativo'
