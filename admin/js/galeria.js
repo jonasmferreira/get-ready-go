@@ -136,7 +136,9 @@ Ext.onReady(function(){
 		title: 'Galerias'
 		,id:"galeriaGrid"
 		,store: galeriaStore
-		,resizeble:true
+		//,resizeble:true
+		,autoScroll:true
+		,height: 400
 		,border:false
 		,columns: [
 			{header: 'Código',  dataIndex: 'galeria_id',sortable: true}
