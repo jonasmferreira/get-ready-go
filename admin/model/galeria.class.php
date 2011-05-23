@@ -65,7 +65,7 @@ class galeria extends defaultClass{
 		if($returnExt){
 			return $this->convertExtReturn($res, $success,count($res));
 		}
-		return $res;
+		return $this->utf8_array_encode($res);
 	}
 	
 	public function getOne(){
