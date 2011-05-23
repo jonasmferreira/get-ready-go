@@ -7,6 +7,7 @@ Ext.onReady(function(){
         ,fields: [
 			{name:'post_id', type: 'int'}
 			,{name:'categoria_id', type: 'int'}
+			,{name:'categoria_nome', type: 'string'}
 			,{name:'usuario_id', type: 'int'}
 			,{name:'post_titulo', type: 'string'}
 			,{name:'post_thumb_home', type: 'string'}
@@ -244,13 +245,16 @@ Ext.onReady(function(){
 		title: 'Posts'
 		,id:"postGrid"
 		,store: postStore
-		,resizeble:true
+		//,resizeble:true
+		,autoScroll:true
+		,height: 400
 		,border:false
 		,columns: [
-			{header: 'Código',  dataIndex: 'post_id',sortable: true}
-			,{header: 'Categoria',  dataIndex: 'categoria_id',sortable: true}
-			,{header: 'Título',  dataIndex: 'post_titulo',sortable: true}
-			,{
+			{header: 'Código',  dataIndex: 'post_id',sortable: true, width:70}
+			,{header: 'Categoria ID',  dataIndex: 'categoria_id',sortable: true,hidden:true, hideable:false}
+			,{header: 'Categoria',  dataIndex: 'categoria_nome',sortable: true, width:150}
+			,{header: 'Título',  dataIndex: 'post_titulo',sortable: true,width:250}
+			/*,{
 				header: 'Thumb Home',  
 				dataIndex: 'post_thumb_home', 
 				sortable: true,
@@ -265,17 +269,18 @@ Ext.onReady(function(){
 				renderer:function(val){
 					return '<img width="30%" height="30%" alt="thumb home" src="../posts/'+val+'" />';
 				}
-			}
-			,{header: 'Keywords',  dataIndex: 'post_palavra_chave',sortable: true}
+			}*/
+			,{header: 'Keywords',  dataIndex: 'post_palavra_chave',sortable: true,width:150}
 			//,{header: 'Conteúdo',  dataIndex: 'post_conteudo',sortable: false, hidden:true, hideable:false}
-			,{header: 'Dt. Criação',  dataIndex: 'post_dt_criacao',sortable: true}
-			,{header: 'Dt/Hr Criação ',  dataIndex: 'post_dtcomp_criacao',sortable: true}
-			,{header: 'Dt. Alteração',  dataIndex: 'post_dt_alteracao',sortable: true}
-			,{header: 'Dt/Hr Alteração ',  dataIndex: 'post_dtcomp_alteracao',sortable: true}
+			,{header: 'Dt. Criação',  dataIndex: 'post_dt_criacao',sortable: true,hidden:true,hideable:false}
+			,{header: 'Dt/Hr Criação ',  dataIndex: 'post_dtcomp_criacao',sortable: true,width:120}
+			,{header: 'Dt. Alteração',  dataIndex: 'post_dt_alteracao',sortable: true,hidden:true,hideable:false}
+			,{header: 'Dt/Hr Alteração ',  dataIndex: 'post_dtcomp_alteracao',sortable: true,width:120}
 			,{
 				header: 'Status',  
 				dataIndex: 'post_status',
 				sortable: true,
+				width:70,
 				renderer:function(val){
 					if(val > 0){
 						return 'Ativo'
