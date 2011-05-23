@@ -173,14 +173,17 @@ Ext.onReady(function(){
 		title: 'Categoria'
 		,id:"categoriaGrid"
 		,store: categoriaStore
-		,resizeble:true
+		//,resizeble:true
+		,autoScroll:true
+		,height: 400
 		,columns: [
-			{header: 'Código',  dataIndex: 'categoria_id',sortable: true}
-			,{header: 'Categoria',  dataIndex: 'categoria_nome',sortable: true}
+			{header: 'Código',  dataIndex: 'categoria_id',sortable: true,width:70}
+			,{header: 'Categoria',  dataIndex: 'categoria_nome',sortable: true, width:250}
 			,{
 				header: 'Destaque na Home',  
 				dataIndex: 'categoria_destaque_home',
 				sortable: true,
+				width:150,
 				renderer:function(val){
 					if(val > 0){
 						return 'Sim'
@@ -193,6 +196,7 @@ Ext.onReady(function(){
 				header: 'Galeria',  
 				dataIndex: 'categoria_galeria',
 				sortable: true,
+				width: 80,
 				renderer:function(val){
 					if(val > 0){
 						return 'Sim'
