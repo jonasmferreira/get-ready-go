@@ -53,6 +53,7 @@ Ext.onReady(function(){
 			}
 		]
 	});
+
 	var menuEnquetes = Ext.create('Ext.menu.Menu', {
 		id: 'menuEnquetes',
         style: {
@@ -76,6 +77,33 @@ Ext.onReady(function(){
 						alert("opa");
 					}
 				}	
+			}
+		]
+	});
+
+	var menuPublicidade = Ext.create('Ext.menu.Menu', {
+		id: 'menuPosts',
+        style: {
+            overflow: 'visible'     // For the Combo popup
+        },
+        items: [
+			{
+                text: 'Publicidade'
+				,listeners:{
+					scope:this
+					,click:function(){
+						window.location.href="publicidade.php"
+					}
+				}
+			}
+			,{
+                text: 'Tipo de Publicidade'
+				,listeners:{
+					scope:this
+					,click:function(){
+						window.location.href="publicidadeTipo.php"
+					}
+				}
 			}
 		]
 	});
@@ -117,12 +145,7 @@ Ext.onReady(function(){
 			,{
                 text:'Publicidade'
 				,iconCls: 'bmenu'  // <-- icon
-				,listeners:{
-					scope:this
-					,click:function(){
-						window.location.href="publicidade.php"
-					}
-				}
+				,menu:menuPublicidade
             }
 		]
 	});
