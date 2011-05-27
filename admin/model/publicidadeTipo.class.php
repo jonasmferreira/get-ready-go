@@ -120,13 +120,13 @@ class publicidadeTipo extends defaultClass{
 
 		$ret = array(
 			'success'=>false
-			,'categoria_id' =>''
+			,'publicidade_tipo_id' =>''
 		);
 		$result = $this->dbConn->db_execute(implode("\n",$sql));
 		if($result['success']===true){
 			$this->dbConn->db_commit();
 			$ret['success'] = $result['success'];
-			$ret['publicidade_tipo_id'] = $result['publicidade_tipo_id'];
+			$ret['publicidade_tipo_id'] = $result['last_id'];
 		}else{
 			$this->dbConn->db_rollback();
 		}
