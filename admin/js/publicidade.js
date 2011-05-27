@@ -14,10 +14,41 @@ Ext.onReady(function(){
 			,{name:'publicidade_dt_criacao', type: 'datetime'}
 			,{name:'publicidade_dtcomp_criacao', type: 'datetime'}
 			,{name:'publicidade_status', type: 'int'}
+			,{name:'publicidade_tipo_titulo', type: 'string'}
+			
         ]
         ,idProperty: 'publicidade_id'
 
     });
+	
+	Ext.define('publicidadeTipoModel', {
+        extend: 'Ext.data.Model'
+        ,fields: [
+			{name:'publicidade_tipo_id', type: 'int'}
+			,{name:'publicidade_tipo_titulo', type: 'string'}
+
+        ]
+        ,idProperty: 'publicidade_tipo_id'
+
+    });
+	
+	var publicidadeTipoStore = Ext.create('Ext.data.Store', {
+		id:'publicidadeTipoStore'
+		,autoLoad: true
+		,remoteSort: false
+		,model:'publicidadeTipoModel'
+		
+		,proxy: {
+			type: 'ajax',
+			url: 'controller/publicidade.controller.php?action=getPublicidadeTipoCombo',  // url that will load data with respect to start and limit params
+			reader: {
+				type: 'json',
+				root: 'data',
+				totalProperty: 'totalCount'
+			}
+		}
+		,simpleSortMode: false
+	});
 
 	var publicidadeStore = Ext.create('Ext.data.Store', {
 		id:'publicidadeStore'
@@ -74,6 +105,19 @@ Ext.onReady(function(){
 		,valueField: 'status_id'
 
 	});
+	
+	// Create the combo box, attached to the states data store
+	var publicidadeTipo = Ext.create('Ext.form.ComboBox', {
+		itemId:'publicidadeTipo'
+		,id:'publicidadeTipo'
+		,emptyText: 'Tipo de Publicidade'
+		,store: publicidadeTipoStore
+		,name:'publicidade_tipo_id'
+		,queryMode: 'local'
+		,displayField: 'publicidade_tipo_titulo'
+		,valueField: 'publicidade_tipo_id'
+
+	});
 
 
 
@@ -86,10 +130,12 @@ Ext.onReady(function(){
 			scope:this
 			,click:function(button){
 				var publicidadetipomedia = publicidadeTipoMedia.getValue();
+				var publicidade_tipo_id = publicidadeTipo.getValue();
 				//console.log(usuarioGrid.getStore());
 				publicidadeGrid.getStore().load({
 					params:{
 						'publicidade_tipomedia': publicidadetipomedia
+						,'publicidade_tipo_id':publicidade_tipo_id
 					}
 				});
 			}
@@ -106,9 +152,11 @@ Ext.onReady(function(){
 				publicidadeTipoMedia.setValue('');
 				var publicidadetipomedia = publicidadeTipoMedia.getValue();
 				//console.log(usuarioGrid.getStore());
+				var publicidade_tipo_id = publicidadeTipo.getValue();
 				publicidadeGrid.getStore().load({
 					params:{
 						'publicidade_tipomedia': publicidadetipomedia
+						,'publicidade_tipo_id':publicidade_tipo_id
 					}
 				});
 
@@ -152,6 +200,12 @@ Ext.onReady(function(){
 		,columns: [
 			{header: 'Código',  dataIndex: 'publicidade_id',sortable: true}
 			,{
+				header: 'Tipo de publicidade',
+				dataIndex: 'publicidade_tipo_titulo',
+				sortable: true
+				
+			}
+			,{
 				header: 'Tipo de Midia',
 				dataIndex: 'publicidade_tipomedia',
 				sortable: true,
@@ -188,6 +242,9 @@ Ext.onReady(function(){
 				dock: 'top',
 				items: [
 					publicidadeTipoMedia
+					
+					,{xtype:'tbspacer',width:10}
+					,publicidadeTipo
 
 					,{xtype:'tbspacer',width:10}
 					,filterButton

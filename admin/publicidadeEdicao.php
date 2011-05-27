@@ -14,14 +14,14 @@
 			</script>
 		";
 	}
-	$obj->unsetSession('msgEdit');
+	$objPublicidade->unsetSession('msgEdit');
 
 
 	$session = $objPublicidade->setValues($_REQUEST);
 	if(!empty($_GET['publicidade_id'])){
 		$res = $objPublicidade->getOne();
 	}
-
+	$aPublicidadeTipo = $objPublicidade->getPublicidadeTipoCombo(false);
 	//echo "<pre>" . print_r($res,true) . "</pre>";
 
 ?>
@@ -37,7 +37,7 @@
 		<form action="controller/publicidade.controller.php?action=edit" method="POST" id="formSalvar" enctype="multipart/form-data">
 			<input type="hidden" name="publicidade_id" id="publicidade_id" value="<?php echo empty($res['publicidade_id']) ? '' : $res['publicidade_id'] ?>" />
 
-			<ul style="width:250px">
+			<ul style="width:300px">
 				<li>Tipo de Midia:</li>
 				<li>
 					<select id="publicidade_tipomedia" name="publicidade_tipomedia" class="obrigatorio">
@@ -47,7 +47,18 @@
 					</select>
 				</li>
 			</ul>
-			
+			<ul style="width:300px">
+				<li>Tipo de Publicidade:</li>
+				<li>
+					<select id="publicidade_tipo_id" name="publicidade_tipo_id" class="obrigatorio">
+						<option value="">Selecione um tipo de publicidade</option>
+						<?	foreach($aPublicidadeTipo AS $v):?>
+						<option value="<?=$v['publicidade_tipo_id']?>" <?=($v['publicidade_tipo_id']==$res['publicidade_tipo_id'])?'selected="selected"':""?>><?=$v['publicidade_tipo_titulo']?></option>
+						<?	endforeach;?>
+					</select>
+				</li>
+			</ul>
+			<br clear="all" />
 			<ul style="width:600px">
 				<li>Arquivo:</li>
 				<li>

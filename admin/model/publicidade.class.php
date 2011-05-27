@@ -19,25 +19,35 @@ class publicidade extends defaultClass{
 	public function getLista(){
 		$sql = array();
 		$sql[] = "
-			SELECT	publicidade_id
-					,publicidade_tipomedia
-					,publicidade_arquivo
-					,publicidade_numclique
-					,publicidade_dt_ativacao
-					,publicidade_dt_desativacao
-					,publicidade_dt_criacao
-					,publicidade_dtcomp_criacao
-			FROM	tb_publicidade
+			SELECT	p.publicidade_id
+					,p.publicidade_tipo_id
+					,p.publicidade_tipomedia
+					,p.publicidade_arquivo
+					,p.publicidade_numclique
+					,p.publicidade_dt_ativacao
+					,p.publicidade_dt_desativacao
+					,p.publicidade_dt_criacao
+					,p.publicidade_dtcomp_criacao
+					,pt.publicidade_tipo_titulo
+			FROM	tb_publicidade p
+			
+			JOIN	tb_publicidade_tipo pt
+			ON		pt.publicidade_tipo_id = p.publicidade_tipo_id
+			
 			WHERE	1 = 1
 		";
 		if(isset($this->values['publicidade_tipomedia'])&&trim($this->values['publicidade_tipomedia'])!=''){
-			$sql[] = "AND	publicidade_tipomedia = '{$this->values['publicidade_tipomedia']}'";
+			$sql[] = "AND	p.publicidade_tipomedia = '{$this->values['publicidade_tipomedia']}'";
 		}
 		if(isset($this->values['publicidade_arquivo'])&&trim($this->values['publicidade_arquivo'])!=''){
-			$sql[] = "AND	publicidade_arquivo = '{$this->values['publicidade_arquivo']}'";
+			$sql[] = "AND	p.publicidade_arquivo = '{$this->values['publicidade_arquivo']}'";
 		}
 		if(isset($this->values['publicidade_numclique'])&&trim($this->values['publicidade_numclique'])!=''){
-			$sql[] = "AND	publicidade_numclique = '{$this->values['publicidade_numclique']}'";
+			$sql[] = "AND	p.publicidade_numclique = '{$this->values['publicidade_numclique']}'";
+		}
+		
+		if(isset($this->values['publicidade_tipo_id'])&&trim($this->values['publicidade_tipo_id'])!=''){
+			$sql[] = "AND	p.publicidade_tipo_id = '{$this->values['publicidade_tipo_id']}'";
 		}
 		
 		$result = $this->dbConn->db_query(implode("\n",$sql));
@@ -56,6 +66,7 @@ class publicidade extends defaultClass{
 		$sql = array();
 		$sql[] = "
 			SELECT	publicidade_id
+					,publicidade_tipo_id
 					,publicidade_tipomedia
 					,publicidade_arquivo
 					,publicidade_numclique
@@ -106,6 +117,7 @@ class publicidade extends defaultClass{
 			UPDATE	tb_publicidade SET
 				publicidade_tipomedia = '{$this->values['publicidade_tipomedia']}'
 				,publicidade_numclique = '{$this->values['publicidade_numclique']}'
+				,publicidade_tipo_id = '{$this->values['publicidade_tipo_id']}'
 				,publicidade_dt_ativacao = '{$this->values['publicidade_dt_ativacao']}'
 				,publicidade_dt_desativacao = '{$this->values['publicidade_dt_desativacao']}'
 				,publicidade_dt_criacao = NOW()
@@ -146,6 +158,7 @@ class publicidade extends defaultClass{
 		$sql[] = "
 			INSERT INTO	tb_publicidade SET
 				publicidade_tipomedia = '{$this->values['publicidade_tipomedia']}'
+				,publicidade_tipo_id = '{$this->values['publicidade_tipo_id']}'
 				,publicidade_numclique = '{$this->values['publicidade_numclique']}'
 				,publicidade_dt_ativacao = '{$this->values['publicidade_dt_ativacao']}'
 				,publicidade_dt_desativacao = '{$this->values['publicidade_dt_desativacao']}'
@@ -170,5 +183,32 @@ class publicidade extends defaultClass{
 		}
 		return $ret;
 	}
+	public function getPublicidadeTipoCombo($returnExt=true){
+		$sql = array();
+		$sql[] = "
+			SELECT	*
+			FROM	tb_publicidade_tipo
+
+			WHERE	1 = 1
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		$rs = array();
+		if($result['total'] > 0){
+			$res = array();
+			if($result['total'] > 0){
+				while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+					array_push($res, $rs);
+				}
+			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
+		}
+		return $this->utf8_array_encode($res);
+	}
+	
 }
 ?>

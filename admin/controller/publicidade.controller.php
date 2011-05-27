@@ -50,6 +50,12 @@
 				echo 'Imagem da galeria excluida com sucesso!';
 			}
 		break;
+		case 'getPublicidadeTipoCombo':
+			$obj->setValues($_REQUEST);
+			$aJson = array();
+			$aJson = $obj->getPublicidadeTipoCombo();
+			echo json_encode($aJson);
+		break;
 	}
 
 
