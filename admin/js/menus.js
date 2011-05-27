@@ -16,6 +16,15 @@ Ext.onReady(function(){
 					}
 				}	
 			}
+			,{
+                text: 'Avatares'
+				,listeners:{
+					scope:this
+					,click:function(){
+						window.location.href="avatar.php"
+					}
+				}	
+			}
 		]
 	});
 	var menuPosts = Ext.create('Ext.menu.Menu', {
