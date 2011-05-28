@@ -89,7 +89,7 @@ class enquete extends defaultClass{
 			SELECT	eo.enquete_opcao_id
 					,eo.enquete_id
 					,eo.enquete_opcao_titulo
-					,(SELECT COUNT(enquete_votacao_id) FROM tb_enquete_votacao WHERE enquete_opcao_id = eo.enquete_opcao_id) AS 'resultado'
+					,(SELECT COUNT(enquete_votacao_id) FROM tb_enquete_votacao WHERE opcao_enquete_opcao_id = eo.enquete_opcao_id) AS 'resultado'
 			FROM	tb_enquete_opcao eo
 			WHERE	1 = 1
 			AND		eo.enquete_id = '{$enquete_id}'
