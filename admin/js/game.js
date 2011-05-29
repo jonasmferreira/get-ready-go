@@ -9,7 +9,9 @@ Ext.onReady(function(){
 			,{name:'game_titulo', type: 'string'}
 			,{name:'game_descricao', type: 'string'}
 			,{name:'game_tipo_id', type: 'int'}
-			,{name:'game_categoria_game_id', type: 'int'}
+			,{name:'game_tipo_nome', type: 'string'}
+			,{name:'game_categoria_id', type: 'int'}
+			,{name:'game_categoria_nome', type: 'string'}
 			,{name:'game_link', type: 'string'}
 			,{name:'game_qtd_download', type: 'string'}
 			,{name:'game_qtd_jogado', type: 'string'}
@@ -220,9 +222,9 @@ Ext.onReady(function(){
 		,columns: [
 			{header: 'Código',  dataIndex: 'game_id',sortable: true, width:70}
 			,{header: 'Categoria ID',  dataIndex: 'categoria_game_id',sortable: true,hidden:true, hideable:false}
-			,{header: 'Categoria',  dataIndex: 'categoria_game_nome',sortable: true, width:150}
+			,{header: 'Categoria',  dataIndex: 'game_categoria_nome',sortable: true, width:150}
 			,{header: 'Tipo ID',  dataIndex: 'categoria_tipo_id',sortable: true,hidden:true, hideable:false}
-			,{header: 'Tipo',  dataIndex: 'categoria_tipo_nome',sortable: true, width:150}
+			,{header: 'Tipo',  dataIndex: 'game_tipo_nome',sortable: true, width:150}
 			,{header: 'Url',  dataIndex: 'game_link',sortable: true, width:150}
 			,{header: 'Criador',  dataIndex: 'game_criador_nome',sortable: true, width:150}
 			
