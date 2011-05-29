@@ -141,7 +141,7 @@ Ext.onReady(function(){
 		,height: 400
 		,border:false
 		,columns: [
-			{header: 'Código',  dataIndex: 'enquete_id',sortable: true, width:60}
+			{header: 'Código',  dataIndex: 'enquete_id',sortable: true, width:70}
 			,{header: 'Título',  dataIndex: 'enquete_titulo',sortable: true,width:300}
 			,{header: 'QTD. Opções',  dataIndex: 'qtde_opcoes',sortable: true, width:80}
 			,{header: 'Dt. Criação',  dataIndex: 'enquete_dt_criacao',sortable: true, hidden:true, hideable:false}
