@@ -128,7 +128,7 @@ Ext.onReady(function(){
 		,height: 400
 		,border:false
 		,columns: [
-			{header: 'Código',  dataIndex: 'enquete_opcao_id',sortable: true,width:30}
+			{header: 'Código',  dataIndex: 'enquete_opcao_id',sortable: true,width:70}
 			,{
 				header: 'Opção'
 				,dataIndex: 'enquete_opcao_titulo'
@@ -140,9 +140,9 @@ Ext.onReady(function(){
 				header: 'Resultado'
 				,dataIndex: 'resultado'
 				,sortable: true
-				,width:30
+				,width:70
 			}
-			,{header: '%',  dataIndex: 'percentual',sortable: true,width:30}
+			,{header: '%',  dataIndex: 'percentual',sortable: true,width:70}
 		]
 		,listeners: {
 			scope:this
