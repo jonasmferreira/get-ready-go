@@ -1,0 +1,1 @@
+ALTER TABLE `get_ready_go`.`tb_comentario` ADD COLUMN `comentario_status` TINYINT UNSIGNED NOT NULL DEFAULT 0 AFTER `usuario_id`;
