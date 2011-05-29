@@ -154,17 +154,15 @@ Ext.onReady(function(){
 					,{xtype:'tbspacer',width:10}
 					,resetButton
 					
-					,'->'
-					,novoButton
-					
-					
 				]
 			}
-			,{
+,{
 				xtype: 'toolbar',
 				dock: 'top',
 				items: [
-					'->'
+					novoButton
+					,{xtype:'tbspacer', width:20}
+					,{xtype:'tbseparator'}
 					,{xtype:'label',html:'<b>Para editar, double-click no registro!</b>'}
 				]
 			}
