@@ -2,25 +2,25 @@ Ext.require(['*']);
 Ext.onReady(function(){
     Ext.QuickTips.init();
 	var itemsPerPage = 100;   // set the number of items you want per page
-	Ext.define('categoriaGameModel', {
+	Ext.define('tipoGameModel', {
         extend: 'Ext.data.Model'
         ,fields: [
-			{name:'game_categoria_id', type: 'int'}
-			,{name:'game_categoria_nome', type: 'string'}
+			{name:'game_tipo_id', type: 'int'}
+			,{name:'game_tipo_nome', type: 'string'}
         ]
-        ,idProperty: 'game_categoria_id'
+        ,idProperty: 'game_tipo_id'
 		
     });
 	
-	var categoriaGameStore = Ext.create('Ext.data.Store', {
-		id:'categoriaGameStore'
+	var tipoGameStore = Ext.create('Ext.data.Store', {
+		id:'tipoGameStore'
 		,autoLoad: false
 		,remoteSort: true
-		,model:'categoriaGameModel'
+		,model:'tipoGameModel'
 		,pageSize: itemsPerPage // items per page
 		,proxy: {
 			type: 'ajax',
-			url: 'controller/categoriaGame.controller.php',  // url that will load data with respect to start and limit params
+			url: 'controller/tipoGame.controller.php',  // url that will load data with respect to start and limit params
 			reader: {
 				type: 'json',
 				root: 'data',
@@ -31,18 +31,18 @@ Ext.onReady(function(){
 	});
 
 	// specify segment of data you want to load using params
-	categoriaGameStore.load({
+	tipoGameStore.load({
 		params:{
 			start:0,    
 			limit: itemsPerPage
 		}
 	});
 	
-	var categoriaGameNomeText = Ext.create('Ext.form.field.Text',{
-		itemId:'categoriaGameNomeText'
-		,emptyText: 'Nome da categoria de games'
+	var tipoGameNomeText = Ext.create('Ext.form.field.Text',{
+		itemId:'tipoGameNomeText'
+		,emptyText: 'Nome do Tipo de games'
 		,fieldLabel:''
-		,name:'game_categoria_nome'
+		,name:'game_tipo_nome'
 		,anchor: '100%'
 	});
 	
@@ -57,11 +57,11 @@ Ext.onReady(function(){
 			scope:this
 			,click:function(button){
 				
-				var game_categoria_nome = categoriaGameNomeText.getValue();
+				var game_tipo_nome = tipoGameNomeText.getValue();
 				
-				categoriaGameGrid.getStore().load({
+				tipoGameGrid.getStore().load({
 					params:{
-						'game_categoria_nome': game_categoria_nome
+						'game_tipo_nome': game_tipo_nome
 					}
 				});
 			}
@@ -76,12 +76,12 @@ Ext.onReady(function(){
 			scope:this
 			,click:function(button){
 				
-				categoriaGameNomeText.setValue('');
-				var game_categoria_nome = categoriaGameNomeText.getValue();
+				tipoGameNomeText.setValue('');
+				var game_tipo_nome = tipoGameNomeText.getValue();
 				
-				categoriaGameGrid.getStore().load({
+				tipoGameGrid.getStore().load({
 					params:{
-						'game_categoria_nome': game_categoria_nome
+						'game_tipo_nome': game_tipo_nome
 					}
 				});
 				
@@ -91,18 +91,18 @@ Ext.onReady(function(){
 	});
 	var novoButton = Ext.create('Ext.Button', {
 		itemId:"novoButton"
-		,text:'Nova Categoria de Games'
-		,tooltip:'Nova Categoria de Games'
+		,text:'Novo Tipo de Games'
+		,tooltip:'Novo Tipo de Games'
 		,iconCls:'icon-add'
 		,listeners:{
 			scope:this
 			,click:function(button){
-				window.location.href = 'categoriaGameEdicao.php';
+				window.location.href = 'tipoGameEdicao.php';
 			}
 		}
 	});
 	
-	var selModelcategoriaGameGrid = Ext.create('Ext.selection.RowModel',{
+	var selModeltipoGameGrid = Ext.create('Ext.selection.RowModel',{
 		listeners: {
 			scope:this
 			,select: function(smObj, record, index) {
@@ -114,29 +114,29 @@ Ext.onReady(function(){
 	
 	
 	//var GridView = Ext.create('Ext.grid.GridView',{});
-	var categoriaGameGrid = Ext.create('Ext.grid.Panel', {
-		title: 'Categoria de Games'
-		,id:"categoriaGameGrid"
-		,store: categoriaGameStore
+	var tipoGameGrid = Ext.create('Ext.grid.Panel', {
+		title: 'Tipo de Games'
+		,id:"tipoGameGrid"
+		,store: tipoGameStore
 		//,resizeble:true
 		,autoScroll:true
 		,height: 400
 		,columns: [
-			{header: 'Código',  dataIndex: 'game_categoria_id',sortable: true,width:70}
-			,{header: 'Nome',  dataIndex: 'game_categoria_nome',sortable: true, width:250}
+			{header: 'Código',  dataIndex: 'game_tipo_id',sortable: true,width:70}
+			,{header: 'Nome',  dataIndex: 'game_tipo_nome',sortable: true, width:250}
 			
 		]
 		,listeners: {
 			scope:this
 			,itemdblclick:function(obj, record, item, index, e) {
-				window.location.href = "categoriaGameEdicao.php?game_categoria_id="+record.data.game_categoria_id
+				window.location.href = "tipoGameEdicao.php?game_tipo_id="+record.data.game_tipo_id
 			}
 		}
 		,layout:'fit'
 		,dockedItems: [
 			{
 				xtype: 'pagingtoolbar',
-				store: categoriaGameStore,   // same store GridPanel is using
+				store: tipoGameStore,   // same store GridPanel is using
 				dock: 'bottom',
 				displayInfo: true,
 				displayMsg: "Mostrando {0} - {1} de {2}"
@@ -146,7 +146,7 @@ Ext.onReady(function(){
 				dock: 'top',
 				items: [
 					{xtype:'tbspacer',width:10}
-					,categoriaGameNomeText
+					,tipoGameNomeText
 					
 					,{xtype:'tbspacer',width:10}
 					,filterButton
@@ -176,7 +176,7 @@ Ext.onReady(function(){
         }
 	}); 
 	//pass along browser window resize events to the panel
-    Ext.EventManager.onWindowResize(categoriaGameGrid.doLayout, categoriaGameGrid);
+    Ext.EventManager.onWindowResize(tipoGameGrid.doLayout, tipoGameGrid);
 
 });
 
