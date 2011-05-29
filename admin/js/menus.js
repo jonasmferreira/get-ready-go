@@ -116,6 +116,41 @@ Ext.onReady(function(){
 			}
 		]
 	});
+	var menuGames = Ext.create('Ext.menu.Menu', {
+		id: 'menuGames',
+        style: {
+            overflow: 'visible'     // For the Combo popup
+        },
+        items: [
+			{
+                text: 'Categoria'
+				,listeners:{
+					scope:this
+					,click:function(){
+						window.location.href="categoriaGame.php"
+					}
+				}
+			}
+			,{
+                text: 'Tipo de Game'
+				,listeners:{
+					scope:this
+					,click:function(){
+						window.location.href="tipoGame.php"
+					}
+				}
+			}
+			,{
+                text: 'Games'
+				,listeners:{
+					scope:this
+					,click:function(){
+						window.location.href="game.php"
+					}
+				}
+			}
+		]
+	});
 	
     var tb = Ext.create('Ext.toolbar.Toolbar',{
 		id:'menuToolbar'
@@ -135,6 +170,11 @@ Ext.onReady(function(){
                 text:'Posts'
 				,iconCls: 'bmenu'  // <-- icon
 				,menu: menuPosts  // assign menu by instance
+            }
+			,{
+                text:'Games'
+				,iconCls: 'bmenu'  // <-- icon
+				,menu: menuGames  // assign menu by instance
             }
 			,{
                 text:'Galerias'
