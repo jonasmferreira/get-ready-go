@@ -135,12 +135,12 @@ Ext.onReady(function(){
 		,height: 400
 		,border:false
 		,columns: [
-			{header: 'Código',  dataIndex: 'publicidade_tipo_id',sortable: true}
-			,{header: 'Título',  dataIndex: 'publicidade_tipo_titulo',sortable: true}
-			,{header: 'Dt. Criação',  dataIndex: 'publicidade_tipo_dt_criacao',sortable: true}
-			,{header: 'Dt/Hr Criação ',  dataIndex: 'publicidade_tipo_dtcomp_criacao',sortable: true}
-			,{header: 'Dt. Alteração',  dataIndex: 'publicidade_tipo_dt_alteracao',sortable: true}
-			,{header: 'Dt/Hr Alteração ',  dataIndex: 'publicidade_tipo_dtcomp_alteracao',sortable: true}
+			{header: 'Código',  dataIndex: 'publicidade_tipo_id',sortable: true, width:60}
+			,{header: 'Título',  dataIndex: 'publicidade_tipo_titulo',sortable: true,width:200}
+			,{header: 'Dt. Criação',  dataIndex: 'publicidade_tipo_dt_criacao',sortable: true,hidden:true, hideable:false}
+			,{header: 'Dt/Hr Criação ',  dataIndex: 'publicidade_tipo_dtcomp_criacao',sortable: true,width:120}
+			,{header: 'Dt. Alteração',  dataIndex: 'publicidade_tipo_dt_alteracao',sortable: true,hidden:true, hideable:false}
+			,{header: 'Dt/Hr Alteração ',  dataIndex: 'publicidade_tipo_dtcomp_alteracao',sortable: true,width:120}
 		]
 		,listeners: {
 			scope:this
