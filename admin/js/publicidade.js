@@ -198,17 +198,19 @@ Ext.onReady(function(){
 		,height: 400
 		,border:false
 		,columns: [
-			{header: 'Código',  dataIndex: 'publicidade_id',sortable: true}
+			{header: 'Código',  dataIndex: 'publicidade_id',sortable: true, width:60}
 			,{
 				header: 'Tipo de publicidade',
 				dataIndex: 'publicidade_tipo_titulo',
-				sortable: true
+				sortable: true, 
+				width:200
 				
 			}
 			,{
 				header: 'Tipo de Midia',
 				dataIndex: 'publicidade_tipomedia',
 				sortable: true,
+				width:120,
 				renderer:function(val){
 					if(val == 0){
 						return 'Imagem'
@@ -217,10 +219,10 @@ Ext.onReady(function(){
 					}
 				}
 			}
-			,{header: 'Dt. Criação',  dataIndex: 'publicidade_dt_criacao',sortable: true}
-			,{header: 'Dt/Hr Criação ',  dataIndex: 'publicidade_dtcomp_criacao',sortable: true}
-			,{header: 'Dt. Ativação',  dataIndex: 'publicidade_dt_ativacao',sortable: true}
-			,{header: 'Dt. Desativação',  dataIndex: 'publicidade_dt_desativacao',sortable: true}
+			,{header: 'Dt. Criação',  dataIndex: 'publicidade_dt_criacao',sortable: true,hidden:true,hideable:false}
+			,{header: 'Dt/Hr Criação ',  dataIndex: 'publicidade_dtcomp_criacao',sortable: true, width:120}
+			,{header: 'Dt. Ativação',  dataIndex: 'publicidade_dt_ativacao',sortable: true, width:120}
+			,{header: 'Dt. Desativação',  dataIndex: 'publicidade_dt_desativacao',sortable: true, width:120}
 		]
 		,listeners: {
 			scope:this
