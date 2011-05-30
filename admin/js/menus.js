@@ -142,6 +142,15 @@ Ext.onReady(function(){
 				}
 			}
 			,{
+                text: 'Mídia de Game'
+				,listeners:{
+					scope:this
+					,click:function(){
+						window.location.href="midiaGame.php"
+					}
+				}
+			}
+			,{
                 text: 'Games'
 				,listeners:{
 					scope:this
