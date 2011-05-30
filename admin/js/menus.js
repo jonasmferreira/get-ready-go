@@ -97,15 +97,6 @@ Ext.onReady(function(){
         },
         items: [
 			{
-                text: 'Publicidade'
-				,listeners:{
-					scope:this
-					,click:function(){
-						window.location.href="publicidade.php"
-					}
-				}
-			}
-			,{
                 text: 'Tipo de Publicidade'
 				,listeners:{
 					scope:this
@@ -114,6 +105,16 @@ Ext.onReady(function(){
 					}
 				}
 			}
+			,{
+                text: 'Publicidade'
+				,listeners:{
+					scope:this
+					,click:function(){
+						window.location.href="publicidade.php"
+					}
+				}
+			}
+			
 		]
 	});
 	var menuGames = Ext.create('Ext.menu.Menu', {
