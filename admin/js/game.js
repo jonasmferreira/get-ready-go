@@ -12,6 +12,8 @@ Ext.onReady(function(){
 			,{name:'game_tipo_nome', type: 'string'}
 			,{name:'game_categoria_id', type: 'int'}
 			,{name:'game_categoria_nome', type: 'string'}
+			,{name:'game_midia_id', type: 'int'}
+			,{name:'game_midia_nome', type: 'string'}
 			,{name:'game_link', type: 'string'}
 			,{name:'game_qtd_download', type: 'string'}
 			,{name:'game_qtd_jogado', type: 'string'}
@@ -135,7 +137,48 @@ Ext.onReady(function(){
 	});
 	
 
-	
+
+
+	Ext.define('gameMidiaModel', {
+        extend: 'Ext.data.Model'
+        ,fields: [
+			{name:'game_midia_id', type: 'int'}
+			,{name:'game_midia_nome', type: 'string'}
+        ]
+        ,idProperty: 'game_midia_id'
+		
+    });
+	// The data store containing the list of states
+	var gameMidiaStore = Ext.create('Ext.data.Store', {
+		id:'gameMidiaStore'
+		,autoLoad: true
+		,remoteSort: false
+		,model:'gameMidiaModel'
+		,proxy: {
+			type: 'ajax',
+			url: 'controller/game.controller.php?action=getMidiaCombo',  // url that will load data with respect to start and limit params
+			reader: {
+				type: 'json',
+				root: 'data',
+				totalProperty: 'totalCount'
+			}
+		}
+	});
+
+	// Create the combo box, attached to the states data store
+	var gameMidiaCombo = Ext.create('Ext.form.ComboBox', {
+		itemId:'gameMidiaCombo'
+		,id:'gameMidiaCombo'
+		,emptyText: 'Mídia'
+		,store: gameMidiaStore
+		,name:'game_midia_id'
+		,displayField: 'game_midia_nome'
+		,valueField: 'game_midia_id'
+		
+	});
+
+
+
 	var filterButton = Ext.create('Ext.Button', {
 		itemId:"filterButton"
 		,text:''
@@ -147,12 +190,15 @@ Ext.onReady(function(){
 				var categoria_game_id = gameCategoriaCombo.getValue();
 				var game_titulo = gameTituloText.getValue();
 				var game_tipo_id = gameTipoCombo.getValue();
+				var game_midia_id = gameMidiaCombo.getValue();
+				
 				//console.log(usuarioGrid.getStore());
 				gameGrid.getStore().load({
 					params:{
 						'categoria_game_id': categoria_game_id
 						,'game_titulo': game_titulo
 						,'game_tipo_id': game_tipo_id
+						,'game_midia_id': game_midia_id
 					}
 				});
 			}
@@ -169,16 +215,20 @@ Ext.onReady(function(){
 				gameCategoriaCombo.setValue('');
 				gameTituloText.setValue('');
 				gameTipoCombo.setValue('');
+				gameMidiaCombo.setValue('');
 				
 				var categoria_game_id = gameCategoriaCombo.getValue();
 				var game_titulo = gameTituloText.getValue();
 				var game_tipo_id = gameTipoCombo.getValue();
+				var game_midia_id = gameMidiaCombo.getValue();
+				
 				//console.log(usuarioGrid.getStore());
 				gameGrid.getStore().load({
 					params:{
 						'categoria_game_id': categoria_game_id
 						,'game_titulo': game_titulo
 						,'game_tipo_id': game_tipo_id
+						,'game_midia_id': game_midia_id
 					}
 				});
 				
@@ -225,6 +275,8 @@ Ext.onReady(function(){
 			,{header: 'Categoria',  dataIndex: 'game_categoria_nome',sortable: true, width:150}
 			,{header: 'Tipo ID',  dataIndex: 'categoria_tipo_id',sortable: true,hidden:true, hideable:false}
 			,{header: 'Tipo',  dataIndex: 'game_tipo_nome',sortable: true, width:150}
+			,{header: 'Mídia ID',  dataIndex: 'game_midia_id',sortable: true,hidden:true, hideable:false}
+			,{header: 'Mídia',  dataIndex: 'game_midia_nome',sortable: true, width:150}
 			,{header: 'Url',  dataIndex: 'game_link',sortable: true, width:150}
 			,{header: 'Criador',  dataIndex: 'game_criador_nome',sortable: true, width:150}
 			
@@ -257,6 +309,9 @@ Ext.onReady(function(){
 					
 					,{xtype:'tbspacer',width:10}
 					,gameTipoCombo
+					
+					,{xtype:'tbspacer',width:10}
+					,gameMidiaCombo
 					
 					,{xtype:'tbspacer',width:10}
 					,filterButton
