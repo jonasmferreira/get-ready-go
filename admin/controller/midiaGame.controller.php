@@ -27,7 +27,7 @@
 				header('Location: ../midiaGame.php');
 			}else{
 				$obj->setSession('msgEdit', 'Mídia de Games salvo com Sucesso!');
-				header('Location: ../midiaGameEdicao.php?game_tipo_id='.$result['game_midia_id']);
+				header('Location: ../midiaGameEdicao.php?game_midia_id='.$result['game_midia_id']);
 			}
 		break;
 	}
