@@ -7,6 +7,8 @@
 	$objGame = new game();
 	$aTipo = $objGame->getTipoCombo(false);
 	$aCategoria = $objGame->getCategoriaCombo(false);
+	$aMidia = $objGame->getMidiaCombo(false);
+	
 	$aUsuario = $objGame->getUsuario(false);
 	
 	$session = $objGame->getSessions();
@@ -58,6 +60,19 @@
 					</select>
 				</li>
 			</ul>
+			<br clear="all" />
+			<ul style="width:200px">
+				<li>Mídia:</li>
+				<li>
+					<select id="game_midia_id" name="game_midia_id" class="obrigatorio">
+						<option value="">Selecione a mídia</option>
+						<?	foreach($aMidia AS $v):?>
+						<option value="<?=($v['game_midia_id'])?>" <?=($res['game_midia_id']==$v['game_midia_id']?' selected="selected"':'')?>><?=$v['game_midia_nome']?></option>
+						<?	endforeach;?>
+					</select>
+				</li>
+			</ul>
+			
 			<ul style="width:200px">
 				<li>Usuário:</li>
 				<li>
