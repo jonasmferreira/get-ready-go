@@ -218,6 +218,7 @@ class game extends defaultClass{
 				,game_descricao = '{$this->values['game_descricao']}'
 				,game_tipo_id = '{$this->values['game_tipo_id']}'
 				,game_categoria_id = '{$this->values['game_categoria_id']}'
+				,game_midia_id = '{$this->values['game_midia_id']}'
 				,game_link = '{$this->values['game_link']}'
 				,game_qtd_download = '{$this->values['game_qtd_download']}'
 				,game_qtd_jogado = '{$this->values['game_qtd_jogado']}'
