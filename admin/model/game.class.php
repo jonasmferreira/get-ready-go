@@ -38,6 +38,8 @@ class game extends defaultClass{
 				,g.game_total_votacao
 				,g.game_criador_is_user
 				,g.game_criador_nome
+				,g.game_width
+				,g.game_height
 				,gc.game_categoria_nome
 				,gt.game_tipo_nome
 				,gm.game_midia_nome
@@ -106,6 +108,8 @@ class game extends defaultClass{
 				,g.game_qtd_jogado
 				,g.game_criador_is_user
 				,g.game_criador_nome
+				,g.game_width
+				,g.game_height
 				,gc.game_categoria_nome
 				,gt.game_tipo_nome
 			FROM	tb_game g
@@ -173,6 +177,8 @@ class game extends defaultClass{
 					,game_qtd_jogado = '{$this->values['game_qtd_jogado']}'
 					,game_criador_is_user = '{$this->values['game_criador_is_user']}'
 					,game_criador_nome = '{$this->values['game_criador_nome']}'
+					,game_width = '{$this->values['game_width']}'
+					,game_height = '{$this->values['game_height']}'
 		";
 		if(isset($this->values['game_thumb'])&&trim($this->values['game_thumb'])!=''){
 			$sql[] = ",game_thumb = '{$this->values['game_thumb']}'";
@@ -224,6 +230,9 @@ class game extends defaultClass{
 				,game_qtd_jogado = '{$this->values['game_qtd_jogado']}'
 				,game_criador_is_user = '{$this->values['game_criador_is_user']}'
 				,game_criador_nome = '{$this->values['game_criador_nome']}'
+				,game_width = '{$this->values['game_width']}'
+				,game_height = '{$this->values['game_height']}'
+				
 		";
 		if(isset($this->values['game_thumb'])&&trim($this->values['game_thumb'])!=''){
 			$sql[] = ",game_thumb = '{$this->values['game_thumb']}'";
