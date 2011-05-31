@@ -60,18 +60,6 @@
 					</select>
 				</li>
 			</ul>
-			<br clear="all" />
-			<ul style="width:200px">
-				<li>Mídia:</li>
-				<li>
-					<select id="game_midia_id" name="game_midia_id" class="obrigatorio">
-						<option value="">Selecione a mídia</option>
-						<?	foreach($aMidia AS $v):?>
-						<option value="<?=($v['game_midia_id'])?>" <?=($res['game_midia_id']==$v['game_midia_id']?' selected="selected"':'')?>><?=$v['game_midia_nome']?></option>
-						<?	endforeach;?>
-					</select>
-				</li>
-			</ul>
 			
 			<ul style="width:200px">
 				<li>Usuário:</li>
@@ -89,7 +77,32 @@
 						<option value="outro" <?=($outro===true&&!empty($res['game_id'])?' selected="selected"':'')?>>Outro</option>
 					</select>
 				</li>
-			</ul><br clear="all" />
+			</ul>
+			<br clear="all" />
+
+			<ul style="width:300px">
+				<li>Mídia:</li>
+				<li>
+					<select style="width:300px" id="game_midia_id" name="game_midia_id" class="obrigatorio">
+						<option value="">Selecione a mídia</option>
+						<?	foreach($aMidia AS $v):?>
+						<option value="<?=($v['game_midia_id'])?>" <?=($res['game_midia_id']==$v['game_midia_id']?' selected="selected"':'')?>><?=$v['game_midia_nome']?></option>
+						<?	endforeach;?>
+					</select>
+				</li>
+			</ul>
+
+			<ul style="width:100px">
+				<li>Width (px):</li>
+				<li><input type="text" name="game_width" class="obrigatorio" id="game_width" value="<?php echo empty($res['game_width']) ? '' : $res['game_width'] ?>" /></li>
+			</ul>
+			<ul style="width:100px">
+				<li>Height (px):</li>
+				<li><input type="text" name="game_height" class="obrigatorio" id="game_height" value="<?php echo empty($res['game_height']) ? '' : $res['game_height'] ?>" /></li>
+			</ul>
+			
+			<br clear="all" />
+			
 			<ul style="width:600px">
 				<li>Criador:</li>
 				<li><input type="text" name="game_criador_nome" class="obrigatorio" id="game_criador_nome" value="<?php echo empty($res['game_criador_nome']) ? '' : $res['game_criador_nome'] ?>" /></li>
