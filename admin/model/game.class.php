@@ -30,13 +30,17 @@ class game extends defaultClass{
 				,g.game_imagem_destaque
 				,g.game_tipo_id
 				,g.game_categoria_id
+				,g.game_midia_id
 				,g.game_link
 				,g.game_qtd_download
 				,g.game_qtd_jogado
+				,g.game_qtd_votacao
+				,g.game_total_votacao
 				,g.game_criador_is_user
 				,g.game_criador_nome
 				,gc.game_categoria_nome
 				,gt.game_tipo_nome
+				,gm.game_midia_nome
 			FROM	tb_game g
 			
 			JOIN	tb_game_tipo gt
@@ -44,6 +48,9 @@ class game extends defaultClass{
 			
 			JOIN	tb_game_categoria gc
 			ON		gc.game_categoria_id = g.game_categoria_id
+			
+			JOIN	tb_game_midia gm
+			ON		gm.game_midia_id = g.game_midia_id
 			
 			WHERE	1 = 1
 		";
@@ -93,6 +100,7 @@ class game extends defaultClass{
 				,g.game_imagem_destaque
 				,g.game_tipo_id
 				,g.game_categoria_id
+				,g.game_midia_id
 				,g.game_link
 				,g.game_qtd_download
 				,g.game_qtd_jogado
@@ -107,6 +115,9 @@ class game extends defaultClass{
 			
 			JOIN	tb_game_categoria gc
 			ON		gc.game_categoria_id = g.game_categoria_id
+			
+			JOIN	tb_game_midia gm
+			ON		gm.game_midia_id = g.game_midia_id
 			
 			WHERE	1 = 1
 		";
@@ -156,6 +167,7 @@ class game extends defaultClass{
 					,game_descricao = '{$this->values['game_descricao']}'
 					,game_tipo_id = '{$this->values['game_tipo_id']}'
 					,game_categoria_id = '{$this->values['game_categoria_id']}'
+					,game_midia_id = '{$this->values['game_midia_id']}'
 					,game_link = '{$this->values['game_link']}'
 					,game_qtd_download = '{$this->values['game_qtd_download']}'
 					,game_qtd_jogado = '{$this->values['game_qtd_jogado']}'
@@ -259,6 +271,28 @@ class game extends defaultClass{
 		$sql[] = "
 			SELECT	*
 			FROM	tb_game_categoria
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$success = $result['success'];
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+		}
+		if($returnExt){
+			return $this->convertExtReturn($res, $success,count($res));
+		}
+		return $this->utf8_array_encode($res);
+	}
+	public function getMidiaCombo($returnExt=true){
+		$sql = array();
+		$sql[] = "
+			SELECT	*
+			FROM	tb_game_midia
 		";
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		$success = $result['success'];
