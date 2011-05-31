@@ -37,10 +37,10 @@
 		<form action="controller/game.controller.php?action=edit" method="post" id="formSalvar" enctype="multipart/form-data">
 			<input type="hidden" name="game_id" id="game_id" value="<?php echo empty($res['game_id']) ? '' : $res['game_id'] ?>" />
 			
-			<ul style="width:200px">
+			<ul style="width:185px">
 				<li>Categoria:</li>
 				<li>
-					<select id="game_categoria_id" name="game_categoria_id" class="obrigatorio">
+					<select style="width:185px" id="game_categoria_id" name="game_categoria_id" class="obrigatorio">
 						<option value="">Selecione uma categoria</option>
 						<?	foreach($aCategoria AS $v):?>
 						<option value="<?=$v['game_categoria_id']?>"<?=($res['game_categoria_id']==$v['game_categoria_id']?' selected="selected"':'')?>><?=$v['game_categoria_nome']?></option>
@@ -49,10 +49,10 @@
 				</li>
 			</ul>
 
-			<ul style="width:200px">
+			<ul style="width:185px">
 				<li>Tipo:</li>
 				<li>
-					<select id="game_tipo_id" name="game_tipo_id" class="obrigatorio">
+					<select style="width:185px" id="game_tipo_id" name="game_tipo_id" class="obrigatorio">
 						<option value="">Selecione um tipo</option>
 						<?	foreach($aTipo AS $v):?>
 						<option value="<?=($v['game_tipo_id'])?>" <?=($res['game_tipo_id']==$v['game_tipo_id']?' selected="selected"':'')?>><?=$v['game_tipo_nome']?></option>
