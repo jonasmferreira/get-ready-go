@@ -21,6 +21,8 @@ Ext.onReady(function(){
 			,{name:'game_criador_nome', type: 'string'}
 			,{name:'game_thumb', type: 'string'}
 			,{name:'game_imagem_destaque', type: 'string'}
+			,{name:'game_width', type: 'int'}
+			,{name:'game_height', type: 'int'}
         ]
         ,idProperty: 'game_id'
 		
@@ -278,6 +280,8 @@ Ext.onReady(function(){
 			,{header: 'Mídia ID',  dataIndex: 'game_midia_id',sortable: true,hidden:true, hideable:false}
 			,{header: 'Mídia',  dataIndex: 'game_midia_nome',sortable: true, width:150}
 			,{header: 'Criador',  dataIndex: 'game_criador_nome',sortable: true, width:200}
+			,{header: 'Width (px)',  dataIndex: 'game_width',sortable: true, width:70}
+			,{header: 'Height (px)',  dataIndex: 'game_height',sortable: true, width:70}
 			,{header: 'Url',  dataIndex: 'game_link',sortable: true, width:250}
 			
 		]
