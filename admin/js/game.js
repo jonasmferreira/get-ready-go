@@ -277,8 +277,8 @@ Ext.onReady(function(){
 			,{header: 'Tipo',  dataIndex: 'game_tipo_nome',sortable: true, width:150}
 			,{header: 'Mídia ID',  dataIndex: 'game_midia_id',sortable: true,hidden:true, hideable:false}
 			,{header: 'Mídia',  dataIndex: 'game_midia_nome',sortable: true, width:150}
-			,{header: 'Url',  dataIndex: 'game_link',sortable: true, width:150}
-			,{header: 'Criador',  dataIndex: 'game_criador_nome',sortable: true, width:150}
+			,{header: 'Criador',  dataIndex: 'game_criador_nome',sortable: true, width:200}
+			,{header: 'Url',  dataIndex: 'game_link',sortable: true, width:250}
 			
 		]
 		,listeners: {
