@@ -40,6 +40,11 @@
 			$aJson = $obj->getCategoriaCombo();
 			echo json_encode($aJson);
 		break;
+	case 'getMidiaCombo':
+			$aJson = array();
+			$aJson = $obj->getMidiaCombo();
+			echo json_encode($aJson);
+		break;
 		case 'getUsuario':
 			$aJson = array();
 			$aJson = $obj->getUsuario();
