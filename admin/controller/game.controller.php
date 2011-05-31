@@ -24,7 +24,7 @@
 			$result = $obj->edit();
 			if($result['success']===false){
 				$obj->setSession('msgEdit', 'Erro ao tentar criar/editar Game!');
-				header('Location: ../game.php');
+				//header('Location: ../game.php');
 			}else{
 				$obj->setSession('msgEdit', 'Game salvo com Sucesso!');
 				header('Location: ../gameEdicao.php?game_id='.$result['game_id']);
