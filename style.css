@@ -101,7 +101,7 @@ h4 a:hover {text-decoration:underline;}
 			#twoCol div.itemJogos div.imgItemJogos {width:62px; margin:0 7px 5px 0}
 			#twoCol div.itemJogos div.imgItemJogos a img {border:1px solid #000000}
 
-			#imgGaleria {border:1px solid #000; background-position:center; background-repeat:no-repeat;}
+			.imgGaleria {border:1px solid #000; background-position:center; background-repeat:no-repeat;}
 			
 			#itemBusca {margin:15px 5px;}
 			#itemBusca p {margin:0px;}
@@ -172,3 +172,6 @@ input.text, textarea {border:1px solid #999999; background:#CCCCCC}
 
 .avalia {background:url(imgs/nota_00.jpg) no-repeat; height:20px; width:100px; margin:0}
 
+.displayNone{
+	display: none;
+}

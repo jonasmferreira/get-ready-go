@@ -1,0 +1,15 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    Options -Indexes
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteCond %{REQUEST_FILENAME}\.php -f
+	RewriteRule ^(.*)$ $1.php
+	
+	RewriteRule ^inicio/?$ index.php
+	
+	#RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ detalhe.php?tipo=$1&id=$2&descricao=$3
+	
+</IfModule>
+<IfModule !mod_rewrite.c>
+	ErrorDocument 404 /erros/404.html
+</IfModule>  
