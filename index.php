@@ -48,7 +48,10 @@
 		<div id="conteudo">
 			<!-- Últimas Notícias -->
 			<h2><b class="title">Últimas notícias</b></h2>
-			<?php foreach($aNoticias as $k => $v){ ?>
+			<?php 
+				if(is_array($aNoticias) && count($aNoticias)>0){
+					foreach($aNoticias as $k => $v){ 
+			?>
 			<!-- Notícia -->
 			<div id="newsItem">
 				<div id="newsImg">
@@ -67,13 +70,18 @@
 					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 				</div>
 			</div>
-			<?php }	?>
+			<?php 
+					}
+				}	
+			?>
 			<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a>  <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
 
 			<!-- Top Análises -->
 			<h2><b class="title">Top Análises</b></h2>
 			<ul id="topAnalisesHome">
-				<?php foreach($aAnalises as $k => $v){ ?>
+				<?php 
+				if(is_array($aAnalises) && count($aAnalises)>0){
+					foreach($aAnalises as $k => $v){ ?>
 				<li>
 					<!-- Análise -->
 					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
@@ -84,7 +92,10 @@
 					</h4>
 					<p class="data"><?php echo $v['qtdComentario']; ?> comentários</p>
 				</li>
-				<?php }	?>
+				<?php 
+					} 
+				}	
+				?>
 			</ul>
 
 			<div style="clear:both"></div>
@@ -100,7 +111,9 @@
 		<img src="imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="indiecados">
 			<h2><b class="title">Indiecamos</b></h2>
-			<?php foreach($aGame as $k => $v){ ?>
+			<?php 
+			if(is_array($aGame) && count($aGame)>0){
+				foreach($aGame as $k => $v){ ?>
 			<!-- item -->
 			<div class="itemJogos">
 				<div class="imgItemJogos">
@@ -115,7 +128,10 @@
 					<br />Jogado <?php echo $v['game_qtd_jogado']; ?> vezes
 				</div>
 			</div>
-			<?php } ?>
+			<?php
+				} 
+			}
+			?>
 			<div style="clear:both"></div>
 
 		</div>
@@ -144,7 +160,9 @@
 		<div id="rightBox" class="topArtigos">
 			<h2><b class="title">Top artigos</b></h2>
 			<ul>
-				<?php foreach($aArtigo as $k => $v){ ?>
+				<?php 
+				if(is_array($aArtigo) && count($aArtigo)>0){
+					foreach($aArtigo as $k => $v){ ?>
 				<li>
 					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
 						<?php echo $v['post_titulo']; ?>
@@ -152,7 +170,10 @@
 					<br />
 					<span class="data"><?php echo $v['qtdComentario']; ?> comentários</span>
 				</li>
-				<?php } ?>
+				<?php
+					} 
+				}
+				?>
 			</ul>
 		</div>
 		<img src="imgs/box_bot.png" align="top" style="clear:both" />
