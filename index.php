@@ -1,6 +1,25 @@
 <?php
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
+	require_once 'class/home.class.php';
+	$obj = new home();
+	$obj->setCategoria_id(1);
+	$aNoticias = $obj->getLastPost();
+
+	$obj->setCategoria_id(2);
+	$aArtigo = $obj->getLastPost();
+
+	$obj->setCategoria_id(3);
+	$aAnalises = $obj->getLastPost();
+	
+	$obj->setCategoria_id(4);
+	$aIndicados = $obj->getLastPost();
+
+	$aGame = $obj->getGames();
+
+	$aEnquete = $obj->getEnquete();
+	$aEnqueteOpcao = $obj->opcaoEnquete($aEnquete['enquete_id']);
+	//echo "<pre>".print_r($aEnqueteOpcao,true)."</pre>";
 ?>
 	<!-- Coluna Esquerda -->
 	<div id="leftCol">
@@ -29,172 +48,43 @@
 		<div id="conteudo">
 			<!-- Últimas Notícias -->
 			<h2><b class="title">Últimas notícias</b></h2>
-
+			<?php foreach($aNoticias as $k => $v){ ?>
 			<!-- Notícia -->
 			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/01.jpg" /></a></div>
+				<div id="newsImg">
+					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
+						<img src="<?php echo "{$linkAbsolute}posts/{$v['post_thumb_home']}"; ?>" width="150px" height="80px" alt="<?php echo $v['post_titulo']; ?>" />
+					</a>
+				</div>
 				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
+					<h3>
+						<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
+							<?php echo $v['post_titulo']; ?>
+						</a>
+					</h3>
+					<p class="data"><?php echo $v['post_dt_criacao']; ?></p>
+					<p><?php echo $obj->cutHTML($v['post_conteudo'],130); ?></p>
+					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 				</div>
 			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/02.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">Adicionar novo comentário</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/03.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/04.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/05.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">Adicionar novo comentário</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/06.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/07.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/08.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/09.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/10.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/11.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
-			<!-- Notícia -->
-			<div id="newsItem">
-				<div id="newsImg"><a href="noticia.html"><img src="imgs/news/12.jpg" /></a></div>
-				<div id="newsInfo">
-					<h3><a href="noticia.html">Lorem ipsum dolor sit amet</a></h3>
-					<p class="data">21.08.2010 10:00</p>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#">10 comentários</a></p>
-				</div>
-			</div>
-
+			<?php }	?>
 			<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a>  <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
 
 			<!-- Top Análises -->
 			<h2><b class="title">Top Análises</b></h2>
 			<ul id="topAnalisesHome">
+				<?php foreach($aAnalises as $k => $v){ ?>
 				<li>
 					<!-- Análise -->
-					<a href="noticia.html"><img src="imgs/news/13.jpg" /></a>
-					<h4><a href="noticia.html">Lorem ipsum dolor sit amet</a></h4>
-					<p class="data">10 comentários</p>
+					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
+						<img src="<?php echo "{$linkAbsolute}posts/{$v['post_thumb_home']}"; ?>" width="150px" height="80px" alt="<?php echo $v['post_titulo']; ?>" />
+					</a>
+					<h4>
+						<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['post_titulo']; ?></a>
+					</h4>
+					<p class="data"><?php echo $v['qtdComentario']; ?> comentários</p>
 				</li>
-
-				<li>
-					<!-- Análise -->
-					<a href="noticia.html"><img src="imgs/news/14.jpg" /></a>
-					<h4><a href="noticia.html">Lorem ipsum dolor sit amet</a></h4>
-					<p class="data">10 comentários</p>
-				</li>
-
-				<li>
-					<!-- Análise -->
-					<a href="noticia.html"><img src="imgs/news/15.jpg" /></a>
-					<h4><a href="noticia.html">Lorem ipsum dolor sit amet</a></h4>
-					<p class="data">10 comentários</p>
-				</li>
-
-				<li>
-					<!-- Análise -->
-					<a href="noticia.html"><img src="imgs/news/16.jpg" /></a>
-					<h4><a href="noticia.html">Lorem ipsum dolor sit amet</a></h4>
-					<p class="data">10 comentários</p>
-				</li>
-
+				<?php }	?>
 			</ul>
 
 			<div style="clear:both"></div>
@@ -210,55 +100,22 @@
 		<img src="imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="indiecados">
 			<h2><b class="title">Indiecamos</b></h2>
-
+			<?php foreach($aGame as $k => $v){ ?>
 			<!-- item -->
 			<div class="itemJogos">
-				<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo1.jpg" /></a></div>
-				<div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
+				<div class="imgItemJogos">
+					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
+						<img src="<?php echo "{$linkAbsolute}games/{$v['game_thumb']}"; ?>" width="60px" height="60px" alt="<?php echo $v['game_titulo']; ?>"/>
+					</a>
+				</div>
+				<div>
+					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">Nome do jogo</a><br />
+					<?php echo $v['game_tipo_nome']; ?><br />
+					<strong><?php echo $v['game_criador_nome']; ?></strong>
+					<br />Jogado <?php echo $v['game_qtd_jogado']; ?> vezes
+				</div>
 			</div>
-
-			<!-- item -->
-			<div class="itemJogos">
-				<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo2.jpg" /></a></div>
-				<div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-			</div>
-
-			<!-- item -->
-			<div class="itemJogos">
-				<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo3.jpg" /></a></div>
-				<div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-			</div>
-
-			<!-- item -->
-			<div class="itemJogos">
-				<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo4.jpg" /></a></div>
-				<div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-			</div>
-
-			<!-- item -->
-			<div class="itemJogos">
-				<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo5.jpg" /></a></div>
-				<div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-			</div>
-
-			<!-- item -->
-			<div class="itemJogos">
-				<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo6.jpg" /></a></div>
-				<div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-			</div>
-
-			<!-- item -->
-			<div class="itemJogos">
-				<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo7.jpg" /></a></div>
-				<div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-			</div>
-
-			<!-- item -->
-			<div class="itemJogos">
-				<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo8.jpg" /></a></div>
-				<div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-			</div>
-
+			<?php } ?>
 			<div style="clear:both"></div>
 
 		</div>
@@ -271,14 +128,11 @@
 		<img src="imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="enquetes">
 			<h2><b class="title">enquete</b></h2>
-			<p>O que você acha sobre os RPGs modernos?</p>
+			<p><?php echo $aEnquete['enquete_titulo']; ?></p>
 			<ul>
-				<li><input type="radio" /> Gosto que os RPGs estão se tornando mais fáceis e acessíveis</li>
-				<li><input type="radio" /> Eu prefiro ação do que elementos de RPG</li>
-				<li><input type="radio" /> Não tenho certeza</li>
-				<li><input type="radio" /> Eu quero profundidade, detalhamento e customização em meus RPGs</li>
-				<li><input type="radio" /> O gênero está perdendo a identidade</li>
-				<li><input type="radio" /> O que é um RPG?</li>
+				<?php foreach($aEnqueteOpcao as $k => $v){ ?>
+					<li><input type="radio" name="enquete" value="<?php echo $v['enquete_opcao_id']; ?>" /><?php echo $v['enquete_opcao_titulo']; ?></li>
+				<?php } ?>
 			</ul>
 			<p><input type="image" src="imgs/bt_votar.gif" /></p>
 			<br />
@@ -290,14 +144,15 @@
 		<div id="rightBox" class="topArtigos">
 			<h2><b class="title">Top artigos</b></h2>
 			<ul>
-				<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-				<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-				<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-				<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-				<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-				<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-				<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-				<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
+				<?php foreach($aArtigo as $k => $v){ ?>
+				<li>
+					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
+						<?php echo $v['post_titulo']; ?>
+					</a>
+					<br />
+					<span class="data"><?php echo $v['qtdComentario']; ?> comentários</span>
+				</li>
+				<?php } ?>
 			</ul>
 		</div>
 		<img src="imgs/box_bot.png" align="top" style="clear:both" />

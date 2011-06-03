@@ -7,7 +7,15 @@
 	
 	RewriteRule ^inicio/?$ index.php
 	
-	#RewriteRule ^([^/]+)/([^/]+)/([^/]+)/?$ detalhe.php?tipo=$1&id=$2&descricao=$3
+	RewriteRule ^detalhe/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ noticia.php?categoria_nome=$1&categoria_id=$2&post_titulo=$3&post_id=$4
+
+	RewriteRule ^jogoBrowser/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ jogo_browser.php?game_categoria_titulo=$1&game_categoria_id=$2&game_titulo=$3&game_id=$4
+
+	RewriteRule ^jogoDownload/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ jogo_download.php?game_categoria_titulo=$1&game_categoria_id=$2&game_titulo=$3&game_id=$4
+
+	RewriteRule ^listagem/([^/]+)/([^/]+)/?$ listanoticias.php?categoria_nome=$1&categoria_id=$2
+
+	RewriteRule ^galeria/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ galerias.php?id_imagem=$1&galeria_id=$2&post_titulo=$3&post_id=$4
 	
 </IfModule>
 <IfModule !mod_rewrite.c>

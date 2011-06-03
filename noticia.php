@@ -1,6 +1,29 @@
 <?php
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
+	require_once 'class/noticia.class.php';
+	require_once 'class/home.class.php';
+
+
+	$obj = new noticia();
+	$obj->setPost_id($_GET['post_id']);
+	$aNoticia = $obj->getOne();
+	$aGaleria = $obj->galeriaPost();
+	$aComentario = $obj->comentarioPost();
+	$aItensRelacionados = $obj->getItensRelacionadas($aNoticia['post_palavra_chave']);
+
+	$objHome = new home();
+	$objHome->setCategoria_id(1);
+	$aNoticias = $objHome->getLastPost();
+
+	$objHome->setCategoria_id(2);
+	$aArtigo = $objHome->getLastPost();
+
+	$objHome->setCategoria_id(3);
+	$aAnalises = $objHome->getLastPost();
+
+	$postTitulo = str_replace(' ', '+',$_GET['post_titulo']);
+
 ?>
         	<!-- Coluna Esquerda -->
             <div id="leftCol">
@@ -14,32 +37,31 @@
                     <!-- Conteúdo do Artigo -->
                     <div id="newsContent">
                     	<div class="newsHeader">
-	                    	<h1>Batman: Arkham City já tem data de lançamento!</h1>
-                            <p class="autor">Escrito por Fulano de Tal</p>
+	                    	<h1><?php echo $aNoticia['post_titulo'] ?></h1>
+                            <p class="autor"><?php echo $aNoticia['usuario_nome'] ?></p>
                             <p class="data">Sex, 11 de Março de 2011 17:35</p>
                         </div>
 
                         <!-- Texto -->
-                        <p>A Warner Bros. Interactive Entertainment e a DC Entertainment anunciaram hoje que Batman: Arkham City sairá das sombras para as prateleiras dia 18 de outubro na América do Norte, dia 19 na Austrália e dia 21 no Reino Unido.</p>
-                        <p>Junto com a data de laçamento, foram liberadas mais imagens do jogo (<a href="galeria.html">veja a galeria</a>) e a descrição oficial.</p>
-                        <p><em><strong>Batman: Arkham City</strong> se utiliza da atmosfera intensa de Batman: Arkham Asylum, levando os jogadores à Arkham City – cinco vezes maior que o cenário de Batman: Arkham Asylum – o novo "lar" de segurança máxima para todos os bandidos, gangsters e mentes criminosas de Gotham City. Localizada dentro dos muros fortificados de um distrito no coração de Gotham City, essa tão esperada sequencia introduz uma nova história, um elenco com personagens clássicos e vilões assassinos do universo de Batman, e uma vasta variedade de novos aspectos de jogabilidade para criar a experiência máxima como o Cavaleiro das Trevas.</em></p>
-                        <p>Ao que parece, o Halloween promete esse ano! E quais os seus pensamentos sobre o jogo?</p>
+                        <?php echo $aNoticia['post_conteudo']; ?>
 
                     </div>
-
+					<?php if(count($aGaleria)>0){ ?>
                     <!-- Galeria vinculada à notícia (habilitar no admin) -->
                     <div id="newsGallery">
                     	<h2><b class="title">Galeria</b></h2>
-                        <a href="galeria.html" class="img"><img src="imgs/galerias/jogo1_01.jpg" /></a>
-                        <a href="galeria.html" class="img"><img src="imgs/galerias/jogo1_02.jpg" /></a>
-                        <a href="galeria.html" class="img"><img src="imgs/galerias/jogo1_03.jpg" /></a>
-                        <a href="galeria.html" class="img"><img src="imgs/galerias/jogo1_04.jpg" /></a>
+						<?php foreach($aGaleria as $k => $v){ ?>
+							<a href="<?php echo "{$linkAbsolute}galeria/{$v['imagem_galeria_id']}/{$v['galeria_id']}/{$postTitulo}/{$_GET['post_id']}"; ?>" class="img">
+								<img src="<?php echo "{$linkAbsolute}galerias/galeria_{$v['galeria_id']}/{$v['imagem_galeria_imagem']}"; ?>" />
+							</a>
+						<?php } ?>
                         <p style="clear:both" align="right" class="comments"><a href="#">Veja todas as imagens</a>»</p>
                     </div>
+					<?php } ?>
 
                 	<!-- Comentários -->
                 	<div id="comentarios">
-                    	<h2><b class="title">Comentários (10)</b></h2>
+                    	<h2><b class="title">Comentários (<?php echo $aNoticia['qtdComentario']; ?>)</b></h2>
                         <table width="100%">
                         	<tr>
                             	<td colspan="2">Nome: (Obrigatório)<br /><input type="text" class="text" /></td><!-- Só para quem não está logado -->
@@ -49,33 +71,33 @@
                                 <td valign="top">
                                    	<table class="smiles">
 				                       	<tr>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/smiley.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/cheesy.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/wink.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/(eek).gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/tongue.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/cool.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/smiley.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/cheesy.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/wink.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/(eek).gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/tongue.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/cool.gif" /></a></td>
                                         </tr>
                                         <tr>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/mad.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/undecided.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/iredface.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/triste.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/ugh.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/kiss.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/mad.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/undecided.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/iredface.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/triste.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/ugh.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/kiss.gif" /></a></td>
                                         </tr>
                                         <tr>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/roll.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/arrowan0.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/bowdown.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/fdp.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/hum.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/joia.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/roll.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/arrowan0.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/bowdown.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/fdp.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/hum.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/joia.gif" /></a></td>
                                         </tr>
                                         <tr>
-                                            <td valign="bottom"><a href="#"><img src="imgs/smiles/nao.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/runaway.gif" /></a></td>
-                                        	<td valign="bottom"><a href="#"><img src="imgs/smiles/zzz.gif" /></a></td>
+                                            <td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/nao.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/runaway.gif" /></a></td>
+                                        	<td valign="bottom"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/zzz.gif" /></a></td>
                                             <td colspan="3"></td>
                                     	</tr>
                                     </table>
@@ -83,207 +105,40 @@
 
                             </tr>
                             <tr>
-                            	<td colspan="2"><img src="imgs/captcha.jpg" /><br /><input type="text" class="text" /></td><!-- Só para quem não está logado -->
+                            	<td colspan="2"><img src="<?php echo "{$linkAbsolute}"?>imgs/captcha.jpg" /><br /><input type="text" class="text" /></td><!-- Só para quem não está logado -->
                             <tr>
-                            	<td align="right" colspan="2"><input type="image" src="imgs/bt_enviar.gif" /></td>
+                            	<td align="right" colspan="2"><input type="image" src="<?php echo "{$linkAbsolute}"?>imgs/bt_enviar.gif" /></td>
                             </tr>
                         </table>
-						<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" /><!-- Avatar Pafrão para não usuários e usuários que ainda não escolheram avatar -->
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                    <!-- Avaliação de comentário só para usuários cadastrados -->
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-                        <!-- Comentário -->
-                        <table class="comentario" cellspacing="0" cellpadding="5">
-                        	<tr>
-                            	<td align="center" valign="top">
-                                	<img src="imgs/avatares/1.jpg" class="avatar" />
-                                    <p style="font-size:14px; font-weight: bold">15<p>
-                                    <a href="#"><img src="imgs/pos.gif" /></a>
-                                    <a href="#"><img src="imgs/neg.gif" /></a>
-                                </td>
-                                <td valign="top">
-                                	<p><a href="#"><strong>Nome do usuário</strong></a></p>
-                                    <p class="data">Em 11 de Março de 2011, às 17:35</p>
-                                    <p>Mensagem aqui. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-                                </td>
-                            </tr>
-                        </table>
-
-						<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
-
+						<?php if(count($aComentario)){ ?>
+							<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
+							<!-- Comentário -->
+							<?php foreach($aComentario as $k => $v){ ?>
+							<table class="comentario" cellspacing="0" cellpadding="5">
+								<tr>
+									<td align="center" valign="top">
+										<img src="imgs/avatares/1.jpg" class="avatar" /><!-- Avatar Pafrão para não usuários e usuários que ainda não escolheram avatar -->
+										<!--p style="font-size:14px; font-weight: bold">15<p>
+										<a href="#"><img src="imgs/pos.gif" /></a>
+										<a href="#"><img src="imgs/neg.gif" /></a-->
+										<!-- Avaliação de comentário só para usuários cadastrados -->
+									</td>
+									<td valign="top">
+										<p><a href="#"><strong><?php echo $v['comentario_autor']; ?></strong></a></p>
+										<p class="data">Em 11 de Março de 2011, às 17:35</p>
+										<p>
+											<?php echo $v['comentario_conteudo']; ?>
+										</p>
+									</td>
+								</tr>
+							</table>
+							<?php } ?>
+							<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
+						<?php } ?>
                     </div>
 
                 </div>
-                <img src="imgs/content_bot.png" align="top" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
 
             </div>
             <!-- Coluna Direita -->
@@ -294,16 +149,15 @@
                 <div id="rightBox" class="topArtigos">
                 	<h2><b class="title">itens relacionados</b></h2>
                     <ul>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Notícia</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Artigo</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Análise</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Notícia</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Artigo</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Análise</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Notícia</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Artigo</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Análise</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">Notícia</span></li>
+						<?php foreach($aItensRelacionados as $k => $v){ ?>
+							<li>
+								<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
+									<?php echo $v['post_titulo']; ?>
+								</a>
+								<br />
+								<span class="data"><?php echo $v['categoria_nome']; ?></span>
+							</li>
+						<?php } ?>
                     </ul>
                 </div>
                 <img src="imgs/box_bot.png" align="top" style="clear:both" />
@@ -312,7 +166,7 @@
             	<div id="sideBanner"><img src="banners/banner_300x250.jpg" /></div>
 
 				<!-- Top noticias -->
-                <img src="imgs/box_top.png" align="absbottom" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
                 <div id="rightBox" class="topNoticias">
                 	<h2><b class="title">Top notícias</b></h2>
                     <div class="item">
@@ -342,10 +196,10 @@
 
                     <div style="clear:both"></div>
                 </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
 				<!-- Top artigos -->
-                <img src="imgs/box_top.png" align="absbottom" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
                 <div id="rightBox" class="topArtigos">
                 	<h2><b class="title">Top artigos</b></h2>
                     <ul>
@@ -359,10 +213,10 @@
                     	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
                     </ul>
                 </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
+                <img src=<?php echo "{$linkAbsolute}"?>"imgs/box_bot.png" align="top" style="clear:both" />
 
 				<!-- Top noticias -->
-                <img src="imgs/box_top.png" align="absbottom" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
                 <div id="rightBox" class="topNoticias">
                 	<h2><b class="title">Top análises</b></h2>
                     <div class="item">
@@ -392,7 +246,7 @@
 
                     <div style="clear:both"></div>
                 </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
             </div>
 <?php
