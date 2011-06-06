@@ -195,7 +195,7 @@
 		<!-- Jogos indicados -->
 		<img src="imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="indiecados">
-			<h2><b class="title">Indiecamos</b></h2>
+			<h2><b class="title">Indicamos</b></h2>
 			<?php 
 			if(is_array($aGame) && count($aGame)>0){
 				foreach($aGame as $k => $v){ ?>
