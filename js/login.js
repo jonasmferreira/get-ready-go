@@ -23,7 +23,9 @@ $(document).ready(function(){
 				if(resp.success===false){
 					alert("Usuario e senha incorretos!");
 				}else{
-					$(".avatar").attr("src",$("#linkAbsolute").val()+"avatars/"+resp.session.usuario_avatar);
+					if(resp.session.usuario_avatar!=''){
+						$(".avatar").attr("src",$("#linkAbsolute").val()+"avatars/"+resp.session.usuario_avatar);
+					}					
 					$(".nomeSobrenome").text(resp.session.usuario_nome);
 					$("#logado-se").fadeOut(function(){
 						$("#logado").fadeIn()
