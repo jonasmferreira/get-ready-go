@@ -16,12 +16,17 @@
 ?>
 	<script type="text/javascript">
 		$(document).ready(function(){
+
+			$(".semAcao").live('click',function(e){
+				return false;
+			})
+
 			$(".anterior").bind('click',function(event){
 				event.stopPropagation();
 				var divAtual = $("#imgsGalerias").children().not(".displayNone");
 				var anterior = divAtual.prev();
 				if(anterior.html()!=null){
-					divAtual.fadeOut(function(){
+					divAtual.fadeOut('fast',function(){
 						anterior.fadeIn();
 						divAtual.addClass('displayNone');
 						anterior.removeClass('displayNone');
@@ -30,12 +35,14 @@
 				}
 				$(this).unbind();
 			});
+
 			$(".proxima").bind('click',function(event){
+				$(this).removeClass('proxima');
 				event.stopPropagation();
 				var divAtual = $("#imgsGalerias").children().not(".displayNone");
 				var proxima = divAtual.next();
 				if(proxima.html()!=null){
-					divAtual.fadeOut(function(){
+					divAtual.fadeOut('fast',function(){
 						proxima.fadeIn();
 						divAtual.addClass('displayNone');
 						proxima.removeClass('displayNone');

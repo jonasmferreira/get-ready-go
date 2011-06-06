@@ -2,7 +2,7 @@
 $path_root_dbClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_dbClass = "{$path_root_dbClass}{$DS}..{$DS}";
-require_once "{$path_root_defaultClass}lib{$DS}DataBaseClass.php";
+require_once "{$path_root_dbClass}lib{$DS}DataBaseClass.php";
 class defaultClass {
 	protected $dbConn;
 	protected $values;

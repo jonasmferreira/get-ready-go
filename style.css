@@ -175,3 +175,7 @@ input.text, textarea {border:1px solid #999999; background:#CCCCCC}
 .displayNone{
 	display: none;
 }
+a.ativoPaginacao{
+	color: #000000 !important;
+    text-decoration: underline !important;
+}

@@ -3,15 +3,23 @@
 	include_once 'includes/header.php';
 	require_once 'class/home.class.php';
 	$obj = new home();
+	$obj->setLimitMax(3);
+	$obj->setLimitStart(0);
 	$obj->setCategoria_id(1);
 	$aNoticias = $obj->getLastPost();
 
+	$obj->setLimitMax(null);
+	$obj->setLimitStart(null);
 	$obj->setCategoria_id(2);
 	$aArtigo = $obj->getLastPost();
 
+	$obj->setLimitMax(null);
+	$obj->setLimitStart(null);
 	$obj->setCategoria_id(3);
 	$aAnalises = $obj->getLastPost();
-	
+
+	$obj->setLimitMax(null);
+	$obj->setLimitStart(null);
 	$obj->setCategoria_id(4);
 	$aIndicados = $obj->getLastPost();
 

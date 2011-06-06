@@ -8,8 +8,8 @@
             	<!-- Login -->
                 Usuário <input type="text" class="login" />
                 Senha <input type="text" class="login" /> <input type="image" src="<?php echo $linkAbsolute ?>imgs/login.png" align="absbottom" /><br />
-				<a href="forgotpassword.html">Esqueceu sua senha?</a>
-                <a href="cadastro.html">Cadastre-se</a>
+				<a href="<?php echo $linkAbsolute ?>forgotpassword">Esqueceu sua senha?</a>
+                <a href="<?php echo $linkAbsolute ?>cadastro">Cadastre-se</a>
 
                 <!-- Logado -->
                 <!--

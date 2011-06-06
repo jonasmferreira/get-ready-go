@@ -1,5 +1,8 @@
 <?php
-require_once "default.class.php";
+$path_root_class = dirname(__FILE__);
+$DS = DIRECTORY_SEPARATOR;
+$path_root_class = "{$path_root_class}{$DS}";
+require_once "{$path_root_class}default.class.php";
 class home extends defaultClass{
 
 	private $categoria_id = '';
@@ -8,7 +11,16 @@ class home extends defaultClass{
 	 $this->categoria_id = $categoria_id;
 	}
 
+	private $total;
+	public function getTotal() {
+	 return $this->total;
+	}
+	public function setTotal($total) {
+	 $this->total = $total;
+	}
 
+
+	
 	public function getLastPost(){
 		$sql = array();
 		$sql[] = "
@@ -29,7 +41,6 @@ class home extends defaultClass{
 					,p.post_status
 					,u.usuario_nome
 					,u.usuario_avatar
-					,c.categoria_nome
 					,(SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id) as qtdComentario
 			FROM	tb_post p
 
@@ -44,11 +55,17 @@ class home extends defaultClass{
 			AND		c.categoria_id = {$this->categoria_id}
 			ORDER BY post_dt_criacao DESC
 		";
+		$res = array();
+		$this->setTotal($this->getMaxCount(implode("\n",$sql)));
+		//echo $this->getTotal();
+		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
+			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
+		}
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']){
 			return false;
 		}
-		$res = array();
+		
 		if($result['total'] > 0){
 			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
 				$cat_nome = str_replace(' ', '_',$this->retiraAcentos($rs['categoria_nome']));

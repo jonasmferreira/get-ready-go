@@ -6,17 +6,15 @@
             <!-- Área de usuários -->
             <div id="user">
             	<!-- Login -->
-				<!--
                 Usuário <input type="text" class="login" />
-                Senha <input type="text" class="login" /> <input type="image" src="imgs/login.png" align="absbottom" /><br />
-				<a href="forgotpassword.html">Esqueceu sua senha?</a>
-                <a href="cadastro.html">Cadastre-se</a>
-				-->
+                Senha <input type="text" class="login" /> <input type="image" src="<?php echo $linkAbsolute ?>imgs/login.png" align="absbottom" /><br />
+				<a href="<?php echo $linkAbsolute ?>forgotpassword">Esqueceu sua senha?</a>
+                <a href="<?php echo $linkAbsolute ?>cadastro">Cadastre-se</a>
                 <!-- Logado -->
-                
+                <!--
                 <div style="float:right; margin:0 0 0 10px"><img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" /></div>
                 <div style="float:right; padding:31px 0 0 0">Bem vindo, <strong>Fulano de tal</strong><br />
-				<a href="perfil.html">Meu perfil</a> | <a href="#">Sair</a></div>
+				<a href="perfil.html">Meu perfil</a> | <a href="#">Sair</a></div>-->
             </div>
             <!-- Busca -->
             <div id="search">
