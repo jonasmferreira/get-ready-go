@@ -15,7 +15,6 @@
 		<title>Get Ready... Go!</title>
 		<link href="<?php echo $linkAbsolute?>style.css" media="screen" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/jquery.js"></script>
-		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/scripts.js"></script>
 		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/login.js"></script>
 	</head>
 	<body>

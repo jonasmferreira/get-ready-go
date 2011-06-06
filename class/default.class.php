@@ -1,8 +1,13 @@
 <?php
+
 $path_root_dbClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_dbClass = "{$path_root_dbClass}{$DS}..{$DS}";
 require_once "{$path_root_dbClass}lib{$DS}DataBaseClass.php";
+session_name('GET_READY_GO_2011_SITE');
+if(session_id()==''){
+	session_start();
+}
 class defaultClass {
 	protected $dbConn;
 	protected $values;
@@ -42,27 +47,27 @@ class defaultClass {
 	}//MÉTODO setLimitMax
 
 	public function destroySession() {
-		unset($_SESSION['GET_READY_GO']);
+		unset($_SESSION['GET_READY_GO_2011_SITE']);
 		session_destroy();
 	}
 	public function setSession($session,$value=null) {
 		if(!is_array($session)){
-			$_SESSION['GET_READY_GO'][$session] = $value;
+			$_SESSION['GET_READY_GO_2011_SITE'][$session] = $value;
 		}else if(is_array($session) && count($session)>0){
 			foreach($session AS $k=>$v){
-				$_SESSION['GET_READY_GO'][$k] = $v;
+				$_SESSION['GET_READY_GO_2011_SITE'][$k] = $v;
 			}
 		}
 	}
 	public function getSessions(){
-		return $_SESSION['GET_READY_GO'];
+		return $_SESSION['GET_READY_GO_2011_SITE'];
 	}
 	public function unsetSession($session) {
 		if(!is_array($session)){
-			unset($_SESSION['GET_READY_GO'][$session]);
+			unset($_SESSION['GET_READY_GO_2011_SITE'][$session]);
 		}else{
 			foreach($session AS $k=>$v){
-				unset($_SESSION['GET_READY_GO'][$v]);
+				unset($_SESSION['GET_READY_GO_2011_SITE'][$v]);
 			}
 		}
 	}
