@@ -25,7 +25,9 @@ $(document).ready(function(){
 				}else{
 					if(resp.session.usuario_avatar!=''){
 						$(".avatar").attr("src",$("#linkAbsolute").val()+"avatars/"+resp.session.usuario_avatar);
-					}					
+					}else{
+						$(".avatar").attr("src",$("#linkAbsolute").val()+"imgs/avatares/1.jpg");
+					}
 					$(".nomeSobrenome").text(resp.session.usuario_nome);
 					$("#logado-se").fadeOut(function(){
 						$("#logado").fadeIn()

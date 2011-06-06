@@ -128,7 +128,7 @@
 						</a>
 					</h3>
 					<p class="data"><?php echo $v['post_dt_criacao']; ?></p>
-					<p><?php echo $obj->cutHTML($v['post_conteudo'],130); ?></p>
+					<p><?php echo $obj->cutHTML($v['post_conteudo'],150); ?></p>
 					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 				</div>
 			</div>
@@ -207,8 +207,8 @@
 					</a>
 				</div>
 				<div>
-					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">Nome do jogo</a><br />
-					<?php echo $v['game_tipo_nome']; ?><br />
+					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['game_titulo']; ?></a><br />
+					<?php echo $v['game_tipo_nome']; ?> - <?php echo $v['game_categoria_nome']; ?><br />
 					<strong><?php echo $v['game_criador_nome']; ?></strong>
 					<br />Jogado <?php echo $v['game_qtd_jogado']; ?> vezes
 				</div>
