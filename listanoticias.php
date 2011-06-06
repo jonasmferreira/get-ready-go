@@ -6,7 +6,7 @@
 
 	$obj = new home();
 	$obj->setCategoria_id($_GET['categoria_id']);
-	$obj->setLimitMax(3);
+	$obj->setLimitMax(15);
 	$obj->setLimitStart(0);
 	$aLista = $obj->getLastPost();
 
@@ -74,7 +74,10 @@
                 	<!-- Notícia -->
 					<div id="listagem">
 						<div id="listagem_0">
-					<?php foreach($aLista as $k => $v){ ?>
+					<?php
+						if(is_array($aLista) && count($aLista)>0){
+							foreach($aLista as $k => $v){
+					?>
 							<div id="newsItem">
 								<div id="newsImg">
 									<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
@@ -92,30 +95,35 @@
 									<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 								</div>
 							</div>
-					<?php } ?>
+					<?php
+							}
+						}
+					?>
 						</div>
 					</div>
-					
+					<?php if($obj->getTotal()>=15){ ?>
 					<p class="paginacao">
 						«<a href="javascript:void(0)" class="inicio">Início</a>
 						<a href="javascript:void(0)" class="anterior">Anterior</a>
 						<?php
 							$porPage = 0;
-							for($i=1;$i<=ceil($obj->getTotal()/3);$i++):
+							for($i=1;$i<=ceil($obj->getTotal()/15);$i++):
 							
 							$displayNone = ($i<=5)?'':'displayNone';
 							$actActive = ($i==1)?'ativoPaginacao':'';
 						?>
 							<a href="javascript:void(0)" id="limit_<?php echo $porPage ?>" class="paginacaoPage <?php echo "{$displayNone} {$actActive}"?>"><?php echo $i; ?></a>
 						<?php
-							$porPage += 3;
+							$porPage += 15;
 							endfor;
 						?>
 						
 						<a href="javascript:void(0)" class="proximo">Próximo</a>
 						<a href="javascript:void(0)" class="fim">Fim</a>
-						»</p>
-                
+						»
+					</p>
+					<?php } ?>
+					<div style="clear:both"></div>
                 </div>
                 <img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
                  

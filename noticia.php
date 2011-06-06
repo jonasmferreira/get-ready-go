@@ -64,7 +64,13 @@
                     	<h2><b class="title">Comentários (<?php echo $aNoticia['qtdComentario']; ?>)</b></h2>
                         <table width="100%">
                         	<tr>
-                            	<td colspan="2">Nome: (Obrigatório)<br /><input type="text" class="text" /></td><!-- Só para quem não está logado -->
+                            	<td colspan="2">
+									<?php if(!isset($_SESSION['GET_READY_GO_2011_SITE']['usuario_id']) && empty($_SESSION['GET_READY_GO_2011_SITE']['usuario_id'])){ ?>
+										Nome: (Obrigatório)<br /><input type="text" class="text" />
+									<?php }else{ ?>
+										Nome: <strong style="font-style: italic"><?php echo $_SESSION['GET_READY_GO_2011_SITE']['usuario_nome'] ?></strong>
+									<?php } ?>
+								</td><!-- Só para quem não está logado -->
                             </tr>
                         	<tr>
                             	<td><textarea style="width:405px" rows="6"></textarea><br />Você ainda pode digitar 1000 caracteres</td>
