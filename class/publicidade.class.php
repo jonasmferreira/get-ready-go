@@ -29,7 +29,7 @@ class publicidade extends defaultClass{
 	 $this->total = $total;
 	}
 
-	public function getPublicidadeByTipo($tipo){
+	public function getPublicidadeByTipo(){
 		$sql = array();
 		$sql[] = "
 			SELECT   pt.publicidade_tipo_id
