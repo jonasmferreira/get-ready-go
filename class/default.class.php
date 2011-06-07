@@ -4,6 +4,7 @@ $path_root_dbClass = dirname(__FILE__);
 $DS = DIRECTORY_SEPARATOR;
 $path_root_dbClass = "{$path_root_dbClass}{$DS}..{$DS}";
 require_once "{$path_root_dbClass}lib{$DS}DataBaseClass.php";
+require_once "{$path_root_dbClass}lib{$DS}mail{$DS}class.phpmailer.php";
 session_name('GET_READY_GO_2011_SITE');
 if(session_id()==''){
 	session_start();
@@ -16,11 +17,44 @@ class defaultClass {
 	protected $sort_direction;
 	protected $limit_start;
 	protected $limit_max;
+	
+	protected $email_host = "mail.cdanime.com";
+	protected $email_port = "25";
+	protected $email_username = "administrador+cdanime.com";
+	protected $email_pass = "destino";
+	protected $email_resposta = array(
+		'nome'=>"Administrador"
+		,'email'=>"administrador@cdanime.com"
+	);
+	protected $email_remetente = array(
+		'nome'=>"Administrador"
+		,'email'=>"administrador@cdanime.com"
+	);
+	protected $assunto;
+	protected $conteudo;
+	protected $emails;
+	protected $anexos;
 
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
+	
+	public function setAssunto($assunto) {
+		$this->assunto = $assunto;
+	}
 
+	public function setConteudo($conteudo) {
+		$this->conteudo = $conteudo;
+	}
+
+	public function setEmails($emails) {
+		$this->emails = $emails;
+	}
+
+	public function setAnexos($anexos) {
+		$this->anexos = $anexos;
+	}
+	
 	public function setValues($values) {
 		$this->values = $values;
 	}
@@ -289,6 +323,45 @@ class defaultClass {
 		$array2 = array("a", "a", "a", "a", "a", "e", "e", "e", "e", "i", "i", "i", "i", "o", "o", "o", "o", "o", "u", "u", "u", "u", "c"
 						 , "A", "A", "A", "A", "A", "E", "E", "E", "E", "I", "I", "I", "I", "O", "O", "O", "O", "O", "U", "U", "U", "U", "C","","" );
 		return str_replace( $array1, $array2, $texto );
+	}
+	public function enviaEmail(){
+		$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
+		$mail->CharSet = 'utf-8';
+		$mail->IsSMTP(); // telling the class to use SMTP
+		/*echo "<pre>".print_r($this->emails,true)."</pre>";
+		echo "<pre>".print_r($this->email_resposta,true)."</pre>";
+		echo "<pre>".print_r($this->email_remetente,true)."</pre>";*/
+		try {
+			
+			$mail->SMTPDebug  = 0;
+			$mail->SMTPAuth   = true;
+			$mail->Host       = $this->email_host;
+			$mail->Port       = $this->email_port;
+			$mail->Username   = $this->email_username;
+			$mail->Password   = $this->email_pass;
+			if(is_array($this->email_resposta)&&count($this->email_resposta)>0){
+				$mail->AddReplyTo($this->email_resposta['email'], $this->email_resposta['nome']);
+			}
+			if(is_array($this->email_remetente)&&count($this->email_remetente)>0){
+				$mail->SetFrom($this->email_remetente['email'], $this->email_remetente['nome']);
+			}
+			
+			if(is_array($this->emails)&&count($this->emails)>0){
+				
+				foreach($this->emails AS $v){
+					$mail->AddAddress($v['email'], $v['nome']);
+				}
+			}
+			$mail->Subject = $this->assunto;
+			$mail->AltBody = 'Para ver a mensagem corretamente, utilize um leitor de e-mail compativel com html!';
+			$mail->MsgHTML($this->conteudo);
+			$mail->Send();
+		} catch (phpmailerException $e) {
+			return $e->errorMessage();
+		} catch (Exception $e) {
+			return $e->getMessage();
+		}
+		return true;
 	}
 }
 ?>
