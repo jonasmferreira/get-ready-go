@@ -52,6 +52,7 @@ class publicidade extends defaultClass{
 			AND  pt.publicidade_tipo_titulo = '{$this->publicidade_tipo}'
 			AND	 NOW() BETWEEN p.publicidade_dt_ativacao AND p.publicidade_dt_desativacao 
 			ORDER BY RAND()
+			LIMIT 1
 		";
 		$res = array();
 		$this->setTotal($this->getMaxCount(implode("\n",$sql)));
