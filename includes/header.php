@@ -46,7 +46,23 @@
         <!-- Publicidade - banner 728x90 -->
         <div id="fullBanner">
 	        publicidade <img src="<?php echo $linkAbsolute ?>imgs/seta.gif" align="bottom" /><br />
-			<div><img src="<?php echo $linkAbsolute ?>banners/banner_728x90.jpg" /></div>
+			<div>
+				<? 
+					foreach($aFullBanner as $k => $v){
+						$link = $v['publicidade_link'];
+						$arq = $linkAbsolute . 'publicidade/' . $v['publicidade_arquivo'];
+						$w = $v['publicidade_largura'];
+						$h = $v['publicidade_altura'];
+
+						if($v['publicidade_tipomedia']==0){ 
+				?>
+							<a href="<?=$link;?>" target="_blank"><img src="<?=$arq;?>" width="<?=$w;?>"  height="<?=$h;?>" /></a>			
+				<?		} else { ?>
+							<script type="text/javascript">buildFlash('<?=$arq;?>','<?=$w;?>','<?=$h;?>','opaque');</script> 
+				<?		} 
+					}
+				?>
+			</div>
         </div>
 		<!-- Conteudo -->
         <div id="miolo">
