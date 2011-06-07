@@ -1,7 +1,23 @@
 <?php
+
+	require_once 'class/publicidade.class.php';
+
+	$objPubl = new publicidade();
+	$objPubl->setPublicidadeTipo('fullbanner');
+	$aFullBanner = $objPubl->getPublicidadeByTipo();
+	
+	$objPubl->setPublicidadeTipo('bg banner');
+	$aBgBanner = $objPubl->getPublicidadeByTipo();
+	
+	$objPubl->setPublicidadeTipo('banner lateral');
+	$aSideBanner = $objPubl->getPublicidadeByTipo();
+	
+	//echo "<pre>" . "raios == " . print_r($aFullBanner,true) . "</pre>";
+
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
 	require_once 'class/home.class.php';
+	
 	$obj = new home();
 	$obj->setLimitMax(12);
 	$obj->setLimitStart(0);
@@ -9,6 +25,7 @@
 	$aNoticias = $obj->getLastPost();
 	$totalNoticia = $obj->getTotal();
 
+	
 	$obj->setLimitMax(null);
 	$obj->setLimitStart(null);
 	$obj->setCategoria_id(2);
