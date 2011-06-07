@@ -23,6 +23,7 @@ class publicidade extends defaultClass{
 					,p.publicidade_tipo_id
 					,p.publicidade_tipomedia
 					,p.publicidade_arquivo
+					,p.publicidade_link
 					,p.publicidade_numclique
 					,p.publicidade_dt_ativacao
 					,p.publicidade_dt_desativacao
@@ -69,6 +70,7 @@ class publicidade extends defaultClass{
 					,publicidade_tipo_id
 					,publicidade_tipomedia
 					,publicidade_arquivo
+					,publicidade_link
 					,publicidade_numclique
 					,publicidade_dt_ativacao
 					,publicidade_dt_desativacao
@@ -126,6 +128,10 @@ class publicidade extends defaultClass{
 		if(isset($this->values['publicidade_arquivo'])&&trim($this->values['publicidade_arquivo'])!=''){
 			$sql[] = ",publicidade_arquivo = '{$this->values['publicidade_arquivo']}'";
 		}
+		if(isset($this->values['publicidade_link'])&&trim($this->values['publicidade_link'])!=''){
+			$sql[] = ",publicidade_link = '{$this->values['publicidade_link']}'";
+		}
+		
 		$sql[] = "WHERE publicidade_id = '{$this->values['publicidade_id']}'";
 		$ret = array(
 			'success'=>false
@@ -167,6 +173,9 @@ class publicidade extends defaultClass{
 		";
 		if(isset($this->values['publicidade_arquivo'])&&trim($this->values['publicidade_arquivo'])!=''){
 			$sql[] = ",publicidade_arquivo = '{$this->values['publicidade_arquivo']}'";
+		}
+		if(isset($this->values['publicidade_link'])&&trim($this->values['publicidade_link'])!=''){
+			$sql[] = ",publicidade_link = '{$this->values['publicidade_link']}'";
 		}
 		
 		$ret = array(
