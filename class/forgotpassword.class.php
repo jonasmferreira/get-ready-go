@@ -45,8 +45,8 @@ class forgotPassword extends defaultClass{
 		$this->setEmails($email);
 		$isEnvio = $this->enviaEmail();
 		if($isEnvio!==true){
-			//return $this->utf8Encode2Decode('<p align="center" class="red"><strong>Falha no envio, tente outra vez mais tarde.</strong></p>');
-			return $this->utf8Encode2Decode('<p align="center" class="red"><strong>'.$isEnvio.'.</strong></p>');
+			return $this->utf8Encode2Decode('<p align="center" class="red"><strong>Falha no envio, tente outra vez mais tarde.</strong></p>');
+			//return $this->utf8Encode2Decode('<p align="center" class="red"><strong>'.$isEnvio.'.</strong></p>');
 		}else{
 			return $this->utf8Encode2Decode('<p align="center" class="green"><strong>E-mail enviado com sucesso!</strong></p>');
 		}
