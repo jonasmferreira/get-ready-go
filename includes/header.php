@@ -2,7 +2,9 @@
 	<div id="all">
     	<!-- Topo -->
         <div id="topo">
-        	<div id="logo"><a href="index.html"><img src="<?php echo $linkAbsolute ?>imgs/logo.png" /></a></div>
+        	<div id="logo">
+				<a href="<?php echo $linkAbsolute ?>/index.php"><img src="<?php echo $linkAbsolute ?>imgs/logo.png" /></a>
+			</div>
             <!-- Área de usuários -->
             <div id="user">
             	<!-- Login -->
