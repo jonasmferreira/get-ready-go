@@ -109,11 +109,11 @@ class comentario extends defaultClass{
 			SELECT	c.*,u.*,p.post_titulo
 			FROM	tb_comentario c
 
-			JOIN	tb_usuario u
+			LEFT JOIN	tb_usuario u
 			ON		c.usuario_id = u.usuario_id
 
 			JOIN	tb_post p
-			ON		p.usuario_id = u.usuario_id
+			ON		c.post_id = p.post_id
 
 			WHERE	1 = 1
 		";
@@ -148,11 +148,11 @@ class comentario extends defaultClass{
 			SELECT	c.*,u.*,p.post_titulo
 			FROM	tb_comentario c
 
-			JOIN	tb_usuario u
+			LEFT JOIN	tb_usuario u
 			ON		c.usuario_id = u.usuario_id
 
 			JOIN	tb_post p
-			ON		p.usuario_id = u.usuario_id
+			ON		c.post_id = p.post_id
 
 			WHERE	1 = 1
 			AND		comentario_id = '{$this->values['comentario_id']}'

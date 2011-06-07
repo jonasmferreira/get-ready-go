@@ -11,6 +11,7 @@
 	$objNoticia = new noticia();
 	$objNoticia->setPost_id($_GET['post_id']);
 	$aNoticia = $objNoticia->getOne();
+	$postTitulo = str_replace(' ', '+',$_GET['post_titulo']);
 
 	//echo "<pre style='color:#fff'>".print_r($aFotos,true)."</pre>";
 ?>
@@ -50,6 +51,35 @@
 					});
 				}
 			});
+			$(".prox").bind('click',function(event){
+				event.stopPropagation();
+				var galeryAtive = $("#imageGalery > div.activeGalery");
+				if(galeryAtive.next().html()!=null){
+					galeryAtive.fadeOut('fast',function(){
+						galeryAtive.removeClass('activeGalery');
+						galeryAtive.next().fadeIn().addClass('activeGalery').removeClass('displayNone')
+						var qtd1 = galeryAtive.attr("id").split("_").pop();
+						var qtd2 = galeryAtive.next().attr("id").split("_").pop();
+						$(".qtd1").text(parseInt($(".qtd1").text())+parseInt(qtd1));
+						$(".qtd2").text(parseInt($(".qtd2").text())+parseInt(qtd2));
+					});
+				}
+			});
+			$(".ant").live('click',function(event){
+				event.stopPropagation();
+				var galeryAtive = $("#imageGalery > div.activeGalery");
+				if(galeryAtive.prev().html()!=null){
+					galeryAtive.fadeOut('fast',function(){
+						galeryAtive.removeClass('activeGalery');
+						galeryAtive.prev().fadeIn().addClass('activeGalery').removeClass('displayNone');
+						var qtd1 = galeryAtive.attr("id").split("_").pop();
+						var qtd2 = galeryAtive.prev().attr("id").split("_").pop();
+						$(".qtd1").text(parseInt($(".qtd1").text())-parseInt(qtd2));
+						$(".qtd2").text(parseInt($(".qtd2").text())-parseInt(qtd1));
+					});
+				}
+			});
+			
 		});
 	</script>
 	<!-- Coluna Esquerda -->
@@ -104,19 +134,31 @@
 		<div id="rightBox" class="thubsGaleria">
 			<table width="100%">
 				<tr>
-					<td><a href="#">◄</a> <a href="#">►</a></td>
-					<td align="right">Imagens 1-9 de 50</td>
+					<td><a href="javascript:void(0)" class="ant">◄</a> <a href="javascript:void(0)" class="prox">►</a></td>
+					<td align="right">Imagens <span class="qtd1">1</span> - <span class="qtd2"><?php echo (count($aFotos)>=9)?9:count($aFotos); ?></span> de <?php echo count($aFotos)?></td>
 				</tr>
 			</table>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_01.jpg" /></a>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_02.jpg" /></a>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_03.jpg" /></a>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_04.jpg" /></a>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_01.jpg" /></a>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_02.jpg" /></a>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_03.jpg" /></a>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_04.jpg" /></a>
-			<a href="galeria.html" class="img"><img src="<?php echo "{$linkAbsolute}"?>imgs/galerias/jogo1_01.jpg" /></a>
+			<div id="imageGalery">
+				<?php
+					$aFotosChuck = array_chunk($aFotos, 9);
+					foreach($aFotosChuck as $key => $value){
+						$displayNone = ($key==0)?'activeGalery':'displayNone';
+				?>
+					<div class="<?=$displayNone?>" id="qtd_<?php echo $key."_".count($value) ?>">
+					<?php
+						$i=0;
+						foreach($value as $k=>$v){
+					?>
+						<a href="<?php echo "{$linkAbsolute}galeria/{$v['imagem_galeria_id']}/{$v['galeria_id']}/{$postTitulo}/{$_GET['post_id']}"; ?>" class="img">
+							<img src="<?php echo "{$linkAbsolute}galerias/galeria_{$v['galeria_id']}/{$v['imagem_galeria_imagem']}"; ?>" />
+						</a>
+					<?php
+						$i++;
+						}
+					?>
+					</div>
+				<?php	} ?>
+			</div>
 			<div style="clear:both"></div>
 		</div>
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />

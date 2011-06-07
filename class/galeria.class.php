@@ -41,16 +41,16 @@ class galeria extends defaultClass{
 		$i=1;
 		if($result['total'] > 0){
 			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
-				$i = ($idOrdem==$rs['imagem_galeria_id'])?0:$i;
-				$res[$i]['imagem_galeria_id'] = $rs['imagem_galeria_id'];
-				$res[$i]['galeria_id'] = $rs['galeria_id'];
-				$res[$i]['imagem_galeria_titulo'] = $rs['imagem_galeria_titulo'];
-				$res[$i]['imagem_galeria_imagem'] = $rs['imagem_galeria_imagem'];
-				$res[$i]['imagem_galeria_dt_criacao'] = $rs['imagem_galeria_dt_criacao'];
-				$res[$i]['imagem_galeria_dtcomp_criacao'] = $rs['imagem_galeria_dtcomp_criacao'];
-				$res[$i]['imagem_galeria_dt_alteracao'] = $rs['imagem_galeria_dt_alteracao'];
-				$res[$i]['imagem_galeria_dtcomp_alteracao'] = $rs['imagem_galeria_dtcomp_alteracao'];
-				$res[$i]['galeria_titulo'] = $rs['galeria_titulo'];
+				$foto = ($idOrdem==$rs['imagem_galeria_id'])?0:$i;
+				$res[$foto]['imagem_galeria_id'] = $rs['imagem_galeria_id'];
+				$res[$foto]['galeria_id'] = $rs['galeria_id'];
+				$res[$foto]['imagem_galeria_titulo'] = $rs['imagem_galeria_titulo'];
+				$res[$foto]['imagem_galeria_imagem'] = $rs['imagem_galeria_imagem'];
+				$res[$foto]['imagem_galeria_dt_criacao'] = $rs['imagem_galeria_dt_criacao'];
+				$res[$foto]['imagem_galeria_dtcomp_criacao'] = $rs['imagem_galeria_dtcomp_criacao'];
+				$res[$foto]['imagem_galeria_dt_alteracao'] = $rs['imagem_galeria_dt_alteracao'];
+				$res[$foto]['imagem_galeria_dtcomp_alteracao'] = $rs['imagem_galeria_dtcomp_alteracao'];
+				$res[$foto]['galeria_titulo'] = $rs['galeria_titulo'];
 				$i++;
 			}
 		}

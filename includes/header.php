@@ -43,6 +43,7 @@
             <!-- Menu -->
         	<?php include_once 'menu.php'; ?>
         </div>
+		<?php if(is_array($aGame) && count($aGame)>0){ ?>
         <!-- Publicidade - banner 728x90 -->
         <div id="fullBanner">
 	        publicidade <img src="<?php echo $linkAbsolute ?>imgs/seta.gif" align="bottom" /><br />
@@ -63,6 +64,7 @@
 					}
 				?>
 			</div>
+		<?php } ?>
         </div>
 		<!-- Conteudo -->
         <div id="miolo">

@@ -94,8 +94,12 @@ class noticia extends defaultClass{
 	public function comentarioPost(){
 		$sql = array();
 		$sql[] = "
-			SELECT * FROM tb_comentario
+			SELECT *
+			FROM	tb_comentario c
 
+			LEFT JOIN	tb_usuario u
+			ON		c.usuario_id = u.usuario_id
+		
 			WHERE	1 = 1
 			AND		post_id = '{$this->post_id}'
 
@@ -173,6 +177,26 @@ class noticia extends defaultClass{
 			}
 		}
 		return $this->utf8_array_encode($res);
+	}
+	public function saveComentario(){
+		$this->values = $this->antiInjection($this->values);
+		$email = ($this->values['usuario_id'])?"(SELECT usuario_email FROM tb_usuario where usuario_id = '{$this->values['usuario_id']}')":"sem-email@sem-email.com.br";
+		$sql = "
+			INSERT INTO tb_comentario SET
+			post_id = {$this->values['post_id']},
+			comentario_autor = '{$this->values['nome']}',
+			comentario_email = '{$email}',
+			comentario_conteudo = '{$this->values['comentario']}',
+			usuario_id = '{$this->values['usuario_id']}',
+			comentario_dt_criacao = DATE_FORMAT(NOW(),'%Y-%m-%d'),
+			comentario_dtcomp_criacao = NOW()
+		";
+		$result = $this->dbConn->db_execute($sql);
+
+		if($result['success']===true){
+			return true;
+		}
+		return false;
 	}
 }
 ?>
