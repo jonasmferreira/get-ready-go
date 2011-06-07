@@ -36,7 +36,7 @@
             	<table cellpadding="0" cellspacing="0" border="0">
                 	<tr>
                     	<td><input type="text" class="busca" align="top" /></td>
-                        <td><input type="image" src="<?php echo $linkAbsolute ?>imgs/bt_go.gif" /></td>
+                        <td><a href="<?php echo $linkAbsolute ?>/busca_result.php"><input type="image" src="<?php echo $linkAbsolute ?>imgs/bt_go.gif" /></a></td>
                     </tr>
                 </table>
             </div>
