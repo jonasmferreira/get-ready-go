@@ -60,9 +60,17 @@
 			</ul>
 			<br clear="all" />
 			<ul style="width:600px">
-				<li>Arquivo:</li>
+				<li style="width:600px">Arquivo:</li>
+				<li style="width:600px">
+					<input style="width:600px" type="file" name="publicidade_arquivo" id="publicidade_arquivo" value="" />
+				</li>
+			</ul>
+			<br clear="all" />
+
+			<ul style="width:600px">
+				<li>Link p/ Imagens:</li>
 				<li>
-					<input type="file" name="publicidade_arquivo" id="publicidade_arquivo" value="" />
+					<input type="text" name="publicidade_link" id="publicidade_link" value="<?php echo empty($res['publicidade_link']) ? '' : $res['publicidade_link'] ?>" />
 				</li>
 			</ul>
 			<br clear="all" />
