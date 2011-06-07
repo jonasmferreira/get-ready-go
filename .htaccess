@@ -19,5 +19,5 @@
 	
 </IfModule>
 <IfModule !mod_rewrite.c>
-	ErrorDocument 404 /erros/404.html
+	ErrorDocument 404 http://www.google.com.br
 </IfModule>  

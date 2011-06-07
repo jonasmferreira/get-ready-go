@@ -64,6 +64,7 @@
 				$(".paginacao a.paginacaoPage").last().trigger("click");
 			});
 			$(".paginacaoPage:not(:.ativoPaginacao)").live('click',function(e){
+				$(this).stop(true, true);
 				var obj = $(this);
 				var idAtivo = $(".paginacao a.ativoPaginacao").attr('id').split("_").pop();
 				obj.next().fadeIn();

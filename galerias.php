@@ -52,6 +52,7 @@
 				}
 			});
 			$(".prox").bind('click',function(event){
+				$(this).stop(true,true);
 				event.stopPropagation();
 				var galeryAtive = $("#imageGalery > div.activeGalery");
 				if(galeryAtive.next().html()!=null){
@@ -66,6 +67,7 @@
 				}
 			});
 			$(".ant").live('click',function(event){
+				$(this).stop(true,true);
 				event.stopPropagation();
 				var galeryAtive = $("#imageGalery > div.activeGalery");
 				if(galeryAtive.prev().html()!=null){

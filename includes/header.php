@@ -27,7 +27,7 @@
 						<?php } ?>
 					</div>
 					<div style="float:right; padding:31px 0 0 0">Bem vindo, <strong class="nomeSobrenome"><?php echo $_SESSION['GET_READY_GO_2011_SITE']['usuario_nome'] ?></strong><br />
-					<a href="perfil.html">Meu perfil</a> | <a href="javascript:void(0)" id="logoff">Sair</a></div>
+					<a href="<?php echo $linkAbsolute ?>meu_perfil">Meu perfil</a> | <a href="javascript:void(0)" id="logoff">Sair</a></div>
 				</div>
 				<?php #echo "<pre>".print_r($_SESSION['GET_READY_GO_2011_SITE']['usuario_id'],true)."</pre>"; ?>
             </div>
