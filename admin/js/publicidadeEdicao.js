@@ -19,6 +19,17 @@
 		$("#voltar").click(function(){
 			window.location.href = 'publicidade.php';
 		});
+		
+		$("#publicidade_tipomedia").change(function(){
+			if($(this).val()==0){
+				$("#publicidade_link").attr('disabled', '');
+				$("#publicidade_link").addClass('obrigatorio');
+			}else{
+				$("#publicidade_link").attr('disabled', 'disabled');
+				$("#publicidade_link").removeClass('obrigatorio');
+			}
+		});
+		$("#publicidade_tipomedia").trigger('change');
 
 	});
 })(jQuery);
