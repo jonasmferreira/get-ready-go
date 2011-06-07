@@ -8,6 +8,7 @@ Ext.onReady(function(){
 			{name:'publicidade_id', type: 'int'}
 			,{name:'publicidade_tipomedia', type: 'int'}
 			,{name:'publicidade_arquivo', type: 'string'}
+			,{name:'publicidade_link', type: 'string'}
 			,{name:'publicidade_numclique', type: 'int'}
 			,{name:'publicidade_dt_ativacao', type: 'datetime'}
 			,{name:'publicidade_dt_desativacao', type: 'datetime'}
@@ -219,6 +220,9 @@ Ext.onReady(function(){
 					}
 				}
 			}
+			,{header: 'Arquivo',  dataIndex: 'publicidade_arquivo',sortable: true, width:300}
+			,{header: 'Link',  dataIndex: 'publicidade_link',sortable: true, width:120}
+			
 			,{header: 'Dt. Criação',  dataIndex: 'publicidade_dt_criacao',sortable: true,hidden:true,hideable:false}
 			,{header: 'Dt/Hr Criação ',  dataIndex: 'publicidade_dtcomp_criacao',sortable: true, width:120}
 			,{header: 'Dt. Ativação',  dataIndex: 'publicidade_dt_ativacao',sortable: true, width:120}
