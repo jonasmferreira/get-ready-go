@@ -170,7 +170,7 @@ input.text, textarea {border:1px solid #999999; background:#CCCCCC}
 .autor a {text-decoration:underline; color:#024d98}
 .autor img {border:1px solid #000; width:20px; margin:5px 4px 5px 0}
 
-.avalia {background:url(imgs/nota_00.jpg) no-repeat; height:20px; width:100px; margin:0}
+.avalia {height:20px; width:100px; margin:0}
 
 .displayNone{
 	display: none !important;

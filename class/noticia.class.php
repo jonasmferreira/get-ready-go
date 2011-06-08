@@ -94,7 +94,8 @@ class noticia extends defaultClass{
 	public function comentarioPost(){
 		$sql = array();
 		$sql[] = "
-			SELECT *
+			SELECT	c.*,u.usuario_nome,u.usuario_avatar
+
 			FROM	tb_comentario c
 
 			LEFT JOIN	tb_usuario u
@@ -105,6 +106,10 @@ class noticia extends defaultClass{
 
 			ORDER BY comentario_dtcomp_criacao DESC
 		";
+		$this->setTotal($this->getMaxCount(implode("\n",$sql)));
+		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
+			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
+		}
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']){
 			return false;
@@ -157,6 +162,8 @@ class noticia extends defaultClass{
 			WHERE	1 = 1
 			AND	({$andClau})
 			AND p.post_id != '{$this->post_id}'
+			ORDER BY post_dt_criacao DESC
+			LIMIT 10
 		";
 
 		
@@ -180,12 +187,12 @@ class noticia extends defaultClass{
 	}
 	public function saveComentario(){
 		$this->values = $this->antiInjection($this->values);
-		$email = ($this->values['usuario_id'])?"(SELECT usuario_email FROM tb_usuario where usuario_id = '{$this->values['usuario_id']}')":"sem-email@sem-email.com.br";
+		$email = ($this->values['usuario_id'])?"(SELECT usuario_email FROM tb_usuario where usuario_id = '{$this->values['usuario_id']}')":"'sem-email@sem-email.com.br'";
 		$sql = "
 			INSERT INTO tb_comentario SET
 			post_id = {$this->values['post_id']},
 			comentario_autor = '{$this->values['nome']}',
-			comentario_email = '{$email}',
+			comentario_email = {$email},
 			comentario_conteudo = '{$this->values['comentario']}',
 			usuario_id = '{$this->values['usuario_id']}',
 			comentario_dt_criacao = DATE_FORMAT(NOW(),'%Y-%m-%d'),

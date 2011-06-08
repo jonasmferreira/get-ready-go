@@ -35,6 +35,16 @@ class defaultClass {
 	protected $emails;
 	protected $anexos;
 
+
+
+	private $total;
+	public function getTotal() {
+	 return $this->total;
+	}
+	public function setTotal($total) {
+	 $this->total = $total;
+	}
+
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
@@ -324,6 +334,17 @@ class defaultClass {
 						 , "A", "A", "A", "A", "A", "E", "E", "E", "E", "I", "I", "I", "I", "O", "O", "O", "O", "O", "U", "U", "U", "U", "C","","" );
 		return str_replace( $array1, $array2, $texto );
 	}
+
+	public function tagToEmoticon($string){
+		$aTrocaTagPorEmoticon = array(
+			":)"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/smiley.gif\" />",
+			":D"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/cheesy.gif\" />",
+			";)"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/wink.gif\" />",
+			":@"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/mad.gif\" />"
+		);
+		return str_replace(array_keys($aTrocaTagPorEmoticon),array_values($aTrocaTagPorEmoticon),$string);
+	}
+
 	public function enviaEmail(){
 		$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 		$mail->CharSet = 'utf-8';
@@ -362,6 +383,26 @@ class defaultClass {
 			return $e->getMessage();
 		}
 		return true;
+	}
+
+	public function dtExtensoComentario($strDate){
+		$arrMonthsOfYear = array(1 => 'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro');
+		$intDayOfWeek = date('w',strtotime($strDate));
+		$intDayOfMonth = date('d',strtotime($strDate));
+		$intMonthOfYear = date('n',strtotime($strDate));
+		$intYear = date('Y',strtotime($strDate));
+		$intHora = date('H:i',strtotime($strDate));
+		return "Em {$intDayOfWeek} de {$arrMonthsOfYear[$intMonthOfYear]} de {$intYear}, às {$intHora}";
+	}
+	public function dtExtensoNoticia($strDate){
+		$arrDaysOfWeek = array('Dom','Seg','Ter','Qua','Qui','Sex','Sáb');
+		$arrMonthsOfYear = array(1 => 'Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro');
+		$intDayOfWeek = date('w',strtotime($strDate));
+		$intDayOfMonth = date('d',strtotime($strDate));
+		$intMonthOfYear = date('n',strtotime($strDate));
+		$intYear = date('Y',strtotime($strDate));
+		$intHora = date('H:i',strtotime($strDate));
+		return "{$arrDaysOfWeek[$intDayOfWeek]},  {$intDayOfMonth}  de  {$arrMonthsOfYear[$intMonthOfYear]}  de  {$intYear} {$intHora}";
 	}
 }
 ?>

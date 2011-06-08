@@ -5,7 +5,7 @@
 	}
 	//echo "<pre>".print_r($_SESSION,true)."</pre>";
 	//echo "<pre>".print_r($_SERVER,true)."</pre>";
-	$linkAbsolute = "http://localhost/GetReadyGo/";
+	$linkAbsolute = "http://localhost/get/";
 	//$linkAbsolute = "http://getreadygo.cdanime.com/";
 ?>
 
@@ -17,6 +17,8 @@
 		<link href="<?php echo $linkAbsolute?>style.css" media="screen" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/jquery.js"></script>
 		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/basic.js"></script>
+		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/login.js"></script>
+		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/jquery.raty.js"></script>
 		
 		
 		

@@ -10,16 +10,6 @@ class home extends defaultClass{
 	public function setCategoria_id($categoria_id) {
 	 $this->categoria_id = $categoria_id;
 	}
-
-	private $total;
-	public function getTotal() {
-	 return $this->total;
-	}
-	public function setTotal($total) {
-	 $this->total = $total;
-	}
-
-
 	
 	public function getLastPost(){
 		$sql = array();
@@ -98,9 +88,9 @@ class home extends defaultClass{
 				$cat_nome = str_replace(' ', '_',$this->retiraAcentos($rs['game_categoria_nome']));
 				$game_nome = str_replace(' ', '+', $this->retiraAcentos($rs['game_titulo']));
 				if($rs['game_categoria_id']==1){
-					$rs['linkDetalhe'] = "jogoBrowser/{$cat_nome}/{$rs['game_categoria_id']}/{$game_nome}/{$rs['game_id']}";
-				}else{
 					$rs['linkDetalhe'] = "jogoDownload/{$cat_nome}/{$rs['game_categoria_id']}/{$game_nome}/{$rs['game_id']}";
+				}else{
+					$rs['linkDetalhe'] = "jogoBrowser/{$cat_nome}/{$rs['game_categoria_id']}/{$game_nome}/{$rs['game_id']}";
 				}
 
 				array_push($res, $rs);

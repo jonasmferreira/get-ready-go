@@ -147,7 +147,7 @@
 					</h3>
 					<p class="data"><?php echo $v['post_dt_criacao']; ?></p>
 					<p><?php echo $obj->cutHTML($v['post_conteudo'],150); ?></p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
+					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>#comentarios"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 				</div>
 			</div>
 			<?php 

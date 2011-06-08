@@ -1,72 +1,93 @@
 <?php
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
+	require_once 'class/game.class.php';
+	$obj = new game();
+	$obj->setGame_id($_GET['game_id']);
+	$aGame = $obj->getJogoDownload();
+	//echo "<pre>".print_r($aGame,true)."</pre>";
 ?>
-        	<!-- Coluna Esquerda -->
-            <div id="leftCol">
-            
-                <!-- Conteúdo -->
-                <img src="imgs/content_top.png" align="absbottom" />
-                <div id="conteudo">
-					<!-- nome da seção -->
-					<h2><b class="title">para download</b></h2>
+<script type="text/javascript" src="<?php echo $linkAbsolute ?>js/game.js"></script>
+<input type="hidden" name="game_id" id="game_id" value="<?php echo $aGame['game_id'] ?>" />
+<input type="hidden" name="pontuacao" id="pontuacao" value="<?php echo ($aGame['game_total_votacao']/$aGame['game_qtd_votacao']) ?>" />
+<!-- Coluna Esquerda -->
+<div id="leftCol">
 
-      		        <h1>Nome do jogo</h1>
-                    <!-- Conteúdo do Artigo -->
-                    <div id="newsContent">
-                    	<div class="newsHeader">
-                        	<p class="data">Criado por</p>
-                            <div style="float:left; width:62px;"><a href="perfil.html"><img src="imgs/avatares/05.jpg" style="width:60px;border:1px solid #000;" /></a></div>
-                            <div style="float:left; margin:15px 5px 5px 5px">
-                            	<h3><a href="perfil.html">Fulano de Tal</a></h3> <!-- Sem link se o autor não for usuário cadastrado -->
-                                <p><a href="busca.html">veja mais jogos desse autor</a></p>
-                            </div><div style="clear:both"></div>
-                        </div>
-                        
-                        <!-- Texto -->
-                        <p>A Warner Bros. Interactive Entertainment e a DC Entertainment anunciaram hoje que Batman: Arkham City sairá das sombras para as prateleiras dia 18 de outubro na América do Norte, dia 19 na Austrália e dia 21 no Reino Unido.</p>
-                        <p>Junto com a data de laçamento, foram liberadas mais imagens do jogo (<a href="galeria.html">veja a galeria</a>) e a descrição oficial.</p>
-                        <p><em><strong>Batman: Arkham City</strong> se utiliza da atmosfera intensa de Batman: Arkham Asylum, levando os jogadores à Arkham City – cinco vezes maior que o cenário de Batman: Arkham Asylum – o novo "lar" de segurança máxima para todos os bandidos, gangsters e mentes criminosas de Gotham City. Localizada dentro dos muros fortificados de um distrito no coração de Gotham City, essa tão esperada sequencia introduz uma nova história, um elenco com personagens clássicos e vilões assassinos do universo de Batman, e uma vasta variedade de novos aspectos de jogabilidade para criar a experiência máxima como o Cavaleiro das Trevas.</em></p>
-                        <p>Ao que parece, o Halloween promete esse ano! E quais os seus pensamentos sobre o jogo?</p>
-                    
-                    </div>
-                    
-                </div>
-                <img src="imgs/content_bot.png" align="top" />
-                 
-            </div>
-            <!-- Coluna Direita -->
-            <div id="rightCol">
+	<!-- Conteúdo -->
+	<img src="imgs/content_top.png" align="absbottom" />
+	<div id="conteudo">
+		<!-- nome da seção -->
+		<h2><b class="title">para download</b></h2>
 
-				<!-- Estatísticas -->
-                <img src="imgs/box_top.png" align="absbottom" />
-                <div id="rightBox" class="stats">
-	                <h2><b class="title">Estatísticas</b></h2>
-			        <table cellspacing="5" width="100%" border="0" cellpadding="0">
-						<tr>
-                    		<td align="center">Avaliação geral:<br /><img src="imgs/nota_09.jpg" /></td>
-                        	<td align="center">Sua avaliação:<br />
-                        		<div class="avalia">
-					                <a href="#">&nbsp;</a>
-    	        				    <a href="#">&nbsp;</a>
-        	                		<a href="#">&nbsp;</a>
-				            	    <a href="#">&nbsp;</a>
-                					<a href="#">&nbsp;</a>
-         						</div>
-                        	</td>
-                        </tr>
-                        <tr>
-		                	<td colspan="2" align="center">Baixado: <strong>999999</strong> vezes</td>
-                    	</tr>
-                	</table>
-                    <p align="center"><a href="#"><img src="imgs/bt_download.jpg" /></a></p>
-                </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
-            	                    
-            	<!-- Banner 300x250 -->
-            	<div id="sideBanner"><img src="banners/banner_300x250.jpg" /></div>
+		<h1><?php echo $aGame['game_titulo'] ?></h1>
+		<!-- Conteúdo do Artigo -->
+		<div id="newsContent">
+			<div class="newsHeader">
+				<p class="data">Criado por</p>
+				<div style="float:left; width:62px;">
+					<?php if($v['usuario_avatar']==''){ ?>
+						<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" style="width:60px;border:1px solid #000;" />
+					<?php }else{ ?>
+					<a href="perfil.html">
+						<img src="<?php echo "{$linkAbsolute}avatars/{$v['usuario_avatar']}" ?>" style="width:60px;border:1px solid #000;" />
+					</a>
+					<?php } ?>
 
-            </div>
+				</div>
+				<div style="float:left; margin:15px 5px 5px 5px">
+					<h3>
+						<?php if($aGame['game_criador_is_user']){ ?>
+							<a href="perfil.html"><?php echo $aGame['game_criador_nome'] ?></a>
+							<p><a href="busca.html">veja mais jogos desse autor</a></p>
+						<?php }else{ ?>
+							<?php echo $aGame['game_criador_nome'] ?>
+						<?php } ?>
+					</h3>
+				</div><div style="clear:both"></div>
+			</div>
+
+			<!-- Texto -->
+			<?php echo $aGame['game_descricao'] ?>
+
+		</div>
+
+	</div>
+	<img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
+
+</div>
+<!-- Coluna Direita -->
+<div id="rightCol">
+
+	<!-- Estatísticas -->
+	<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
+	<div id="rightBox" class="stats">
+		<h2><b class="title">Estatísticas</b></h2>
+		<table cellspacing="5" width="100%" border="0" cellpadding="0">
+			<tr>
+				<td align="center">
+					Avaliação geral:<br />
+					<div id="avaliado"></div>
+				</td>
+				<td align="center">Sua avaliação:<br />
+					<div class="avalia"></div>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center">Baixado: <strong><?php echo $aGame['game_qtd_download'] ?></strong> <?php echo ($aGame['game_qtd_download']==1)?'vez':'vezes' ?></td>
+			</tr>
+		</table>
+		<p align="center">
+			<a href="<?php echo $aGame['game_link'] ?>" target="_blank" id="somaDownload">
+				<img src="<?php echo "{$linkAbsolute}"?>imgs/bt_download.jpg" />
+			</a>
+		</p>
+	</div>
+	<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
+
+	<!-- Banner 300x250 -->
+	<div id="sideBanner"><img src="<?php echo "{$linkAbsolute}"?>banners/banner_300x250.jpg" /></div>
+
+</div>
 <?php
 	include_once 'includes/footer.php';
 ?>

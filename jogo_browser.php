@@ -1,29 +1,42 @@
 <?php
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
+	require_once 'class/game.class.php';
+	$obj = new game();
+	$obj->setGame_id($_GET['game_id']);
+	$aGame = $obj->getJogoDownload();
+	$obj->saveQtdJogado();
+	//echo "<pre>".print_r($aGame,true)."</pre>";
 ?>
+			<script type="text/javascript" src="<?php echo $linkAbsolute ?>js/game.js"></script>
+			<input type="hidden" name="game_id" id="game_id" value="<?php echo $aGame['game_id'] ?>" />
+			<input type="hidden" name="pontuacao" id="pontuacao" value="<?php echo ($aGame['game_total_votacao']/$aGame['game_qtd_votacao']) ?>" />
         	<!-- Jogo -->
-            <img src="imgs/full_content_top.png" align="absbottom" />
+            <img src="<?php echo $linkAbsolute ?>imgs/full_content_top.png" align="absbottom" />
             <div id="conteudo" class="gameArea">
 				<!-- nome da seção -->
 				<h2><b class="title">browser game</b></h2>
                    
             	<!-- Conteúdo do Artigo -->
-                <h1>Nome do jogo</h1>
+                <h1><?php echo $aGame['game_titulo'] ?></h1>
                 
                 <!-- Área do jogo -->
                 <div align="center">
-<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="800" height="590" border="0"><param name="allowScriptAccess" value="sameDomain"/><param name="movie" value="http://haznos.org/wp-content/uploads/2011/03/charlie.swf"/><embed src="http://haznos.org/wp-content/uploads/2011/03/charlie.swf" width="800" height="590" allowscriptaccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"/></embed></object>
+					<object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" codebase="http://fpdownload.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="<?php echo $aGame['game_width'] ?>px" height="<?php echo $aGame['game_height'] ?>px" border="0">
+						<param name="allowScriptAccess" value="sameDomain"/>
+						<param name="movie" value="<?php echo $aGame['game_link'] ?>"/>
+						<embed src="<?php echo $aGame['game_link'] ?>" width="<?php echo $aGame['game_width'] ?>px" height="<?php echo $aGame['game_height'] ?>px" allowscriptaccess="sameDomain" type="application/x-shockwave-flash" pluginspage="http://www.macromedia.com/go/getflashplayer"/></embed>
+					</object>
             	</div>
             
             </div>
-            <img src="imgs/full_content_bot.png" align="absbottom" />
+            <img src="<?php echo $linkAbsolute ?>imgs/full_content_bot.png" align="absbottom" />
         
         	<!-- Coluna Esquerda -->
             <div id="leftCol">
             
                 <!-- Conteúdo -->
-                <img src="imgs/content_top.png" align="absbottom" />
+                <img src="<?php echo $linkAbsolute ?>imgs/content_top.png" align="absbottom" />
                 <div id="conteudo">
                    
                     <!-- Conteúdo do Artigo -->
@@ -32,52 +45,63 @@
 
                     	<div class="newsHeader">
                         	<p class="data">Criado por</p>
-                            <div style="float:left; width:62px;"><a href="perfil.html"><img src="imgs/avatares/05.jpg" style="width:60px;border:1px solid #000;" /></a></div>
+                            <div style="float:left; width:62px;">
+								<?php if($v['usuario_avatar']==''){ ?>
+									<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" style="width:60px;border:1px solid #000;" />
+								<?php }else{ ?>
+								<a href="perfil.html">
+									<img src="<?php echo "{$linkAbsolute}avatars/{$v['usuario_avatar']}" ?>" style="width:60px;border:1px solid #000;" />
+								</a>
+								<?php } ?>
+
+							</div>
                             <div style="float:left; margin:15px 5px 5px 5px">
-                            	<h3><a href="perfil.html">Fulano de Tal</a></h3> <!-- Sem link se o autor não for usuário cadastrado -->
-                                <p><a href="busca.html">veja mais jogos desse autor</a></p>
+                            	<h3>
+									<?php if($aGame['game_criador_is_user']){ ?>
+										<a href="perfil.html"><?php echo $aGame['game_criador_nome'] ?></a>
+										<p><a href="busca.html">veja mais jogos desse autor</a></p>
+									<?php }else{ ?>
+										<?php echo $aGame['game_criador_nome'] ?>
+									<?php } ?>
+								</h3>
                             </div><div style="clear:both"></div>
                         </div>
 
                         <!-- Texto -->
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc justo, dapibus in placerat non, sollicitudin nec magna. Suspendisse venenatis dui in ipsum tristique consequat. Quisque sit amet turpis eget velit tincidunt blandit sed id nisi. Aliquam erat volutpat. Donec sollicitudin libero sed ligula iaculis sed tincidunt ligula porta. Fusce at nunc tellus. Integer egestas dictum enim eu pellentesque. Aliquam erat volutpat. Sed tincidunt turpis non risus ultrices fermentum. Phasellus facilisis sollicitudin consequat. Praesent sed elit libero, rutrum volutpat lorem. Duis lacinia malesuada pulvinar. </p>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nunc justo, dapibus in placerat non, sollicitudin nec magna. Suspendisse venenatis dui in ipsum tristique consequat. Quisque sit amet turpis eget velit tincidunt blandit sed id nisi. Aliquam erat volutpat. Donec sollicitudin libero sed ligula iaculis sed tincidunt ligula porta. Fusce at nunc tellus. Integer egestas dictum enim eu pellentesque. Aliquam erat volutpat. Sed tincidunt turpis non risus ultrices fermentum. Phasellus facilisis sollicitudin consequat. Praesent sed elit libero, rutrum volutpat lorem. Duis lacinia malesuada pulvinar. </p>
+						<?php echo $aGame['game_descricao'] ?>
                     
                     </div>
                     
                 </div>
-                <img src="imgs/content_bot.png" align="top" />
+                <img src="<?php echo $linkAbsolute ?>imgs/content_bot.png" align="top" />
                  
             </div>
             <!-- Coluna Direita -->
             <div id="rightCol">
 
 				<!-- Estatísticas -->
-                <img src="imgs/box_top.png" align="absbottom" />
+                <img src="<?php echo $linkAbsolute ?>imgs/box_top.png" align="absbottom" />
                 <div id="rightBox" class="stats">
 	                <h2><b class="title">Estatísticas</b></h2>
 			        <table cellspacing="5" width="100%" border="0" cellpadding="0">
 						<tr>
-                    		<td align="center">Avaliação geral:<br /><img src="imgs/nota_09.jpg" /></td>
+                    		<td align="center">
+								Avaliação geral:<br />
+								<div id="avaliado"></div>
+							</td>
                         	<td align="center">Sua avaliação:<br />
-                        		<div class="avalia">
-					                <a href="#">&nbsp;</a>
-    	        				    <a href="#">&nbsp;</a>
-        	                		<a href="#">&nbsp;</a>
-				            	    <a href="#">&nbsp;</a>
-                					<a href="#">&nbsp;</a>
-         						</div>
+                        		<div class="avalia"></div>
                         	</td>
                         </tr>
                         <tr>
-		                	<td colspan="2" align="center">Jogado: <strong>999999</strong> vezes</td>
+		                	<td colspan="2" align="center">Jogado: <strong><?php echo $aGame['game_qtd_jogado'] ?></strong> <?php echo ($aGame['game_qtd_jogado']==1)?'vez':'vezes' ?></td>
                     	</tr>
                 	</table>
                 </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
+                <img src="<?php echo $linkAbsolute ?>imgs/box_bot.png" align="top" style="clear:both" />
 
             	<!-- Banner 300x250 -->
-            	<div id="sideBanner"><img src="banners/banner_300x250.jpg" /></div>
+            	<div id="sideBanner"><img src="<?php echo $linkAbsolute ?>banners/banner_300x250.jpg" /></div>
 
             </div>
 <?php

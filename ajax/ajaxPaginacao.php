@@ -34,20 +34,41 @@
 			</div>
 <?
 		break;
-		case 'getCategoria':
-			$aJson = array();
-			$aJson = $obj->getCategoria();
-			echo json_encode($aJson);
-		break;
-		case 'getUsuario':
-			$aJson = array();
-			$aJson = $obj->getUsuario();
-			echo json_encode($aJson);
-		break;
-		case 'getGaleria':
-			$aJson = array();
-			$aJson = $obj->getGaleria();
-			echo json_encode($aJson);
+		case 'comentarios':
+			require_once "{$path_root_postController}class/noticia.class.php";
+			$obj = new noticia();
+			$obj->setPost_id($_POST['post_id']);
+			$obj->setLimitMax(3);
+			$obj->setLimitStart($_POST['limit']);
+			$aComentario = $obj->comentarioPost();
+?>
+			<div id="listagem_<?php echo $_POST['limit']; ?>">
+				<?php foreach($aComentario as $k => $v){ ?>
+					<table class="comentario" cellspacing="0" cellpadding="5">
+						<tr>
+							<td align="center" valign="top">
+								<?php if($v['usuario_avatar']==''){ ?>
+								<img src="@LINKABSOLUTO@imgs/avatares/1.jpg" class="avatar" />
+								<?php }else{ ?>
+								<img src="<?php echo "@LINKABSOLUTO@avatars/{$v['usuario_avatar']}" ?>" class="avatar" />
+								<?php } ?>
+								<!--p style="font-size:14px; font-weight: bold">15<p>
+								<a href="#"><img src="imgs/pos.gif" /></a>
+								<a href="#"><img src="imgs/neg.gif" /></a-->
+								<!-- Avaliação de comentário só para usuários cadastrados -->
+							</td>
+							<td valign="top">
+								<p><a href="#"><strong><?php echo $v['comentario_autor']; ?></strong></a></p>
+								<p class="data">Em 11 de Março de 2011, às 17:35</p>
+								<p>
+									<?php echo $obj->tagToEmoticon($v['comentario_conteudo']); ?>
+								</p>
+							</td>
+						</tr>
+					</table>
+				<?php } ?>
+			</div>
+<?php
 		break;
 	}
 

@@ -9,20 +9,18 @@
 	$obj->setPost_id($_GET['post_id']);
 	$aNoticia = $obj->getOne();
 	$aGaleria = $obj->galeriaPost();
+	$obj->setLimitMax(12);
+	$obj->setLimitStart(0);
 	$aComentario = $obj->comentarioPost();
+	$obj->setLimitMax(null);
+	$obj->setLimitStart(null);
 	$aItensRelacionados = $obj->getItensRelacionadas($aNoticia['post_palavra_chave']);
 
-	$objHome = new home();
-	$objHome->setCategoria_id(1);
-	$aNoticias = $objHome->getLastPost();
-
-	$objHome->setCategoria_id(2);
-	$aArtigo = $objHome->getLastPost();
-
-	$objHome->setCategoria_id(3);
-	$aAnalises = $objHome->getLastPost();
-
+	$totalComentario = $obj->getTotal();
+	
 	$postTitulo = str_replace(' ', '+',$_GET['post_titulo']);
+
+	//echo "<pre>".print_r($aNoticia,true)."</pre>";
 
 ?>
 			<input type="hidden" name="post_id" id="post_id" value="<?php echo $_GET['post_id'] ?>"/>
@@ -41,7 +39,7 @@
                     	<div class="newsHeader">
 	                    	<h1><?php echo $aNoticia['post_titulo'] ?></h1>
                             <p class="autor"><?php echo $aNoticia['usuario_nome'] ?></p>
-                            <p class="data">Sex, 11 de Março de 2011 17:35</p>
+                            <p class="data"><?php echo $obj->dtExtensoNoticia($aNoticia['post_dtcomp_criacao']); ?></p>
                         </div>
 
                         <!-- Texto -->
@@ -57,7 +55,7 @@
 								<img src="<?php echo "{$linkAbsolute}galerias/galeria_{$v['galeria_id']}/{$v['imagem_galeria_imagem']}"; ?>" />
 							</a>
 						<?php } ?>
-                        <p style="clear:both" align="right" class="comments"><a href="#">Veja todas as imagens</a>»</p>
+                        <p style="clear:both" align="right" class="comments"><a href="<?php echo "{$linkAbsolute}galeria/{$v['imagem_galeria_id']}/{$v['galeria_id']}/{$postTitulo}/{$_GET['post_id']}"; ?>">Veja todas as imagens</a>»</p>
                     </div>
 					<?php } ?>
 
@@ -79,7 +77,7 @@
 								</td><!-- Só para quem não está logado -->
                             </tr>
                         	<tr>
-                            	<td><textarea style="width:405px" rows="6" id="comentario"></textarea><br />Você ainda pode digitar 1000 caracteres</td>
+								<td><textarea style="width:405px" rows="6" id="comentario"></textarea><br />Você ainda pode digitar <span class="qtdCaracteres">1000</span> caracteres</td>
                                 <td valign="top">
                                    	<table class="smiles">
 				                       	<tr>
@@ -122,36 +120,63 @@
                             	<td align="right" colspan="2"><input type="image" src="<?php echo "{$linkAbsolute}"?>imgs/bt_enviar.gif" id="enviarComentario" /></td>
                             </tr>
                         </table>
-						<?php if(count($aComentario)){ ?>
-							<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
-							<!-- Comentário -->
-							<?php foreach($aComentario as $k => $v){ ?>
-							<table class="comentario" cellspacing="0" cellpadding="5">
-								<tr>
-									<td align="center" valign="top">
-										<img src="<?php echo "{$linkAbsolute}"?>imgs/avatares/1.jpg" class="avatar" /><!-- Avatar Pafrão para não usuários e usuários que ainda não escolheram avatar -->
-										<!--p style="font-size:14px; font-weight: bold">15<p>
-										<a href="#"><img src="imgs/pos.gif" /></a>
-										<a href="#"><img src="imgs/neg.gif" /></a-->
-										<!-- Avaliação de comentário só para usuários cadastrados -->
-									</td>
-									<td valign="top">
-										<p><a href="#"><strong><?php echo $v['comentario_autor']; ?></strong></a></p>
-										<p class="data">Em 11 de Março de 2011, às 17:35</p>
-										<p>
-											<?php echo $v['comentario_conteudo']; ?>
-										</p>
-									</td>
-								</tr>
-							</table>
+						<?php
+							if(is_array($aComentario) && count($aComentario)>0){
+						?>
+							<div id="listagem">
+								<div id="listagem_0">
+								<?php foreach($aComentario as $k => $v){ ?>
+								<table class="comentario" cellspacing="0" cellpadding="5">
+									<tr>
+										<td align="center" valign="top">
+											<?php if($v['usuario_avatar']==''){ ?>
+											<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" />
+											<?php }else{ ?>
+											<img src="<?php echo "{$linkAbsolute}avatars/{$v['usuario_avatar']}" ?>" class="avatar" />
+											<?php } ?>
+											<!--p style="font-size:14px; font-weight: bold">15<p>
+											<a href="#"><img src="imgs/pos.gif" /></a>
+											<a href="#"><img src="imgs/neg.gif" /></a-->
+											<!-- Avaliação de comentário só para usuários cadastrados -->
+										</td>
+										<td valign="top">
+											<p><a href="#"><strong><?php echo $v['comentario_autor']; ?></strong></a></p>
+											<p class="data"><?php echo $obj->dtExtensoComentario($v['comentario_dtcomp_criacao']) ?></p>
+											<p>
+												<?php echo str_replace("@LINKABSOLUTO@",$linkAbsolute,$obj->tagToEmoticon($v['comentario_conteudo'])); ?>
+											</p>
+										</td>
+									</tr>
+								</table>
+								<?php } ?>
+								</div>
+							</div>
+							<?php if($totalComentario>=12){ ?>
+								<p class="paginacao">
+									«<a href="javascript:void(0)" class="inicio">Início</a>
+									<a href="javascript:void(0)" class="anterior">Anterior</a>
+									<?php
+										$porPage = 0;
+										for($i=1;$i<=ceil($totalComentario/12);$i++):
+
+										$displayNone = ($i<=5)?'':'displayNone';
+										$actActive = ($i==1)?'ativoPaginacao':'';
+									?>
+										<a href="javascript:void(0)" id="limit_baixo_<?php echo $porPage ?>" class="paginacaoPage <?php echo "{$displayNone} {$actActive}"?>"><?php echo $i; ?></a>
+									<?php
+										$porPage += 12;
+										endfor;
+									?>
+
+									<a href="javascript:void(0)" class="proximo">Próximo</a>
+									<a href="javascript:void(0)" class="fim">Fim</a>
+									»
+								</p>
 							<?php } ?>
-							<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
+							</div>
 						<?php } ?>
-                    </div>
-
-                </div>
+					</div>
                 <img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
-
             </div>
             <!-- Coluna Direita -->
             <div id="rightCol">
