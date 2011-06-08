@@ -1,4 +1,20 @@
-<div class="custom" style="background-image:url(<?php echo "{$linkAbsolute}"?>imgs/custom_bg/01.jpg);">
+<?
+	$bg = '';
+	if(is_array($aBgBanner) && count($aBgBanner)>0){ 
+		foreach($aBgBanner as $k => $v){
+			$link = $v['publicidade_link'];
+			$arq = $linkAbsolute . 'publicidade/' . $v['publicidade_arquivo'];
+			$w = $v['publicidade_largura'];
+			$h = $v['publicidade_altura'];
+
+			if($v['publicidade_tipomedia']==0){ 
+				$bg = $arq;
+			}
+		}
+	}
+	
+?>
+<div class="custom" style="background-image:url(<?=$bg;?>)">
 	<div id="all">
     	<!-- Topo -->
         <div id="topo">
