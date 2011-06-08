@@ -103,6 +103,7 @@ class noticia extends defaultClass{
 		
 			WHERE	1 = 1
 			AND		post_id = '{$this->post_id}'
+			AND		comentarios_status
 
 			ORDER BY comentario_dtcomp_criacao DESC
 		";

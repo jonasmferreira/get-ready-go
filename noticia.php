@@ -173,11 +173,11 @@
 									»
 								</p>
 							<?php } ?>
-							</div>
 						<?php } ?>
+						</div>
 					</div>
                 <img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
-            </div>
+			</div>
             <!-- Coluna Direita -->
             <div id="rightCol">
 
