@@ -6,9 +6,14 @@ require_once "{$path_root_class}default.class.php";
 class home extends defaultClass{
 
 	private $categoria_id = '';
+	private $opcao_enquete_opcao_id;
 
 	public function setCategoria_id($categoria_id) {
 	 $this->categoria_id = $categoria_id;
+	}
+	
+	public function setOpcao_enquete_opcao_id($opcao_enquete_opcao_id) {
+		$this->opcao_enquete_opcao_id = $opcao_enquete_opcao_id;
 	}
 	
 	public function getLastPost(){
@@ -147,6 +152,35 @@ class home extends defaultClass{
 			}
 		}
 		return $this->utf8_array_encode($res);
+	}
+	
+	public function verifyVotos(){
+		$sql = "
+			SELECT *
+			FROM tb_enquete_votacao 
+			WHERE enquete_votacao_ip = '{$_SERVER['REMOTE_ADDR']}'
+			AND enquete_votacao_dt = DATE_FORMAT(NOW(),'%Y-%m-%d')
+		";
+		$result = $this->dbConn->db_query($sql);
+		if($result['total'] > 0){
+			return false;
+		}
+		return true;
+	}
+	
+	public function saveVoto(){
+		$sql = "
+			INSERT INTO tb_enquete_votacao SET
+				opcao_enquete_opcao_id = $this->opcao_enquete_opcao_id,
+				enquete_votacao_ip = '{$_SERVER['REMOTE_ADDR']}',
+				enquete_votacao_dt = NOW(),
+				enquete_votacao_dtcomp = NOW()
+		";
+		$result = $this->dbConn->db_execute($sql);
+		if($result['success']===true){
+			return true;
+		}
+		return false;
 	}
 }
 ?>
