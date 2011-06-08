@@ -128,7 +128,7 @@
 								<?php foreach($aComentario as $k => $v){ ?>
 								<table class="comentario" cellspacing="0" cellpadding="5">
 									<tr>
-										<td align="center" valign="top">
+										<td align="center" valign="top" width="135px">
 											<?php if($v['usuario_avatar']==''){ ?>
 											<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" />
 											<?php }else{ ?>
