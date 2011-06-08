@@ -61,7 +61,7 @@
 
                 	<!-- Comentários -->
                 	<div id="comentarios">
-                    	<h2><b class="title">Comentários (<?php echo $aNoticia['qtdComentario']; ?>)</b></h2>
+                    	<h2><b class="title">Comentários (<?php echo count($aComentario); ?>)</b></h2>
                         <table width="100%">
                         	<tr>
                             	<td colspan="2">

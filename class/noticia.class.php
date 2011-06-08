@@ -29,7 +29,7 @@ class noticia extends defaultClass{
 					,u.usuario_nome
 					,u.usuario_avatar
 					,c.categoria_nome
-					,(SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id) as qtdComentario
+					,(SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id AND comentarios_status = 1) as qtdComentario
 			FROM	tb_post p
 
 			JOIN	tb_usuario u

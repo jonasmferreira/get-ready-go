@@ -31,7 +31,7 @@ class home extends defaultClass{
 					,p.post_status
 					,u.usuario_nome
 					,u.usuario_avatar
-					,(SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id) as qtdComentario
+					,(SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id AND comentarios_status = 1) as qtdComentario
 			FROM	tb_post p
 
 			JOIN	tb_usuario u
