@@ -96,7 +96,28 @@
 						pagePaginacao.fadeIn('slow');
 					});
 				}
-			})
+			});
+			$("#votar").click(function(){
+			
+				if($(".enquetes input:radio:checked").val()==undefined){
+					alert("Escolha uma opção da enquete!")
+					return false;
+				}
+			
+				$.ajax({
+					'type':'POST',
+					'async':false,
+					'url':'<?php echo $linkAbsolute;?>ajax/home',
+					'dataType':'json',
+					'data':{
+						'action':'addEnquete',
+						'opcao_voto':$(".enquetes input:radio:checked").val()
+					},
+					success:function(resp){
+						alert(resp.message);
+					}
+				});
+			});
 		});
 	</script>
 	<!-- Coluna Esquerda -->
