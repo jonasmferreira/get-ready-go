@@ -84,30 +84,30 @@
                                         	<td valign="bottom"><a href="javascript:emoticon(':)')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/smiley.gif" /></a></td>
                                         	<td valign="bottom"><a href="javascript:emoticon(':D')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/cheesy.gif" /></a></td>
                                         	<td valign="bottom"><a href="javascript:emoticon(';)')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/wink.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/(eek).gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/tongue.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/cool.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':o')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/(eek).gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':p')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/tongue.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon('B)')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/cool.gif" /></a></td>
                                         </tr>
                                         <tr>
                                         	<td valign="bottom"><a href="javascript:emoticon(':@')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/mad.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/undecided.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/iredface.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/triste.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/ugh.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/kiss.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':/')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/undecided.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':blush:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/iredface.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':(')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/triste.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':ugh:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/ugh.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':kiss:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/kiss.gif" /></a></td>
                                         </tr>
                                         <tr>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/roll.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/arrowan0.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/bowdown.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/fdp.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/hum.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/joia.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':roll:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/roll.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':arrow:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/arrowan0.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':bow:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/bowdown.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':hate:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/fdp.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':wtf:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/hum.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':cool:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/joia.gif" /></a></td>
                                         </tr>
                                         <tr>
-                                            <td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/nao.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/runaway.gif" /></a></td>
-                                        	<td valign="bottom"><a href="javascript:void(0)"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/zzz.gif" /></a></td>
+                                            <td valign="bottom"><a href="javascript:emoticon(':not:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/nao.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':run:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/runaway.gif" /></a></td>
+                                        	<td valign="bottom"><a href="javascript:emoticon(':z:')"><img src="<?php echo "{$linkAbsolute}"?>imgs/smiles/zzz.gif" /></a></td>
                                             <td colspan="3"></td>
                                     	</tr>
                                     </table>
