@@ -185,17 +185,19 @@
                 <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
                 <div id="rightBox" class="topArtigos">
                 	<h2><b class="title">itens relacionados</b></h2>
-                    <ul>
-						<?php foreach($aItensRelacionados as $k => $v){ ?>
-							<li>
-								<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
-									<?php echo $v['post_titulo']; ?>
-								</a>
-								<br />
-								<span class="data"><?php echo $v['categoria_nome']; ?></span>
-							</li>
-						<?php } ?>
-                    </ul>
+					<?php if(is_array($aItensRelacionados) && count($aItensRelacionados)>0){ ?>
+						<ul>
+							<?php foreach($aItensRelacionados as $k => $v){ ?>
+								<li>
+									<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
+										<?php echo $v['post_titulo']; ?>
+									</a>
+									<br />
+									<span class="data"><?php echo $v['categoria_nome']; ?></span>
+								</li>
+							<?php } ?>
+						</ul>
+					<?php } ?>
                 </div>
                 <img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
