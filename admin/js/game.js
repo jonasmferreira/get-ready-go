@@ -275,6 +275,7 @@ Ext.onReady(function(){
 			{header: 'Código',  dataIndex: 'game_id',sortable: true, width:70}
 			,{header: 'Categoria ID',  dataIndex: 'categoria_game_id',sortable: true,hidden:true, hideable:false}
 			,{header: 'Categoria',  dataIndex: 'game_categoria_nome',sortable: true, width:150}
+			,{header: 'Título',  dataIndex: 'game_titulo',sortable: true, width:250}
 			,{header: 'Tipo ID',  dataIndex: 'categoria_tipo_id',sortable: true,hidden:true, hideable:false}
 			,{header: 'Tipo',  dataIndex: 'game_tipo_nome',sortable: true, width:150}
 			,{header: 'Mídia ID',  dataIndex: 'game_midia_id',sortable: true,hidden:true, hideable:false}
