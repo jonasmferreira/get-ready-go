@@ -29,7 +29,7 @@
             <div id="leftCol">
 
                 <!-- Conteúdo -->
-                <img src="imgs/content_top.png" align="absbottom" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
                 <div id="conteudo">
 					<!-- nome da seção -->
 					<h2><b class="title">notícia</b></h2>
@@ -135,8 +135,8 @@
 											<img src="<?php echo "{$linkAbsolute}avatars/{$v['usuario_avatar']}" ?>" class="avatar" />
 											<?php } ?>
 											<!--p style="font-size:14px; font-weight: bold">15<p>
-											<a href="#"><img src="imgs/pos.gif" /></a>
-											<a href="#"><img src="imgs/neg.gif" /></a-->
+											<a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/pos.gif" /></a>
+											<a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/neg.gif" /></a-->
 											<!-- Avaliação de comentário só para usuários cadastrados -->
 										</td>
 										<td valign="top">
@@ -182,7 +182,7 @@
             <div id="rightCol">
 
 				<!-- Itens relacionados -->
-                <img src="imgs/box_top.png" align="absbottom" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
                 <div id="rightBox" class="topArtigos">
                 	<h2><b class="title">itens relacionados</b></h2>
                     <ul>
@@ -197,7 +197,7 @@
 						<?php } ?>
                     </ul>
                 </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
             	<!-- Banner 300x250 -->
             	<div id="sideBanner"><img src="banners/banner_300x250.jpg" /></div>
@@ -207,27 +207,27 @@
                 <div id="rightBox" class="topNoticias">
                 	<h2><b class="title">Top notícias</b></h2>
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/15.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/15.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/02.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/02.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/07.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/07.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/09.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/09.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/03.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/03.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
@@ -250,34 +250,34 @@
                     	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
                     </ul>
                 </div>
-                <img src=<?php echo "{$linkAbsolute}"?>"imgs/box_bot.png" align="top" style="clear:both" />
+                <img src=<?php echo "{$linkAbsolute}"?>"<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
 				<!-- Top noticias -->
                 <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
                 <div id="rightBox" class="topNoticias">
                 	<h2><b class="title">Top análises</b></h2>
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/12.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/12.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/10.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/10.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/01.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/01.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/08.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/08.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/04.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/04.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
