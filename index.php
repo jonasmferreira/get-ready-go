@@ -124,26 +124,26 @@
 	<div id="leftCol">
 
 		<!-- Destaque rotativo -->
-		<img src="imgs/content_top.png" align="absbottom" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
 		<div id="destaque">
-			<div id="container" style="background:url(imgs/destaque/01.jpg)">
+			<div id="container" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/destaque/01.jpg)">
 				<div id="destaqueThumbs">
-					<div class="selected"><a href="#"><img src="imgs/destaque/01_tb.jpg" /></a></div>
-					<div><a href="#"><img src="imgs/destaque/02_tb.jpg" /></a></div>
-					<div><a href="#"><img src="imgs/destaque/03_tb.jpg" /></a></div>
-					<div><a href="#"><img src="imgs/destaque/04_tb.jpg" /></a></div>
+					<div class="selected"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/01_tb.jpg" /></a></div>
+					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/02_tb.jpg" /></a></div>
+					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/03_tb.jpg" /></a></div>
+					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/04_tb.jpg" /></a></div>
 				</div>
 
 				<div id="destaqueInfo">
-					<a href="noticia.html" style="background:url(imgs/bg_destaque_info.png);"><strong>Lorem ipsum dolor sit amet</strong> Existe uma grande chance de que você tenha estudado com algum retardado que disse isso ou mesmo que você próprio tenha dito…</a>
+					<a href="noticia.html" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/bg_destaque_info.png);"><strong>Lorem ipsum dolor sit amet</strong> Existe uma grande chance de que você tenha estudado com algum retardado que disse isso ou mesmo que você próprio tenha dito…</a>
 				</div>
 				<div style="clear:both"></div>
 			</div>
 		</div>
-		<img src="imgs/content_bot.png" align="top" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
 
 		<!-- Conteúdo -->
-		<img src="imgs/content_top.png" align="absbottom" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
 		<div id="conteudo">
 			<!-- Últimas Notícias -->
 			<h2><b class="title">Últimas notícias</b></h2>
@@ -168,7 +168,7 @@
 					</h3>
 					<p class="data"><?php echo $v['post_dt_criacao']; ?></p>
 					<p><?php echo $obj->cutHTML($v['post_conteudo'],150); ?></p>
-					<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>#comentarios"><?php echo $v['qtdComentario']; ?> comentários</a></p>
+					<p class="comments"><img src="<?php echo "{$linkAbsolute}"?>imgs/icon_comentario.gif" align="absmiddle" /> <a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>#comentarios"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 				</div>
 			</div>
 			<?php 
@@ -225,14 +225,14 @@
 			<div style="clear:both"></div>
 
 		</div>
-		<img src="imgs/content_bot.png" align="top" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
 
 	</div>
 	<!-- Coluna Direita -->
 	<div id="rightCol">
 
 		<!-- Jogos indicados -->
-		<img src="imgs/box_top.png" align="absbottom" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="indiecados">
 			<h2><b class="title">Indicamos</b></h2>
 			<?php 
@@ -259,7 +259,7 @@
 			<div style="clear:both"></div>
 
 		</div>
-		<img src="imgs/box_bot.png" align="top" style="clear:both" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
 		<? if(is_array($aSideBanner) && count($aSideBanner)>0){ ?>
 			<!-- Banner 300x250 -->
@@ -284,7 +284,7 @@
 			</div>
 		<? } ?>
 		<!-- Enquete -->
-		<img src="imgs/box_top.png" align="absbottom" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="enquetes">
 			<h2><b class="title">enquete</b></h2>
 			<p><?php echo $aEnquete['enquete_titulo']; ?></p>
@@ -293,13 +293,13 @@
 					<li><input type="radio" name="enquete" value="<?php echo $v['enquete_opcao_id']; ?>" /><?php echo $v['enquete_opcao_titulo']; ?></li>
 				<?php } ?>
 			</ul>
-			<p><input type="image" src="imgs/bt_votar.gif" /></p>
+			<p><input type="image" src="<?php echo "{$linkAbsolute}"?>imgs/bt_votar.gif" id="votar" /></p>
 			<br />
 		</div>
-		<img src="imgs/box_bot.png" align="top" style="clear:both" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
 		<!-- Top artigos -->
-		<img src="imgs/box_top.png" align="absbottom" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="topArtigos">
 			<h2><b class="title">Top artigos</b></h2>
 			<ul>
@@ -319,6 +319,6 @@
 				?>
 			</ul>
 		</div>
-		<img src="imgs/box_bot.png" align="top" style="clear:both" />
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 	</div>
 <?php include_once 'includes/footer.php'; ?>
