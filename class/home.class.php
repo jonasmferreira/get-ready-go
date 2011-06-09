@@ -48,7 +48,7 @@ class home extends defaultClass{
 			WHERE	1 = 1
 			AND		p.post_status = 1
 			AND		c.categoria_id = {$this->categoria_id}
-			ORDER BY post_dt_criacao DESC
+			ORDER BY post_dtcomp_criacao DESC
 		";
 		$res = array();
 		$this->setTotal($this->getMaxCount(implode("\n",$sql)));
