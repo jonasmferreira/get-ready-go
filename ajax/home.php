@@ -15,8 +15,8 @@ switch($_REQUEST['action']){
 			$aEnqRes['message'] = "Seu voto já foi computado!";
 			$li = '';
 			
-			$tot = 0;
 			//totalizando
+			$tot = 0;
 			foreach($aEnqRes['data'] as $k => $v){
 				$tot += $v['total'];
 			}
@@ -27,8 +27,10 @@ switch($_REQUEST['action']){
 					$per = 0;
 				}else{
 					$per = (100 * $v['total'] / $tot);
-					$w = (210 / $per * 100);
+					$w = (210 / 100 * $per);
 				}
+				$per = number_format($per,2);
+				$w = number_format($w,0);
 				
 				$li.= "<li>";
 				$li.= $v['enquete_opcao_titulo'] . "<br />";
