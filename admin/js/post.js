@@ -18,7 +18,7 @@ Ext.onReady(function(){
 			,{name:'post_dtcomp_criacao', type: 'datetime'}
 			,{name:'post_dt_alteracao', type: 'datetime'}
 			,{name:'post_dtcomp_alteracao', type: 'datetime'}
-			,{name:'status_id', type: 'int'}
+			,{name:'post_status', type: 'int'}
         ]
         ,idProperty: 'post_id'
 		
@@ -282,10 +282,10 @@ Ext.onReady(function(){
 				sortable: true,
 				width:70,
 				renderer:function(val){
-					if(val > 0){
-						return 'Ativo'
-					}else{
+					if(val==0){
 						return 'Inativo'
+					}else{
+						return 'Ativo'
 					}
 				}
 			}
