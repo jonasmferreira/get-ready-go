@@ -103,7 +103,7 @@
 					alert("Escolha uma opção da enquete!")
 					return false;
 				}
-			
+				//console.log('ID_ENQUETE = ' + $("#enquete_id").val());
 				$.ajax({
 					'type':'POST',
 					'async':false,
@@ -111,10 +111,14 @@
 					'dataType':'json',
 					'data':{
 						'action':'addEnquete',
+						'enquete_id':$("#enquete_id").val(),
 						'opcao_voto':$(".enquetes input:radio:checked").val()
 					},
 					success:function(resp){
 						alert(resp.message);
+						$("#enquete_result").css('display', 'block');
+						$("#enquete_question").css('display', 'none');
+						$("#enquete_result ul").html(resp.result);
 					}
 				});
 			});
@@ -284,10 +288,13 @@
 			</div>
 		<? } ?>
 		<!-- Enquete -->
+		<div id="enquete_question">
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="enquetes">
 			<h2><b class="title">enquete</b></h2>
-			<p><?php echo $aEnquete['enquete_titulo']; ?></p>
+			<p>
+				<?php echo $aEnquete['enquete_titulo']; ?><input type="hidden" id="enquete_id" value="<?php echo $aEnquete['enquete_id']; ?>" />
+			</p>
 			<ul>
 				<?php foreach($aEnqueteOpcao as $k => $v){ ?>
 					<li><input type="radio" name="enquete" value="<?php echo $v['enquete_opcao_id']; ?>" /><?php echo $v['enquete_opcao_titulo']; ?></li>
@@ -297,7 +304,29 @@
 			<br />
 		</div>
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
-
+		</div>
+		
+		<!-- Enquete - Resultado -->
+		<div id="enquete_result" style="display:none;">
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
+		<div id="rightBox" class="enquetes">
+			<h2><b class="title">enquete - resultado</b></h2>
+			<p><?php echo $aEnquete['enquete_titulo']; ?></p><br />
+			<ul>
+				<?php foreach($aEnqueteOpcao as $k => $v){ ?>
+					<li id="<?php echo 'enq_opt_' . $v['enquete_opcao_id']; ?>">
+						<?php echo $v['enquete_opcao_titulo']; ?><br />
+						<img src="<?php echo "{$linkAbsolute}"?>imgs/enquete_result1.gif" />
+						<img src="<?php echo "{$linkAbsolute}"?>imgs/enquete_result3.gif" width="218" height="5" />
+						<img src="<?php echo "{$linkAbsolute}"?>imgs/enquete_result2.gif" /> 100%
+					</li>
+				<?php } ?>
+			</ul>
+			<br />
+		</div>
+		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
+		</div>
+		
 		<!-- Top artigos -->
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="topArtigos">
