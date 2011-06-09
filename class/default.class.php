@@ -340,7 +340,24 @@ class defaultClass {
 			":)"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/smiley.gif\" />",
 			":D"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/cheesy.gif\" />",
 			";)"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/wink.gif\" />",
-			":@"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/mad.gif\" />"
+			":o"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/(eek).gif\" />",
+			":p"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/tongue.gif\" />",
+			"B)"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/cool.gif\" />",
+			":@"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/mad.gif\" />",
+			":/"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/undecided.gif\" />",
+			":blush:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/iredface.gif\" />",
+			":("=>"<img src=\"@LINKABSOLUTO@imgs/smiles/triste.gif\" />",
+			":ugh:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/ugh.gif\" />",
+			":kiss:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/kiss.gif\" />",
+			":roll:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/roll.gif\" />",
+			":arrow:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/arrowan0.gif\" />",
+			":bow:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/bowdown.gif\" />",
+			":hate:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/fdp.gif\" />",
+			":wtf:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/hum.gif\" />",
+			":cool:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/joia.gif\" />",
+			":not:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/nao.gif\" />",
+			":run:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/runaway.gif\" />",
+			":z:"=>"<img src=\"@LINKABSOLUTO@imgs/smiles/zzz.gif\" />"
 		);
 		return str_replace(array_keys($aTrocaTagPorEmoticon),array_values($aTrocaTagPorEmoticon),$string);
 	}
