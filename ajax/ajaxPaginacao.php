@@ -7,7 +7,7 @@
 			require_once "{$path_root_postController}class/home.class.php";
 			$obj = new home();
 			$obj->setCategoria_id($_POST['categoria_id']);
-			$obj->setLimitMax(3);
+			$obj->setLimitMax(12);
 			$obj->setLimitStart($_POST['limit']);
 			$aLista = $obj->getLastPost();
 ?>
@@ -38,7 +38,7 @@
 			require_once "{$path_root_postController}class/noticia.class.php";
 			$obj = new noticia();
 			$obj->setPost_id($_POST['post_id']);
-			$obj->setLimitMax(3);
+			$obj->setLimitMax(12);
 			$obj->setLimitStart($_POST['limit']);
 			$aComentario = $obj->comentarioPost();
 ?>
