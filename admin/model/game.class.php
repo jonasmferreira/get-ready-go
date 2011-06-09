@@ -163,6 +163,10 @@ class game extends defaultClass{
 			$this->values['game_imagem_destaque'] = "";
 		}
 		
+		if($this->values['game_midia_id']=='' || $this->values['game_midia_id']==null){
+			$this->values['game_midia_id']=1;
+		}
+		
 		$this->dbConn->db_start_transaction();
 		$sql = array();
 		$sql[] = "
