@@ -63,7 +63,7 @@ class post extends defaultClass{
 			$sql[] = "AND	c.categoria_nome = '{$this->values['categoria_nome']}'";
 		}
 
-		$sql[] = " ORDER BY post_dt_criacao DESC ";
+		$sql[] = " ORDER BY post_dtcomp_criacao DESC ";
 		
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']){
