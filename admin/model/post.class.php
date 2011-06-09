@@ -62,6 +62,9 @@ class post extends defaultClass{
 		if(isset($this->values['categoria_nome'])&&trim($this->values['categoria_nome'])!=''){
 			$sql[] = "AND	c.categoria_nome = '{$this->values['categoria_nome']}'";
 		}
+		if(isset($this->values['post_status'])&&trim($this->values['post_status'])!=''){
+			$sql[] = "AND	p.post_status = '{$this->values['post_status']}'";
+		}
 
 		$sql[] = " ORDER BY post_dtcomp_criacao DESC ";
 		
