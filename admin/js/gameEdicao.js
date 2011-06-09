@@ -39,5 +39,32 @@ function getUsuario(usuario_id){
 			window.location.href = 'game.php';
 		});
 		
+		$("#game_categoria_id").change(function(){
+			if($(this).val()==1){
+				$("#game_midia_id").attr('disabled', 'disabled');
+				$("#game_width").attr('disabled', 'disabled');
+				$("#game_height").attr('disabled', 'disabled');
+				$("#game_midia_id").removeClass('obrigatorio');
+				$("#game_width").removeClass('obrigatorio');
+				$("#game_height").removeClass('obrigatorio');
+				
+				$("#game_midia_id").val(1);
+				$("#game_width").val(0);
+				$("#game_height").val(0);
+			}else{
+				$("#game_midia_id").attr('disabled', '');
+				$("#game_width").attr('disabled', '');
+				$("#game_height").attr('disabled', '');
+				$("#game_midia_id").addClass('obrigatorio');
+				$("#game_width").addClass('obrigatorio');
+				$("#game_height").addClass('obrigatorio');
+				
+			}
+		});
+		$("#game_categoria_id").trigger('change');
+		
+		
+		
+		
 	});
 })(jQuery);
