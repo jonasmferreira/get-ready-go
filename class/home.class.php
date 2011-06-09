@@ -29,7 +29,7 @@ class home extends defaultClass{
 					,p.post_thumb_imagem
 					,p.post_palavra_chave
 					,p.post_conteudo
-					,DATE_FORMAT(p.post_dt_criacao,'%d.%m.%Y %h:%i') AS post_dt_criacao
+					,DATE_FORMAT(p.post_dtcomp_criacao,'%d.%m.%Y %h:%i') AS post_dt_criacao
 					,p.post_dtcomp_criacao
 					,p.post_dt_alteracao
 					,p.post_dtcomp_alteracao
