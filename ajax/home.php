@@ -23,7 +23,7 @@ switch($_REQUEST['action']){
 			
 			foreach($aEnqRes['data'] as $k => $v){
 				if($v['total']==0){
-					$w = 1;
+					$w = 0;
 					$per = 0;
 				}else{
 					$per = (100 * $v['total'] / $tot);
