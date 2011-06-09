@@ -92,7 +92,7 @@
 									</h3>
 									<p class="data"><?php echo $v['post_dt_criacao']; ?></p>
 									<p><?php echo $obj->cutHTML($v['post_conteudo'],120); ?></p>
-									<p class="comments"><img src="imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
+									<p class="comments"><img src="<?php echo "{$linkAbsolute}"?>imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 								</div>
 							</div>
 					<?php
@@ -135,7 +135,7 @@
             	<div id="sideBanner"><img src="<?php echo "{$linkAbsolute}"?>banners/banner_300x250.jpg" /></div>
 
 				<!-- Top noticias -->
-                <img src="imgs/box_top.png" align="absbottom" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
                 <div id="rightBox" class="topNoticias">
                 	<h2><b class="title">Top notícias</b></h2>
                     <div class="item">
@@ -189,27 +189,27 @@
                 <div id="rightBox" class="topNoticias">
                 	<h2><b class="title">Top análises</b></h2>
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/12.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/12.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/10.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/10.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/01.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/01.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/08.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/08.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
                     <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/04.jpg" /></a></div>
+                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/04.jpg" /></a></div>
                         <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
                     </div>
 
