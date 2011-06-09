@@ -23,15 +23,7 @@ $(document).ready(function(){
 				if(resp.success===false){
 					alert("Usuario e senha incorretos!");
 				}else{
-					if(resp.session.usuario_avatar!=''){
-						$(".avatar").attr("src",$("#linkAbsolute").val()+"avatars/"+resp.session.usuario_avatar);
-					}else{
-						$(".avatar").attr("src",$("#linkAbsolute").val()+"imgs/avatares/1.jpg");
-					}
-					$(".nomeSobrenome").text(resp.session.usuario_nome);
-					$("#logado-se").fadeOut(function(){
-						$("#logado").fadeIn()
-					});
+					window.location.href = window.location.href;
 				}
 			}
 		});
@@ -50,9 +42,7 @@ $(document).ready(function(){
 				'action':'logoff'
 			},
 			'success':function(resp){
-				$("#logado").fadeOut(function(){
-					$("#logado-se").fadeIn()
-				});
+				window.location.href = window.location.href;
 			}
 		});
 	});
