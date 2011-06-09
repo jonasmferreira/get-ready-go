@@ -182,5 +182,52 @@ class home extends defaultClass{
 		}
 		return false;
 	}
+	
+	public function getEnqueteResult(){
+		$sql = array();
+		$sql[] = "
+			SELECT	e.enquete_id
+					,e.enquete_titulo
+					,eo.enquete_opcao_id
+					,eo.enquete_opcao_titulo
+					,count(ev.enquete_votacao_id) AS total
+			FROM	tb_enquete_opcao eo
+			LEFT JOIN tb_enquete_votacao ev
+			ON		ev.opcao_enquete_opcao_id = eo.enquete_opcao_id
+			JOIN	tb_enquete e
+			ON		eo.enquete_id = e.enquete_id
+
+			WHERE	0=0
+			AND		e.enquete_id = 1
+
+			GROUP BY 
+					e.enquete_id, eo.enquete_opcao_id
+			ORDER BY 
+					eo.enquete_opcao_id ASC
+
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		$rsEnq = array(
+			'total'=> $result['total']
+			,'message' => ''
+			,'success' => $result['success']
+			,'data' => array()
+			,'result' => ''
+		);
+		
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+			$rsEnq['data']= $this->utf8_array_encode($res);
+		}
+
+		return $rsEnq;
+	}
+	
 }
 ?>
