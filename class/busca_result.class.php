@@ -4,7 +4,7 @@ class busca_result extends defaultClass{
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
-	private function getBusca(){
+	public function getBusca(){
 		$busca = $this->values['busca'];
 		echo $busca;
 		$sql = array();
