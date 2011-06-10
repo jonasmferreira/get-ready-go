@@ -98,7 +98,7 @@
 					<div id="itemBusca">
 						<h3><a href="<?="{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?=$v['post_titulo']?></a></h3>
 						<p class="data"><strong><?=$v['categoria_nome']?></strong> postado em <?=$v['post_dt_criacao']?></p>
-						<p><?php echo $obj->cutHTML($v['post_conteudo'],150); ?></p>
+						<p><?php echo preg_replace("/<img(.+?)>/",'',$obj->cutHTML($v['post_conteudo'],150)); ?></p>
 					</div>
 					<?		endforeach;?>
 					<?	endif;?>
