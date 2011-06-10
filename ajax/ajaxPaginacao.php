@@ -88,7 +88,7 @@
 					<p><?php echo preg_replace("/<img(.+?)>/",'',$obj->cutHTML($v['post_conteudo'],150)); ?></p>
 				</div>
 				<?		endforeach;?>
-				<?	endif;?>
+				<?	endif;?> 
 			</div>
 <?php
 		break;
