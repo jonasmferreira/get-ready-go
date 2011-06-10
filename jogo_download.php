@@ -57,7 +57,7 @@
 </div>
 <!-- Coluna Direita -->
 <div id="rightCol">
-
+	<?php if(isset($_SESSION['GET_READY_GO_2011_SITE']['usuario_id']) && !empty($_SESSION['GET_READY_GO_2011_SITE']['usuario_id'])){ ?>
 	<!-- Estatísticas -->
 	<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
 	<div id="rightBox" class="stats">
@@ -83,6 +83,7 @@
 		</p>
 	</div>
 	<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
+	<?php } ?>
 
 	<!-- Banner 300x250 -->
 	<div id="sideBanner"><img src="<?php echo "{$linkAbsolute}"?>banners/banner_300x250.jpg" /></div>
