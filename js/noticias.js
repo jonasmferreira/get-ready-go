@@ -9,10 +9,13 @@ $(document).ready(function(){
 			alert("Por favor insira uma mensagem!!");
 			return false;
 		}
-		if($("#captcha").val().length==0){
-			alert("Por favor insira o captcha!!");
-			return false;
+		if($("#usuario_id").val()==0){
+			if($("#captcha").val().length==0){
+				alert("Por favor insira o captcha!!");
+				return false;
+			}
 		}
+		
 		$.ajax({
 			'type':'POST',
 			'async':false,
@@ -39,6 +42,7 @@ $(document).ready(function(){
 		 $(".paginacao a.ativoPaginacao").prev().trigger("click");
 	});
 	$('.proximo').click(function(){
+		console.log($(".paginacao a.ativoPaginacao").next())
 		$(".paginacao a.ativoPaginacao").next().trigger("click");
 	});
 	$('.inicio').click(function(){
