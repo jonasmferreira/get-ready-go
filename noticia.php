@@ -21,12 +21,6 @@
 	$totalComentario = $obj->getTotal();
 	
 	$postTitulo = str_replace(' ', '+',$_GET['post_titulo']);
-	
-	$aTopNocias = $obj->getTopPost(1);
-	//echo "<pre>".print_r($aTopNocias,true)."</pre>";
-
-	//echo "<pre>".print_r($aNoticia,true)."</pre>";
-
 ?>
 			<input type="hidden" name="post_id" id="post_id" value="<?php echo $_GET['post_id'] ?>"/>
 			<script type="text/javascript" src="<?php echo "{$linkAbsolute}"?>js/noticias.js"></script>
@@ -119,8 +113,16 @@
                                 </td>
 
                             </tr>
+							<?php if(!isset($_SESSION['GET_READY_GO_2011_SITE']['usuario_id']) && empty($_SESSION['GET_READY_GO_2011_SITE']['usuario_id'])){ ?>
                             <tr>
-                            	<td colspan="2"><img src="<?php echo "{$linkAbsolute}"?>captcha.php?sid=<?php echo md5(time()) ?>" id="imageCaptcha" /><br /><input type="text" class="text" id="captcha" /></td><!-- Só para quem não está logado -->
+                            	<td colspan="2">
+									<img src="<?php echo "{$linkAbsolute}"?>captcha.php?sid=<?php echo md5(time()) ?>" id="imageCaptcha" />
+									<br /><input type="text" class="text" id="captcha" />
+								</td><!-- Só para quem não está logado -->
+							</tr>
+							<?php }else{ ?>
+							
+							<?php } ?>
                             <tr>
                             	<td align="right" colspan="2"><input type="image" src="<?php echo "{$linkAbsolute}"?>imgs/bt_enviar.gif" id="enviarComentario" /></td>
                             </tr>
@@ -184,108 +186,7 @@
                 <img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
 			</div>
             <!-- Coluna Direita -->
-            <div id="rightCol">
-
-				<!-- Itens relacionados -->
-                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
-                <div id="rightBox" class="topArtigos">
-                	<h2><b class="title">itens relacionados</b></h2>
-					<?php if(is_array($aItensRelacionados) && count($aItensRelacionados)>0){ ?>
-						<ul>
-							<?php foreach($aItensRelacionados as $k => $v){ ?>
-								<li>
-									<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
-										<?php echo $v['post_titulo']; ?>
-									</a>
-									<br />
-									<span class="data"><?php echo $v['categoria_nome']; ?></span>
-								</li>
-							<?php } ?>
-						</ul>
-					<?php } ?>
-                </div>
-                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
-
-            	<!-- Banner 300x250 -->
-            	<div id="sideBanner"><img src="banners/banner_300x250.jpg" /></div>
-
-				<!-- Top noticias -->
-                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
-                <div id="rightBox" class="topNoticias">
-                	<h2><b class="title">Top notícias</b></h2>
-					<?php if(is_array($aTopNocias) && count($aTopNocias)>0){ ?>
-						<?php foreach($aTopNocias as $k => $v){ ?>
-                    <div class="item">
-                    	<div class="img">
-							<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>">
-								<img src="<?php echo "{$linkAbsolute}posts/{$v['post_thumb_imagem']}"; ?>" width="150px" height="80px" alt="<?php echo $v['post_titulo']; ?>" />
-							</a>
-						</div>
-                        <div class="info">
-							<a href="noticia.html">
-								<?php echo $v['post_titulo']; ?>
-							</a>
-							<br />
-							<span class="data"><?php echo $v['qtdComentario']; ?> comentários</span>
-						</div>
-                    </div>
-						<?php } ?>
-					<?php } ?>
-                    <div style="clear:both"></div>
-                </div>
-                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
-
-				<!-- Top artigos -->
-                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
-                <div id="rightBox" class="topArtigos">
-                	<h2><b class="title">Top artigos</b></h2>
-                    <ul>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    </ul>
-                </div>
-                <img src=<?php echo "{$linkAbsolute}"?>"<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
-
-				<!-- Top noticias -->
-                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
-                <div id="rightBox" class="topNoticias">
-                	<h2><b class="title">Top análises</b></h2>
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/12.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/10.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/01.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/08.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="<?php echo "{$linkAbsolute}"?>imgs/news/04.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div style="clear:both"></div>
-                </div>
-                <img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
-
-            </div>
 <?php
+	include_once 'includes/lateralDireita.php';
 	include_once 'includes/footer.php';
 ?>

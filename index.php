@@ -24,17 +24,10 @@
 	$obj->setCategoria_id(1);
 	$aNoticias = $obj->getLastPost();
 	$totalNoticia = $obj->getTotal();
-
 	
-	$obj->setLimitMax(null);
-	$obj->setLimitStart(null);
-	$obj->setCategoria_id(2);
-	$aArtigo = $obj->getLastPost();
+	$aArtigo = $obj->getTopPost(2);
 
-	$obj->setLimitMax(null);
-	$obj->setLimitStart(null);
-	$obj->setCategoria_id(3);
-	$aAnalises = $obj->getLastPost();
+	$aAnalises = $obj->getTopPost(3);
 
 	$obj->setLimitMax(null);
 	$obj->setLimitStart(null);
@@ -253,7 +246,7 @@
 					<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['game_titulo']; ?></a><br />
 					<?php echo $v['game_tipo_nome']; ?> - <?php echo $v['game_categoria_nome']; ?><br />
 					<strong><?php echo $v['game_criador_nome']; ?></strong>
-					<br />Jogado <?php echo $v['game_qtd_jogado']; ?> vezes
+					<br /><?php echo ($v['game_categoria_id']==1)?"Baixado ".$v['game_qtd_download']:"Jogado ".$v['game_qtd_jogado']; ?> vezes
 				</div>
 			</div>
 			<?php

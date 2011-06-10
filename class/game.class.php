@@ -11,7 +11,7 @@ class game extends defaultClass{
 	 $this->pontuacao = $pontuacao;
 	}
 
-		public function getJogoDownload(){
+	public function getJogoDownload(){
 		$sql = array();
 		$sql[] = "
 			SELECT *

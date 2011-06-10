@@ -450,6 +450,7 @@ class defaultClass {
 					,p.post_dtcomp_alteracao
 					,p.post_status
 					,(SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id AND comentario_status = 1) as qtdComentario
+					,(SELECT COUNT(*) FROM tb_post_pageview  WHERE post_id = p.post_id group by post_id) as qtdPageView
 			FROM	tb_post p
 		
 			JOIN	tb_post_pageview pp
@@ -461,14 +462,11 @@ class defaultClass {
 			WHERE	1 = 1
 			AND		p.post_status = 1
 			AND		c.categoria_id = {$categoria}
-			ORDER BY post_dtcomp_criacao DESC
+			GROUP BY p.post_id
+			ORDER BY qtdPageView ASC
 		";
 		$res = array();
-		//$this->setTotal($this->getMaxCount(implode("\n",$sql)));
-		//echo $this->getTotal();
-		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
-			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
-		}
+		$sql[] = "LIMIT 4";
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']){
 			return false;

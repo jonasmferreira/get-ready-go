@@ -9,12 +9,14 @@ $obj = new noticia();
 
 switch($_REQUEST['action']){
 	case 'addComentario':
-		$verifyCaptcha = $img->check($_POST['captcha']);
-		if($verifyCaptcha==false){
-			$aResult['success'] = false;
-			$aResult['message'] = "Captcha incorreto!";
-			echo json_encode($aResult);
-			break;
+		if(!isset($_SESSION['GET_READY_GO_2011_SITE']['usuario_id']) && empty($_SESSION['GET_READY_GO_2011_SITE']['usuario_id'])){
+			$verifyCaptcha = $img->check($_POST['captcha']);
+			if($verifyCaptcha==false){
+				$aResult['success'] = false;
+				$aResult['message'] = "Captcha incorreto!";
+				echo json_encode($aResult);
+				break;
+			}
 		}
 		$obj->setValues($_POST);
 		if($obj->saveComentario()==false){
