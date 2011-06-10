@@ -31,7 +31,7 @@
                 <img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
                 <div id="conteudo">
 					<!-- nome da seção -->
-					<h2><b class="title">notícia</b></h2>
+					<h2><b class="title"><?php echo $aNoticia['categoria_nome']; ?></b></h2>
 
                     <!-- Conteúdo do Artigo -->
                     <div id="newsContent">
