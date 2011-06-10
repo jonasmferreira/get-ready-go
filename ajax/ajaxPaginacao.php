@@ -70,6 +70,28 @@
 			</div>
 <?php
 		break;
+		case 'busca':
+			require_once "{$path_root_postController}class/busca_result.class.php";
+			$obj = new busca_result();
+			$obj->setValues($_POST);
+			$obj->setLimitMax(10);
+			$obj->setLimitStart($_POST['limit']);
+			$aBusca = $obj->getBusca();
+?>
+			<div id="listagem_<?php echo $_POST['limit']; ?>">
+				<?	if(is_array($aBusca) && count($aBusca) > 0):?>
+				<?		foreach($aBusca AS $v):?>
+				<!-- Item -->
+				<div id="itemBusca">
+					<h3><a href="<?="{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?=$v['post_titulo']?></a></h3>
+					<p class="data"><strong><?=$v['categoria_nome']?></strong> postado em <?=$v['post_dt_criacao']?></p>
+					<p><?php echo $obj->cutHTML($v['post_conteudo'],150); ?></p>
+				</div>
+				<?		endforeach;?>
+				<?	endif;?>
+			</div>
+<?php
+		break;
 	}
 
 
