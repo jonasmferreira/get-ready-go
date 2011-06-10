@@ -92,7 +92,7 @@
 									</h3>
 									<p class="data"><?php echo $v['post_dt_criacao']; ?></p>
 									<p><?php echo $obj->cutHTML($v['post_conteudo'],120); ?></p>
-									<p class="comments"><img src="<?php echo "{$linkAbsolute}"?>imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
+									<p class="comments"><img src="<?php echo "{$linkAbsolute}"?>imgs/icon_comentario.gif" align="absmiddle" /> <a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 								</div>
 							</div>
 					<?php
