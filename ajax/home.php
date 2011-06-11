@@ -34,9 +34,7 @@ switch($_REQUEST['action']){
 				
 				$li.= "<li>";
 				$li.= $v['enquete_opcao_titulo'] . "<br />";
-				$li.= "<img src='{$linkAbsolute}imgs/enquete_result1.gif' />";
-				$li.= "&nbsp;<img src='{$linkAbsolute}imgs/enquete_result3.gif' width='$w' height='5' />";
-				$li.= "&nbsp;<img src='{$linkAbsolute}imgs/enquete_result2.gif' />&nbsp;" . $per ."%";
+				$li.= "<img src='{$linkAbsolute}imgs/enquete_result1.gif' /><img src='{$linkAbsolute}imgs/enquete_result3.gif' width='$w' height='5' /><img src='{$linkAbsolute}imgs/enquete_result2.gif' />&nbsp;" . $per ."%";
 				$li.= "</li> ";
 			}
 			$aEnqRes['result'] = $li;
