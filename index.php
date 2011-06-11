@@ -172,6 +172,7 @@
 					<p class="comments"><img src="<?php echo "{$linkAbsolute}"?>imgs/icon_comentario.gif" align="absmiddle" /> <a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>#comentarios"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 				</div>
 			</div>
+			<div style="clear:both;"></div>
 			<?php 
 					}
 				}
