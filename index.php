@@ -42,9 +42,26 @@
 
 	//DESTAQUES ROTATIVOS (OUTDOOR)
 	$aOutdoor = $obj->getOutdoorDestaque();
+	$arrImg = array();
+	$arrImgThum = array();
+	$arrConteudo = array();
+	$arrLink = array();
+	foreach($aOutdoor AS $k=>$v){
+		array_push($arrImg,$v['post_imagem']);
+		array_push($arrImgThum,$v['post_thumb_imagem']);
+		array_push($arrConteudo,$v['post_conteudo']);
+		array_push($arrLink,$v['linkDetalhe']);
+	}
 	
 ?>
 	<script type="text/javascript">
+		var sImg = '<?=implode(",",$arrImg)?>';
+		var sImgThum = '<?=implode(",",$arrImgThum)?>';
+		var sConteudo = '<?=implode(",",$arrConteudo)?>';
+		var sLink = '<?=implode(",",$arrLink)?>';
+		function getImages(){
+			
+		}
 		$(document).ready(function(){
 			$('.anterior').click(function(){
 				 $(".paginacao a.ativoPaginacao").prev().trigger("click");
@@ -129,8 +146,8 @@
 		<div id="destaque">
 			<div id="container" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/destaque/01.jpg)">
 				<div id="destaqueThumbs">
-					<div class="selected"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/01_tb.jpg" /></a></div>
-					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/02_tb.jpg" /></a></div>
+					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/01_tb.jpg" /></a></div>
+					<div class="selected"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/02_tb.jpg" /></a></div>
 					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/03_tb.jpg" /></a></div>
 					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/04_tb.jpg" /></a></div>
 				</div>
