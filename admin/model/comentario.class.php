@@ -106,7 +106,7 @@ class comentario extends defaultClass{
     public function getLista(){
 		$sql = array();
 		$sql[] = "
-			SELECT	c.*,u.*,p.post_titulo
+			SELECT	c.*,u.*,p.post_titulo, ct.*
 			FROM	tb_comentario c
 
 			LEFT JOIN	tb_usuario u
@@ -114,6 +114,9 @@ class comentario extends defaultClass{
 
 			JOIN	tb_post p
 			ON		c.post_id = p.post_id
+
+			JOIN	tb_categoria ct
+			ON		p.categoria_id = ct.categoria_id
 
 			WHERE	1 = 1
 		";
@@ -125,6 +128,12 @@ class comentario extends defaultClass{
 		}
 		if(isset($this->values['usuario_nome'])&&trim($this->values['usuario_nome'])!=''){
 			$sql[] = "AND	u.usuario_nome = '{$this->values['usuario_nome']}'";
+		}
+		if(isset($this->values['comentario_status'])&&trim($this->values['comentario_status'])!=''){
+			$sql[] = "AND	c.comentario_status = '{$this->values['comentario_status']}'";
+		}
+		if(isset($this->values['categoria_id'])&&trim($this->values['categoria_id'])!=''){
+			$sql[] = "AND	p.categoria_id = '{$this->values['categoria_id']}'";
 		}
 
 		$sql[] = " ORDER BY comentario_dt_criacao DESC ";
