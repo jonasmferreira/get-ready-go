@@ -33,6 +33,8 @@ $(document).ready(function(){
 				alert(resp.message);
 				if(resp.success==false){
 					newCaptcha();
+				}else{
+					window.location.href = window.location.href;
 				}
 			}
 		});
