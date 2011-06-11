@@ -18,8 +18,11 @@
 	RewriteRule ^galeria/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ galerias.php?id_imagem=$1&galeria_id=$2&post_titulo=$3&post_id=$4
 	
 	RewriteRule ^rss/([^/]+)/?$ ajax/home.php?action=$1
+
+	RewriteRule ^perfil_usuario/([^/]+)/?$ perfil.php?usuario_id=$1
+	
 	
 </IfModule>
 <IfModule !mod_rewrite.c>
 	ErrorDocument 404 http://www.google.com.br
-</IfModule>  
+</IfModule>
