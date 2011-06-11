@@ -1,8 +1,69 @@
 <?php
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
+
+	require_once "class/home.class.php";
+
+	$obj = new home();
+	$obj->setCategoria_id($_GET['categoria_id']);
+	$obj->setLimitMax(15);
+	$obj->setLimitStart(0);
+	$aLista = $obj->getLastPost();
+
 ?>
-<!-- Coluna Esquerda -->
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$('.anterior').click(function(){
+						 $(".paginacao a.ativoPaginacao").prev().trigger("click");
+					});
+					$('.proximo').click(function(){
+						$(".paginacao a.ativoPaginacao").next().trigger("click");
+					});
+					$('.inicio').click(function(){
+						$(".paginacao a.paginacaoPage").fadeIn();
+						$(".paginacao a.paginacaoPage").first().trigger("click");
+					});
+					$('.fim').click(function(){
+						$(".paginacao a.paginacaoPage").fadeIn();
+						$(".paginacao a.paginacaoPage").last().trigger("click");
+					});
+					$(".paginacaoPage:not(:.ativoPaginacao)").live('click',function(e){
+						var obj = $(this);
+						var idAtivo = $(".paginacao a.ativoPaginacao").attr('id').split("_").pop();
+						obj.next().fadeIn();
+						$(".paginacao a").removeClass("ativoPaginacao");
+						obj.addClass("ativoPaginacao");
+						var paginacao = obj.context.id.split("_").pop();
+						var pagePaginacao = $("#listagem_"+""+paginacao);
+						if(pagePaginacao.html()==null){
+							$.ajax({
+								'type':'POST',
+								'async':false,
+								'url':'<?php echo $linkAbsolute;?>ajax/ajaxPaginacao',
+								'dataType':'html',
+								'data':{
+									'action':'listagem',
+									'categoria_id':<?php echo $_GET['categoria_id']?>,
+									'limit':paginacao
+								},
+								success:function(resp){
+									resp = resp.replace(/@LINKABSOLUTO@/g, '<?php echo $linkAbsolute;?>');
+									$("#listagem_"+idAtivo).fadeOut('fast',function(){
+										pagePaginacao.fadeIn();
+										$("#listagem").append(resp);
+									});
+								}
+							});
+						}else{
+							$("#listagem_"+idAtivo).fadeOut('fast',function(){
+								pagePaginacao.fadeIn('slow');
+							});
+						}
+					})
+				});
+			</script>
+			
+			<!-- Coluna Esquerda -->
             <div id="leftCol">
             
                 <!-- Conteúdo -->
@@ -240,93 +301,10 @@
                  
             </div>
             <!-- Coluna Direita -->
-            <div id="rightCol">
+           
+<?php
+	include_once 'includes/lateralDireita.php';
+	include_once 'includes/footer.php';
+?>
 
-            	<!-- Banner 300x250 -->
-            	<div id="sideBanner"><img src="banners/banner_300x250.jpg" /></div>
-
-				<!-- Top noticias -->
-                <img src="imgs/box_top.png" align="absbottom" />
-                <div id="rightBox" class="topNoticias">
-                	<h2><b class="title">Top notícias</b></h2>
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/15.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/02.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/07.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/09.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/03.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div style="clear:both"></div>
-                </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
-
-				<!-- Top artigos -->
-                <img src="imgs/box_top.png" align="absbottom" />
-                <div id="rightBox" class="topArtigos">
-                	<h2><b class="title">Top artigos</b></h2>
-                    <ul>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    	<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-                    </ul>
-                </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
-
-				<!-- Top noticias -->
-                <img src="imgs/box_top.png" align="absbottom" />
-                <div id="rightBox" class="topNoticias">
-                	<h2><b class="title">Top análises</b></h2>
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/12.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/10.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/01.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/08.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div class="item">
-                    	<div class="img"><a href="noticia.html"><img src="imgs/news/04.jpg" /></a></div>
-                        <div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-                    </div>
-
-                    <div style="clear:both"></div>
-                </div>
-                <img src="imgs/box_bot.png" align="top" style="clear:both" />
-
-            </div>
-<?php include_once 'includes/footer.php'; ?>
+			
