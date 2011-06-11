@@ -62,6 +62,27 @@ class meu_perfil extends defaultClass{
 		$this->setSession($rs);
 		return true;
 	}
+	public function perfil(){
+		$login = $this->antiInjection($this->values['login']);
+		$senha = $this->antiInjection(md5($this->values['password']));
+		$sql = array();
+		$sql[] = "
+			SELECT	u.*
+					,un.usuario_nivel_titulo
+			FROM	tb_usuario u
+			JOIN	tb_usuario_nivel un
+			ON		un.usuario_nivel_id = u.usuario_nivel_id
+			WHERE	1 = 1
+			AND		u.usuario_id = ''
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']||$result['total']!=1){
+			return false;
+		}
+		$rs = $this->dbConn->db_fetch_assoc($result['result']);
+		$this->setSession($rs);
+		return true;
+	}
 	
 	public function getAvatares(){
 		$sql = "SELECT * FROM tb_avatar";

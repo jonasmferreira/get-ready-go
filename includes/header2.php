@@ -39,7 +39,7 @@
 						<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" />
 						<?php }else{ ?>
 						<?php
-							if(is_file("{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}")){
+							if(@file_get_contents("{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}")==true){
 								$file = "{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}";
 							}else{
 								$file = "{$linkAbsolute}avatar_user/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}";
