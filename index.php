@@ -82,7 +82,7 @@
 		function createThumbs(){
 			var arrDestaqueThumbs = new Array();
 			for(var j=0;j<arrImgThum.length;j++){
-				arrDestaqueThumbs.push('<div id="destaqueThumbs_'+j+'"><a href="'+arrLink[j]+'"><img src="'+arrImgThum[j]+'" /></a></div>');
+				arrDestaqueThumbs.push('<div id="destaqueThumbs_'+j+'"><img src="'+arrImgThum[j]+'" /></div>');
 			}
 			jQuery("#destaqueThumbs").html(arrDestaqueThumbs.join("\n"));
 			jQuery("#destaqueThumbs div:first").addClass('selected');
@@ -92,19 +92,21 @@
 			jQuery("#destaqueInfo a").attr("href",arrLink[0]);
 			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[0]+'</strong>'+getConteudo(0));
 		}
-		function changeThumbs(){
-			var id = jQuery("#destaqueThumbs div.selected").attr('id');
-			jQuery("#destaqueThumbs div").removeClass('selected');
-			id = id.split("_");
-			id = ((id[1]*1)+1);
-			id = (id>(arrImgThum.length -1))?'0':id;
+		function setThumb(id){
 			jQuery("#destaqueThumbs_"+id).addClass('selected');
 			jQuery("#container").css({
 				'background':'url('+arrImg[id]+')'
 			});
 			jQuery("#destaqueInfo a").attr("href",arrLink[id]);
 			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[id]+'</strong>'+getConteudo(id));
-			
+		}
+		function changeThumbs(){
+			var id = jQuery("#destaqueThumbs div.selected").attr('id');
+			jQuery("#destaqueThumbs div").removeClass('selected');
+			id = id.split("_");
+			id = ((id[1]*1)+1);
+			id = (id>(arrImgThum.length -1))?'0':id;
+			setThumb(id);
 		}
 		
 		$(document).ready(function(){
@@ -112,6 +114,13 @@
 			window.setInterval(function(){
 				changeThumbs();
 			}, 5000);
+			$("#destaqueThumbs div").live("click",function(){
+				jQuery("#destaqueThumbs div").removeClass('selected');
+				var id = jQuery(this).attr('id');
+				id = id.split("_");
+				id = ((id[1]*1));
+				setThumb(id);
+			});
 			$('.anterior').click(function(){
 				 $(".paginacao a.ativoPaginacao").prev().trigger("click");
 			});
