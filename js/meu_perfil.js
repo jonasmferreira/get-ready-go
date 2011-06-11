@@ -76,7 +76,7 @@ $(document).ready(function(){
 			window.setTimeout(function(){
 				var frame = $("iframe")[0].contentDocument;
 				$(".selectAvatar", frame).click(function(){
-					var usuario_avatar = $(this).parent().parent().parent().attr("id");
+					var usuario_avatar = $(".imagemSeletion",frame).attr("id");
 					$.ajax({
 						'type':'POST',
 						'async':false,
