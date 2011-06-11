@@ -92,6 +92,10 @@
 			</div>
 <?php
 		break;
+		case 'getConteudoDestaque':
+			require_once "{$path_root_postController}class/home.class.php";
+			echo $_SESSION['arrConteudo'][$_REQUEST['id']];
+		break;
 	}
 
 

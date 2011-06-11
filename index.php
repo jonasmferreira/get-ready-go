@@ -46,23 +46,72 @@
 	$arrImgThum = array();
 	$arrConteudo = array();
 	$arrLink = array();
+	$arrTitulo = array();
 	foreach($aOutdoor AS $k=>$v){
-		array_push($arrImg,$v['post_imagem']);
-		array_push($arrImgThum,$v['post_thumb_imagem']);
+		array_push($arrTitulo,substr($v['post_titulo'],0,50));
+		array_push($arrImg,"{$linkAbsolute}posts/{$v['post_imagem']}");
+		array_push($arrImgThum,"{$linkAbsolute}posts/{$v['post_thumb_imagem']}");
 		array_push($arrConteudo,$v['post_conteudo']);
-		array_push($arrLink,$v['linkDetalhe']);
+		array_push($arrLink,"{$linkAbsolute}{$v['linkDetalhe']}");
 	}
-	
+	$_SESSION['arrConteudo'] = $arrConteudo;
 ?>
 	<script type="text/javascript">
-		var sImg = '<?=implode(",",$arrImg)?>';
-		var sImgThum = '<?=implode(",",$arrImgThum)?>';
-		var sConteudo = '<?=implode(",",$arrConteudo)?>';
-		var sLink = '<?=implode(",",$arrLink)?>';
-		function getImages(){
+		var sImg = '<?=implode("|",$arrImg)?>';
+		var sImgThum = '<?=implode("|",$arrImgThum)?>';
+		var sLink = '<?=implode("|",$arrLink)?>';
+		var sTitulo = '<?=implode("|",$arrTitulo)?>';
+		
+		var arrImg = sImg.split("|");
+		var arrImgThum = sImgThum.split("|");
+		var arrLink = sLink.split("|");
+		var arrTitulo = sTitulo.split("|");
+		var i = 0;
+		function getConteudo(id){
+			return $.ajax({
+				'type':'POST',
+				'async':false,
+				'url':'<?php echo $linkAbsolute;?>ajax/ajaxPaginacao',
+				'dataType':'html',
+				'data':{
+					'action':'getConteudoDestaque',
+					'id':id
+				}
+			}).responseText;
+		}
+		function createThumbs(){
+			var arrDestaqueThumbs = new Array();
+			for(var j=0;j<arrImgThum.length;j++){
+				arrDestaqueThumbs.push('<div id="destaqueThumbs_'+j+'"><a href="'+arrLink[j]+'"><img src="'+arrImgThum[j]+'" /></a></div>');
+			}
+			jQuery("#destaqueThumbs").html(arrDestaqueThumbs.join("\n"));
+			jQuery("#destaqueThumbs div:first").addClass('selected');
+			jQuery("#container").css({
+				'background':'url('+arrImg[0]+')'
+			});
+			jQuery("#destaqueInfo a").attr("href",arrLink[0]);
+			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[0]+'</strong>'+getConteudo(0));
+		}
+		function changeThumbs(){
+			var id = jQuery("#destaqueThumbs div.selected").attr('id');
+			jQuery("#destaqueThumbs div").removeClass('selected');
+			id = id.split("_");
+			id = ((id[1]*1)+1);
+			id = (id>(arrImgThum.length -1))?'0':id;
+			jQuery("#destaqueThumbs_"+id).addClass('selected');
+			jQuery("#container").css({
+				'background':'url('+arrImg[id]+')'
+			});
+			jQuery("#destaqueInfo a").attr("href",arrLink[id]);
+			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[id]+'</strong>'+getConteudo(id));
 			
 		}
+		
 		$(document).ready(function(){
+			createThumbs();
+			window.setInterval(function(){
+				changeThumbs();
+			}, 5000);
 			$('.anterior').click(function(){
 				 $(".paginacao a.ativoPaginacao").prev().trigger("click");
 			});
@@ -153,7 +202,10 @@
 				</div>
 
 				<div id="destaqueInfo">
-					<a href="noticia.html" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/bg_destaque_info.png);"><strong>Lorem ipsum dolor sit amet</strong> Existe uma grande chance de que você tenha estudado com algum retardado que disse isso ou mesmo que você próprio tenha dito…</a>
+					<a href="noticia.html" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/bg_destaque_info.png);">
+						<strong>Lorem ipsum dolor sit amet</strong> 
+						Existe uma grande chance de que você tenha estudado com algum retardado que disse isso ou mesmo que você próprio tenha dito…
+					</a>
 				</div>
 				<div style="clear:both"></div>
 			</div>

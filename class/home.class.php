@@ -228,7 +228,6 @@ class home extends defaultClass{
 
 		return $rsEnq;
 	}
-
 	public function getOutdoorDestaque(){
 		$sql = array();
 		$sql[] = "
@@ -269,7 +268,7 @@ class home extends defaultClass{
 				$post_nome = str_replace(' ', '+', $this->retiraAcentos($rs['post_titulo']));
 
 				$rs['linkDetalhe'] = "detalhe/{$cat_nome}/{$rs['categoria_id']}/{$post_nome}/{$rs['post_id']}";
-				$rs['post_conteudo'] = trim(strip_tags($this->cutHTML($rs['post_conteudo'],150)));
+				$rs['post_conteudo'] = preg_replace("/( +)/", " ",trim(strip_tags($this->cutHTML($rs['post_conteudo'],120))));
 				array_push($res, $rs);
 			}
 		}
