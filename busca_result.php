@@ -2,6 +2,14 @@
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
 	require_once 'class/busca_result.class.php';
+
+	require_once "class/home.class.php";
+
+	$obj = new home();
+	$obj->setCategoria_id($_GET['categoria_id']);
+	$obj->setLimitMax(15);
+	$obj->setLimitStart(0);
+	$aLista = $obj->getLastPost();
 	
 	$obj = new busca_result();
 	$obj->setValues($_POST);
@@ -133,94 +141,11 @@
 	<img src="imgs/content_bot.png" align="top" />
 
 </div>
-<!-- Coluna Direita -->
-<div id="rightCol">
+            <!-- Coluna Direita -->
+           
+<?php
+	include_once 'includes/lateralDireita.php';
+	include_once 'includes/footer.php';
+?>
 
-	<!-- Banner 300x250 -->
-	<div id="sideBanner"><img src="banners/banner_300x250.jpg" /></div>
-
-	<!-- Top noticias -->
-	<img src="imgs/box_top.png" align="absbottom" />
-	<div id="rightBox" class="topNoticias">
-		<h2><b class="title">Top notícias</b></h2>
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/15.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/02.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/07.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/09.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/03.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div style="clear:both"></div>
-	</div>
-	<img src="imgs/box_bot.png" align="top" style="clear:both" />
-
-	<!-- Top artigos -->
-	<img src="imgs/box_top.png" align="absbottom" />
-	<div id="rightBox" class="topArtigos">
-		<h2><b class="title">Top artigos</b></h2>
-		<ul>
-			<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-			<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-			<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-			<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-			<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-			<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-			<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-			<li><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></li>
-		</ul>
-	</div>
-	<img src="imgs/box_bot.png" align="top" style="clear:both" />
-
-	<!-- Top noticias -->
-	<img src="imgs/box_top.png" align="absbottom" />
-	<div id="rightBox" class="topNoticias">
-		<h2><b class="title">Top análises</b></h2>
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/12.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/10.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/01.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/08.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div class="item">
-			<div class="img"><a href="noticia.html"><img src="imgs/news/04.jpg" /></a></div>
-			<div class="info"><a href="noticia.html">Lorem ipsum dolor sit amet</a><br /><span class="data">10 comentários</span></div>
-		</div>
-
-		<div style="clear:both"></div>
-	</div>
-	<img src="imgs/box_bot.png" align="top" style="clear:both" />
-
-</div>
-<?php	include_once 'includes/footer.php'; ?>
+			
