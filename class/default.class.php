@@ -434,36 +434,39 @@ class defaultClass {
 	public function getTopPost($categoria){
 		$sql = array();
 		$sql[] = "
-			SELECT	p.post_id
-					,p.categoria_id
-					,c.categoria_nome
-					,p.usuario_id
-					,p.post_titulo
-					,p.post_thumb_home
-					,p.post_imagem
-					,p.post_thumb_imagem
-					,p.post_palavra_chave
-					,p.post_conteudo
-					,DATE_FORMAT(p.post_dtcomp_criacao,'%d.%m.%Y %h:%i') AS post_dt_criacao
-					,p.post_dtcomp_criacao
-					,p.post_dt_alteracao
-					,p.post_dtcomp_alteracao
-					,p.post_status
-					,(SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id AND comentario_status = 1) as qtdComentario
-					,(SELECT COUNT(*) FROM tb_post_pageview  WHERE post_id = p.post_id group by post_id) as qtdPageView
-			FROM	tb_post p
-		
-			LEFT JOIN	tb_post_pageview pp
-			ON		p.post_id = pp.post_id
+			SELECT *
+			FROM (
+				SELECT	p.post_id
+						,p.categoria_id
+						,c.categoria_nome
+						,p.usuario_id
+						,p.post_titulo
+						,p.post_thumb_home
+						,p.post_imagem
+						,p.post_thumb_imagem
+						,p.post_palavra_chave
+						,p.post_conteudo
+						,DATE_FORMAT(p.post_dtcomp_criacao,'%d.%m.%Y %h:%i') AS post_dt_criacao
+						,p.post_dtcomp_criacao
+						,p.post_dt_alteracao
+						,p.post_dtcomp_alteracao
+						,p.post_status
+						,IFNULL((SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id AND comentario_status = 1),0) as qtdComentario
+						,IFNULL((SELECT COUNT(*) FROM tb_post_pageview  WHERE post_id = p.post_id group by post_id),0) as qtdPageView
+				FROM	tb_post p
 
-			JOIN	tb_categoria c
-			ON		p.categoria_id = c.categoria_id
+				LEFT JOIN	tb_post_pageview pp
+				ON		p.post_id = pp.post_id
 
-			WHERE	1 = 1
-			AND		p.post_status = 1
-			AND		c.categoria_id = {$categoria}
-			GROUP BY p.post_id
-			ORDER BY qtdPageView ASC
+				JOIN	tb_categoria c
+				ON		p.categoria_id = c.categoria_id
+
+				WHERE	1 = 1
+				AND		p.post_status = 1
+				AND		c.categoria_id = {$categoria}
+				GROUP BY p.post_id
+			) AS top
+			ORDER BY qtdComentario DESC, qtdPageView DESC
 		";
 		$res = array();
 		$sql[] = "LIMIT 4";
