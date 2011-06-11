@@ -5,12 +5,26 @@
 	$obj = new game();
 	$obj->setGame_id($_GET['game_id']);
 	$aGame = $obj->getJogoDownload();
+	$aVoted = $obj->isUserVoted();
 	$obj->saveQtdJogado();
+	$pont = 0;
+	if($aGame['game_qtd_votacao']>0){
+		$pont = ($aGame['game_total_votacao']/$aGame['game_qtd_votacao']);
+	}
 	//echo "<pre>".print_r($aGame,true)."</pre>";
 ?>
+
 			<script type="text/javascript" src="<?php echo $linkAbsolute ?>js/game.js"></script>
+			<?	if(is_array($aVoted)&&count($aVoted) >0):?>
+			<script type="text/javascript">
+				$(document).ready(function(){
+					$.fn.raty.start(<?=$aVoted['valor_votacao']?>, '.avalia');
+					$.fn.raty.readOnly(true, '.avalia');
+				});
+			</script>
+			<?	endif;?>
 			<input type="hidden" name="game_id" id="game_id" value="<?php echo $aGame['game_id'] ?>" />
-			<input type="hidden" name="pontuacao" id="pontuacao" value="<?php echo ($aGame['game_total_votacao']/$aGame['game_qtd_votacao']) ?>" />
+			<input type="hidden" name="pontuacao" id="pontuacao" value="<?php echo ($pont) ?>" />
         	<!-- Jogo -->
             <img src="<?php echo $linkAbsolute ?>imgs/full_content_top.png" align="absbottom" />
             <div id="conteudo" class="gameArea">
