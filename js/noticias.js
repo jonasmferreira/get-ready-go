@@ -96,6 +96,11 @@ $(document).ready(function(){
 		}
 		$(".qtdCaracteres").text(total-($.trim($(this).val().length)));
 	})
+	$("#feedRss").click(function(e){
+		e.preventDefault();
+		console.log("opa");
+		window.location.href = $("#linkAbsolute").val()+"rss/rss_noticias";
+	});
 });
 var emoticon = function(text){
 	$("#comentario").val($("#comentario").val()+" "+text)

@@ -38,6 +38,9 @@ class defaultClass {
 
 
 	private $total;
+	
+	protected $linkAbsolute = "http://localhost/get_ready_go/";
+	
 	public function getTotal() {
 	 return $this->total;
 	}

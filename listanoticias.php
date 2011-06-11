@@ -59,7 +59,11 @@
 								pagePaginacao.fadeIn('slow');
 							});
 						}
-					})
+					});
+					$("#feedRss").click(function(e){
+						e.preventDefault();
+						window.location.href = $("#linkAbsolute").val()+"rss/rss_noticias";
+					});
 				});
 			</script>
         	<!-- Coluna Esquerda -->

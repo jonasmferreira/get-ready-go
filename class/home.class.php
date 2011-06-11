@@ -30,6 +30,7 @@ class home extends defaultClass{
 					,p.post_palavra_chave
 					,p.post_conteudo
 					,DATE_FORMAT(p.post_dtcomp_criacao,'%d.%m.%Y %h:%i') AS post_dt_criacao
+					,DATE_FORMAT(p.post_dtcomp_criacao,'%d/%m/%Y %h:%i:%s') AS post_dt_criacao2
 					,p.post_dtcomp_criacao
 					,p.post_dt_alteracao
 					,p.post_dtcomp_alteracao
@@ -47,7 +48,7 @@ class home extends defaultClass{
 
 			WHERE	1 = 1
 			AND		p.post_status = 1
-			AND		c.categoria_id = {$this->categoria_id}
+			AND		c.categoria_id IN ({$this->categoria_id})
 			ORDER BY post_dtcomp_criacao DESC
 		";
 		$res = array();
@@ -239,7 +240,8 @@ class home extends defaultClass{
 					,p.post_imagem
 					,p.post_thumb_imagem
 					,p.post_conteudo
-					,p.post_dtcomp_criacao
+					,DATE_FORMAT(p.post_dtcomp_criacao,'%d.%m.%Y %h:%i') AS post_dt_criacao
+					,DATE_FORMAT(p.post_dtcomp_criacao,'%d/%m/%Y %h:%i:%s') AS post_dt_criacao2
 			FROM	tb_post p
 
 			JOIN	tb_usuario u
@@ -274,7 +276,69 @@ class home extends defaultClass{
 		}
 		return $this->utf8_array_encode($res);
 	}
-	
+	public function createRssNoticias(){
+		// Instanciamos/chamamos a classe
+		$rss = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss></rss>');
+		$rss->addAttribute('version', '2.0');
+
+		// Cria o elemento <channel> dentro de <rss>
+		$canal = $rss->addChild('channel');
+		// Adiciona sub-elementos ao elemento <channel>
+		$canal->addChild('title', 'Get Ready Go... Notícias');
+		$canal->addChild('link', "{$this->linkAbsolute}");
+		$canal->addChild('description', 'Rss de Notícias');
+		$this->categoria_id = 1;
+		$aNoticias = $this->getLastPost();
+
+		// Inclui um <item> para cada resultado encontrado
+		foreach($aNoticias AS $dados) {
+			// Cria um elemento <item> dentro de <channel>
+			$item = $canal->addChild('item');
+			// Adiciona sub-elementos ao elemento <item>
+			$item->addChild('title', html_entity_decode($dados['post_titulo']));
+			$item->addChild('link', "{$this->linkAbsolute}{$dados['linkDetalhe']}");
+			$item->addChild('description', html_entity_decode($this->cutHTML(($dados['post_conteudo']),500), ENT_QUOTES, 'UTF-8'));
+			$aDt = explode(" ",$dados['post_dt_criacao2']);
+			
+			$dia = explode("/",$aDt[0]);
+			$hora = explode(":",$aDt[1]);
+			$item->addChild('pubDate',date("r",mktime ($hora[0],$hora[1],$hora[2], $dia[1] , $dia[0], $dia[2])));
+		}
+		// Entrega o conteúdo do RSS completo:
+		$rss_complete = $rss->asXML();
+		return $rss_complete;
+	}
+	public function createRssDestaque(){
+		// Instanciamos/chamamos a classe
+		$rss = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss></rss>');
+		$rss->addAttribute('version', '2.0');
+
+		// Cria o elemento <channel> dentro de <rss>
+		$canal = $rss->addChild('channel');
+		// Adiciona sub-elementos ao elemento <channel>
+		$canal->addChild('title', 'Get Ready Go... Destaques');
+		$canal->addChild('link', "{$this->linkAbsolute}");
+		$canal->addChild('description', 'Rss de Destaques');
+		$aNoticias = $this->getOutdoorDestaque();
+
+		// Inclui um <item> para cada resultado encontrado
+		foreach($aNoticias AS $dados) {
+			// Cria um elemento <item> dentro de <channel>
+			$item = $canal->addChild('item');
+			// Adiciona sub-elementos ao elemento <item>
+			$item->addChild('title', html_entity_decode($dados['post_titulo']));
+			$item->addChild('link', "{$this->linkAbsolute}{$dados['linkDetalhe']}");
+			$item->addChild('description', html_entity_decode($this->cutHTML(($dados['post_conteudo']),500), ENT_QUOTES, 'UTF-8'));
+			$aDt = explode(" ",$dados['post_dt_criacao2']);
+			
+			$dia = explode("/",$aDt[0]);
+			$hora = explode(":",$aDt[1]);
+			$item->addChild('pubDate',date("r",mktime ($hora[0],$hora[1],$hora[2], $dia[1] , $dia[0], $dia[2])));
+		}
+		// Entrega o conteúdo do RSS completo:
+		$rss_complete = $rss->asXML();
+		return $rss_complete;
+	}
 	
 }
 ?>

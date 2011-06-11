@@ -194,6 +194,7 @@
 					}
 				});
 			});
+			
 		});
 	</script>
 	<!-- Coluna Esquerda -->

@@ -50,5 +50,15 @@ switch($_REQUEST['action']){
 		}
 		echo json_encode($aResult);
 	break;
+	case 'rss_noticias':
+		// Define o tipo de conteúdo e o charset
+		header("content-type: application/rss+xml; charset=utf-8");
+		echo $obj->createRssNoticias();
+	break;
+	case 'rss_destaque':
+		// Define o tipo de conteúdo e o charset
+		header("content-type: application/rss+xml; charset=utf-8");
+		echo $obj->createRssDestaque();
+	break;
 }
 ?>
