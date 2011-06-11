@@ -54,9 +54,46 @@ function verifyEmail(obj){
 		}
 	});
 }
+function teste(){
+	console.log($("iframe"))
+	//var frame = $("iframe")[0].contentDocument;
+	/*$(".selectAvatar", frame).click(function(){
+		alert('asasas')
+	})*/
+}
 $(document).ready(function(){
 	
-	$("#newAvatar").colorbox({width:"410px", height:"110px", iframe:true});
+	$("#newAvatar").colorbox({
+		width:"665px",
+		height:"600px",
+		iframe:true,
+		close: "Fechar",
+		overlayClose: false,
+		onClosed:function(){
+			window.location.href = window.location.href;
+		}
+		,onComplete:function(){
+			window.setTimeout(function(){
+				var frame = $("iframe")[0].contentDocument;
+				$(".selectAvatar", frame).click(function(){
+					var usuario_avatar = $(this).parent().parent().parent().attr("id");
+					$.ajax({
+						'type':'POST',
+						'async':false,
+						'url':$("#linkAbsolute").val()+"ajax/meu_perfil",
+						'data':{
+							'action':'alteraAvatar'
+							,'usuario_avatar':usuario_avatar
+						},
+						'success':function(resp){
+							alert(resp);
+							$("#cboxClose").trigger("click");
+						}
+					});
+				})
+			},300);
+		}
+	});
 	
 	$("#email").blur(function(){
 		verifyEmail($(this));

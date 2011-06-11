@@ -62,6 +62,41 @@ class meu_perfil extends defaultClass{
 		$this->setSession($rs);
 		return true;
 	}
+	
+	public function getAvatares(){
+		$sql = "SELECT * FROM tb_avatar";
+		$result = $this->dbConn->db_query($sql);
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				array_push($res, $rs);
+			}
+		}
+		return $res;
+	}
+	public function alteraAvatar(){
+		$this->dbConn->db_start_transaction();
+		$usuario_avatar = $this->antiInjection($this->values['usuario_avatar']);
+		$sql = "
+			UPDATE tb_usuario SET
+				usuario_avatar = '{$usuario_avatar}'
+			WHERE 1=1
+			AND usuario_id = {$_SESSION['GET_READY_GO_2011_SITE']['usuario_id']}
+		";
+		$result = $this->dbConn->db_execute($sql);
+		if($result['success']===true){
+			$this->dbConn->db_commit();
+			$this->logon();
+			return $this->utf8Encode2Decode('Avatar alterado com Sucesso!');
+			
+		}else{
+			$this->dbConn->db_rollback();
+			return $this->utf8Encode2Decode('Falha ao alterar Avatar');
+		}
+	}
 }
 
 ?>

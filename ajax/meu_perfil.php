@@ -10,5 +10,9 @@ switch($_REQUEST['action']){
 		$obj->setValues($_POST);
 		echo $obj->savePerfil();
 	break;
+	case 'alteraAvatar':
+		$obj->setValues($_POST);
+		echo $obj->alteraAvatar();
+	break;
 }
 ?>

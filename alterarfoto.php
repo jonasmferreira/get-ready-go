@@ -1,44 +1,28 @@
 <?php
-	if(count($_FILES)>0){
-		$path_root_avatarClass = dirname(__FILE__);
-		$DS = DIRECTORY_SEPARATOR;
-		$path_root_avatarClass = "{$path_root_avatarClass}{$DS}";
-		$avatarFolder = "{$path_root_avatarClass}avatar_user{$DS}";
-		if(!is_dir($avatarFolder)){
-			mkdir($avatarFolder,0777);
-			chmod($avatarFolder,0777);
-		}
-		$fileNameImagem = str_replace(".","",microtime(true))."_".$_FILES['avatar_imagem']['name'];
-		if(move_uploaded_file($_FILES['avatar_imagem']['tmp_name'], $avatarFolder.$fileNameImagem)){
-			die("Success");
-		}else{
-			die("Error");
-		}
-	}
-?>
+	include_once 'includes/cabecalho.php';
+	require_once 'class/meu_perfil.class.php';
 
-<!DOCTYPE html>
-<html>
-	<head>
-		<title>Alteração foto do avatar</title>
-		<style type="text/css">
-			h1{font-style: italic;}
-		</style>
-		<link href="style.css" media="screen" rel="stylesheet" type="text/css" />
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
-		<script>
-			$(document).ready(function(){
-			});
-		</script>
-	</head>
-	<body>
-		<form style="margin: 5px;padding: 5px;" method="POST" enctype="multipart/form-data">
-			<div style="margin: 0 auto;text-align: center">
-				<input type="file" name="avatar_imagem" id="avatar" />
-			</div>
-			<div style="margin: 10px auto 0 auto;text-align: center">
-				<input type="image" src="<?php echo $linkAbsolute ?>imgs/bt_enviar.gif" />
-			</div>
-		</form>
+	$obj = new meu_perfil();
+	$aAvatares = $obj->getAvatares();
+	$aAvataresChuck = array_chunk($aAvatares, 4);
+?>
+	<body>			
+		<h2><b class="title">Escolha um avatar</b></h2>
+		<table cellspacing="5" cellpadding="5">
+			<?php foreach($aAvataresChuck as $key => $value){ ?>
+			<tr>
+				<?php foreach($value as $k => $v){ ?>
+				<td style="border:1px solid #000;" id="<?php echo $v['avatar_imagem'] ?>">
+					<a href="#">
+						<img src="<?php echo $linkAbsolute ?>avatar_user/<?php echo $v['avatar_imagem'] ?>" /><br />
+						<div style="margin-top: 5px;text-align:center;">
+							<input type="button" class="selectAvatar" style="background: #cb3f1e;color:#FFF;border:1px solid #cb3f1e;cursor: pointer;" value="Confirmar" />
+						</div>
+					</a>
+				</td>
+				<?php } ?>
+			</tr>
+			<?php } ?>
+		</table>
 	</body>
 </html>

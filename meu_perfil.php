@@ -38,7 +38,14 @@
 				<?php if($_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']==''){ ?>
 				<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" />
 				<?php }else{ ?>
-				<img src="<?php echo "{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}" ?>" class="avatar" width="140px" height="140px" />
+				<?php
+					if(is_file("{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}")){
+						$file = "{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}";
+					}else{
+						$file = "{$linkAbsolute}avatar_user/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}";
+					}
+				?>
+				<img src="<?php echo "{$file}" ?>" class="avatar" width="140px" height="140px" />
 				<?php } ?><!-- usuário começa com imagem padrão -->
 				<p><a href="<?php echo $linkAbsolute ?>alterarfoto" id="newAvatar" title="Alterar avatar">Alterar avatar</a></p>
 			</div>

@@ -38,7 +38,14 @@
 						<?php if($_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']==''){ ?>
 						<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" />
 						<?php }else{ ?>
-						<img src="<?php echo "{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}" ?>" class="avatar" />
+						<?php
+							if(is_file("{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}")){
+								$file = "{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}";
+							}else{
+								$file = "{$linkAbsolute}avatar_user/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}";
+							}
+						?>
+						<img src="<?php echo "{$file}" ?>" class="avatar" />
 						<?php } ?>
 					</div>
 					<div style="float:right; padding:31px 0 0 0">Bem vindo, <strong class="nomeSobrenome"><?php echo $_SESSION['GET_READY_GO_2011_SITE']['usuario_nome'] ?></strong><br />
