@@ -26,6 +26,7 @@
 				event.stopPropagation();
 				var divAtual = $("#imgsGalerias").children().not(".displayNone");
 				var anterior = divAtual.prev();
+				console.log(anterior);
 				if(anterior.html()!=null){
 					divAtual.fadeOut('fast',function(){
 						anterior.fadeIn();
@@ -34,7 +35,7 @@
 						$('.qtdImage').text(parseInt($('.qtdImage:first').text())-1)
 					});
 				}
-				$(this).unbind();
+				//$(this).unbind();
 			});
 
 			$(".proxima").bind('click',function(event){
