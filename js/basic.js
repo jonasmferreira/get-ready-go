@@ -8,6 +8,11 @@ function buildFlash(swfLocation,x,y,swfMode, variaveis){
 	document.write(' <embed src="'+swfLocation+variaveis+'" wmode="'+swfMode+'" quality="best" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="'+x+'" height="'+y+'"></embed>');
 	document.write(' </object>');
 }
+
+function popUp(url,title,x,y,hasScroll) {
+	window.open(url,title,'status=no,resizable=no,width='+x+',height='+y+',scrollbars='+hasScroll);
+}
+
 $(document).ready(function(){
 	$("#button_busca").click(function(e){
 		e.preventDefault();
