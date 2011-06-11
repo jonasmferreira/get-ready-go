@@ -16,6 +16,9 @@ Ext.onReady(function(){
 			,{name:'comentario_dt_alteracao', type: 'datetime'}
 			,{name:'comentario_dtcomp_alteracao', type: 'datetime'}
 			,{name:'comentario_status', type: 'int'}
+			,{name:'categoria_id', type: 'int'}
+			,{name:'categoria_nome', type: 'string'}
+			
         ]
         ,idProperty: 'comentario_id'
 
@@ -54,6 +57,46 @@ Ext.onReady(function(){
 		}
 	});
 
+	Ext.define('comentarioCategoriaModel', {
+        extend: 'Ext.data.Model'
+        ,fields: [
+			{name:'categoria_id', type: 'int'}
+			,{name:'categoria_nome', type: 'string'}
+        ]
+        ,idProperty: 'categoria_id'
+
+    });
+	var comentarioCategoriaStore = Ext.create('Ext.data.Store', {
+		id:'comentarioCategoriaStore'
+		,autoLoad: true
+		,model:'comentarioCategoriaModel'
+		,proxy: {
+			type: 'ajax',
+			url: 'controller/post.controller.php?action=getCategoria',  // url that will load data with respect to start and limit params
+			reader: {
+				type: 'json',
+				root: 'data',
+				totalProperty: 'totalCount'
+			}
+		}
+	});
+
+	// Create the combo box, attached to the states data store
+	var comentarioCategoriaCombo = Ext.create('Ext.form.ComboBox', {
+		itemId:'postCategoriaCombo'
+		,id:'postCategoriaCombo'
+		,emptyText: 'Categoria do Post'
+		,store: comentarioCategoriaStore
+		,name:'categoria_id'
+		,displayField: 'categoria_nome'
+		,valueField: 'categoria_id'
+	});
+
+
+
+
+
+
 	var postTituloText = Ext.create('Ext.form.field.Text',{
 		itemId:'postTituloText'
 		,emptyText: 'Título do Post'
@@ -66,8 +109,9 @@ Ext.onReady(function(){
 	var comentarioStatusStore = Ext.create('Ext.data.Store', {
 		fields: ['status_id', 'status_name'],
 		data : [
-			{"status_id":"1", "status_name":"Ativo"}
-			,{"status_id":"0", "status_name":"Inativo"}
+			{"status_id":"1", "status_name":"Liberado"}
+			,{"status_id":"0", "status_name":"Não Liberado"}
+			,{"status_id":"2", "status_name":"Cancelado"}
 		]
 	});
 
@@ -75,7 +119,7 @@ Ext.onReady(function(){
 	var comentarioStatusCombo = Ext.create('Ext.form.ComboBox', {
 		itemId:'comentarioStatusCombo'
 		,id:'comentarioStatusCombo'
-		,emptyText: 'Status'
+		,emptyText: 'Status do Comentário'
 		,store: comentarioStatusStore
 		,name:'comentario_status'
 		,queryMode: 'local'
@@ -132,13 +176,15 @@ Ext.onReady(function(){
 			,click:function(button){
 				var usuario_id = comentarioUsuarioCombo.getValue();
 				var titulo_nome = postTituloText.getValue();
-				var post_status = comentarioStatusCombo.getValue();
+				var comentario_status = comentarioStatusCombo.getValue();
+				var categoria_id = comentarioCategoriaCombo.getValue();
 				//console.log(usuarioGrid.getStore());
 				comentarioGrid.getStore().load({
 					params:{
 						'titulo_nome': titulo_nome
 						,'usuario_id': usuario_id
-						,'post_status': post_status
+						,'comentario_status': comentario_status
+						,'categoria_id': categoria_id
 					}
 				});
 			}
@@ -155,16 +201,20 @@ Ext.onReady(function(){
 				comentarioUsuarioCombo.setValue('');
 				postTituloText.setValue('');
 				comentarioStatusCombo.setValue('');
+				comentarioCategoriaCombo.setValue('');
 				
 				var titulo_nome = postTituloText.getValue();
 				var usuario_id = comentarioUsuarioCombo.getValue();
-				var post_status = comentarioStatusCombo.getValue();
+				var comentario_status = comentarioStatusCombo.getValue();
+				var categoria_id = comentarioCategoriaCombo.getValue();
+
 				//console.log(usuarioGrid.getStore());
 				comentarioGrid.getStore().load({
 					params:{
 						'titulo_nome': titulo_nome
 						,'usuario_id': usuario_id
-						,'post_status': post_status
+						,'comentario_status': comentario_status
+						,'categoria_id': categoria_id
 					}
 				});
 
@@ -207,13 +257,14 @@ Ext.onReady(function(){
 		,border:false
 		,columns: [
 			{header: 'Código',  dataIndex: 'comentario_id',sortable: true, width:70}
+			,{header: 'Categoria',  dataIndex: 'categoria_nome',sortable: true,width:120}
 			,{header: 'Título',  dataIndex: 'post_titulo',sortable: true,width:250}
 			,{header: 'Autor',  dataIndex: 'comentario_autor',sortable: true,width:250}
-			,{header: 'Email',  dataIndex: 'comentario_email',sortable: true,width:250}
+			//,{header: 'Email',  dataIndex: 'comentario_email',sortable: true,width:250}
 			,{header: 'Conteúdo',  dataIndex: 'comentario_conteudo',sortable: true,width:250}
-			,{header: 'Dt. Criação',  dataIndex: 'comentario_dt_criacao',sortable: true,hidden:true,hideable:false}
+			//,{header: 'Dt. Criação',  dataIndex: 'comentario_dt_criacao',sortable: true,hidden:true,hideable:false}
 			,{header: 'Dt/Hr Criação ',  dataIndex: 'comentario_dtcomp_criacao',sortable: true,width:120}
-			,{header: 'Dt. Alteração',  dataIndex: 'comentario_dt_alteracao',sortable: true,hidden:true,hideable:false}
+			//,{header: 'Dt. Alteração',  dataIndex: 'comentario_dt_alteracao',sortable: true,hidden:true,hideable:false}
 			,{header: 'Dt/Hr Alteração ',  dataIndex: 'comentario_dtcomp_alteracao',sortable: true,width:120}
 			,{
 				header: 'Status',
@@ -221,10 +272,12 @@ Ext.onReady(function(){
 				sortable: true,
 				width:70,
 				renderer:function(val){
-					if(val > 0){
-						return '<span style="color:blue">Ativo</span>'
+					if(val == 1){
+						return '<span style="color:blue">Liberado</span>'
+					}else if(val == 0){
+						return '<span style="color:silver">Não Liberado</span>'
 					}else{
-						return '<span style="color:silver">Inativo</span>'
+						return '<span style="color:red">Cancelado</span>'
 					}
 				}
 			}
@@ -250,6 +303,9 @@ Ext.onReady(function(){
 				items: [
 
 					{xtype:'tbspacer',width:10}
+					,comentarioCategoriaCombo
+
+					,{xtype:'tbspacer',width:10}
 					,postTituloText
 
 					,{xtype:'tbspacer',width:10}
