@@ -82,7 +82,7 @@
 		function createThumbs(){
 			var arrDestaqueThumbs = new Array();
 			for(var j=0;j<arrImgThum.length;j++){
-				arrDestaqueThumbs.push('<div id="destaqueThumbs_'+j+'"><img src="'+arrImgThum[j]+'" /></div>');
+				arrDestaqueThumbs.push('<div id="destaqueThumbs_'+j+'" style="cursor:pointer;"><img src="'+arrImgThum[j]+'" /></div>');
 			}
 			jQuery("#destaqueThumbs").html(arrDestaqueThumbs.join("\n"));
 			jQuery("#destaqueThumbs div:first").addClass('selected');
