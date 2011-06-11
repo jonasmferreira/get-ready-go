@@ -235,21 +235,12 @@ class home extends defaultClass{
 			SELECT	p.post_id
 					,p.categoria_id
 					,c.categoria_nome
-					,p.usuario_id
 					,p.post_titulo
 					,p.post_thumb_home
 					,p.post_imagem
 					,p.post_thumb_imagem
-					,p.post_palavra_chave
 					,p.post_conteudo
-					,DATE_FORMAT(p.post_dtcomp_criacao,'%d.%m.%Y %h:%i') AS post_dt_criacao
 					,p.post_dtcomp_criacao
-					,p.post_dt_alteracao
-					,p.post_dtcomp_alteracao
-					,p.post_status
-					,u.usuario_nome
-					,u.usuario_avatar
-					,(SELECT COUNT(*) FROM tb_comentario WHERE post_id = p.post_id AND comentario_status = 1) as qtdComentario
 			FROM	tb_post p
 
 			JOIN	tb_usuario u
@@ -260,15 +251,13 @@ class home extends defaultClass{
 
 			WHERE	1 = 1
 			AND		p.post_status = 1
-			AND		c.categoria_id = {$this->categoria_id}
+			AND		c.categoria_id IN (2,3)
 			ORDER BY post_dtcomp_criacao DESC
+			LIMIT 4
 		";
 		$res = array();
 		$this->setTotal($this->getMaxCount(implode("\n",$sql)));
 		//echo $this->getTotal();
-		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
-			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
-		}
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']){
 			return false;
