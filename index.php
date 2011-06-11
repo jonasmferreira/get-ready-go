@@ -39,6 +39,10 @@
 	$aEnquete = $obj->getEnquete();
 	$aEnqueteOpcao = $obj->opcaoEnquete($aEnquete['enquete_id']);
 	//echo "<pre>".print_r($aEnqueteOpcao,true)."</pre>";
+
+	//DESTAQUES ROTATIVOS (OUTDOOR)
+	$aOutdoor = $obj->getOutdoorDestaque();
+	
 ?>
 	<script type="text/javascript">
 		$(document).ready(function(){
