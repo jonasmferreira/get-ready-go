@@ -64,7 +64,7 @@ function teste(){
 $(document).ready(function(){
 	
 	$("#newAvatar").colorbox({
-		width:"665px",
+		width:"685px",
 		height:"600px",
 		iframe:true,
 		close: "Fechar",
@@ -90,6 +90,12 @@ $(document).ready(function(){
 							$("#cboxClose").trigger("click");
 						}
 					});
+				})
+				$(".imagem", frame).click(function(){
+					$(".imagem", frame).css("border-color","transparent").removeClass("imagemSeletion")
+					$("input", frame).attr("disabled","disabled")
+					$(this).css("border-color","#F00").addClass("imagemSeletion");
+					$(this).parent().find("input").removeAttr("disabled");
 				})
 			},300);
 		}
