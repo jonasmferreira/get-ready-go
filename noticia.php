@@ -20,7 +20,7 @@
 
 	$totalComentario = $obj->getTotal();
 	
-	$postTitulo = str_replace(' ', '+',$_GET['post_titulo']);
+	$postTitulo = str_replace(' ', '+',$obj->retiraAcentos($_GET['post_titulo']));
 ?>
 			<input type="hidden" name="post_id" id="post_id" value="<?php echo $_GET['post_id'] ?>"/>
 			<script type="text/javascript" src="<?php echo "{$linkAbsolute}"?>js/noticias.js"></script>
