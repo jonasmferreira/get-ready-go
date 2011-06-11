@@ -453,7 +453,7 @@ class defaultClass {
 					,(SELECT COUNT(*) FROM tb_post_pageview  WHERE post_id = p.post_id group by post_id) as qtdPageView
 			FROM	tb_post p
 		
-			JOIN	tb_post_pageview pp
+			LEFT JOIN	tb_post_pageview pp
 			ON		p.post_id = pp.post_id
 
 			JOIN	tb_categoria c
