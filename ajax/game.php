@@ -8,12 +8,12 @@
 	switch($_REQUEST['action']){
 		case'somaDownload':
 			$aResult['success'] = $obj->saveQtdDownload();
-			json_encode($aResult['success']);
+			echo json_encode($aResult['success']);
 		break;
 		case'avaliacao':
 			$obj->setPontuacao($_POST['pontuacao']);
 			$aResult['success'] = $obj->savePontuacao();
-			json_encode($aResult['success']);
+			echo json_encode($aResult['success']);
 		break;
 	}
 ?>

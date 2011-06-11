@@ -33,7 +33,27 @@ class game extends defaultClass{
 		}
 		return $this->utf8_array_encode($rs);
 	}
-
+	public function isUserVoted(){
+		$sql = array();
+		$sql[] = "
+			SELECT	*
+			FROM	tb_game_usuario_votacao
+			WHERE	1 = 1
+			AND		usuario_id = '{$_SESSION['GET_READY_GO_2011_SITE']['usuario_id']}'
+			AND		game_id = {$this->game_id}	
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			$rs = $this->dbConn->db_fetch_assoc($result['result']);
+		}else{
+			return array();
+		}
+		return $this->utf8_array_encode($rs);	
+	}
 	public function saveQtdJogado(){
 		$sql = "
 			UPDATE tb_game SET
@@ -70,6 +90,13 @@ class game extends defaultClass{
 		";
 		$result = $this->dbConn->db_execute($sql);
 		if($result['success']===true){
+			$sql = "
+				INSERT INTO tb_game_usuario_votacao SET
+					game_id = '{$this->game_id}'
+					,usuario_id = '{$_SESSION['GET_READY_GO_2011_SITE']['usuario_id']}'
+					,valor_votacao = '{$this->pontuacao}'
+			";
+			$result = $this->dbConn->db_execute($sql);
 			return true;
 		}
 		return false;
