@@ -34,7 +34,7 @@
 			<?php }else{ ?>
 			<img src="<?php echo "{$linkAbsolute}avatars/{$_SESSION['GET_READY_GO_2011_SITE']['usuario_avatar']}" ?>" class="avatar" width="140px" height="140px" />
 			<?php } ?><!-- usuário começa com imagem padrão -->
-			<p><a href="#">Alterar avatar</a></p>
+			<p><a href="javascript:popUp('listaavatares.php','Avatar',300,300,false);">Alterar avatar</a></p>
 		</div>
 
 		<div id="infoPerfil">
