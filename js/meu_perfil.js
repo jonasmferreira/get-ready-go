@@ -75,7 +75,7 @@ $(document).ready(function(){
 		,onComplete:function(){
 			window.setTimeout(function(){
 				var frame = $("iframe")[0].contentDocument;
-				$(".selectAvatar", frame).click(function(){
+				$(".selectAvatar", frame).live('click',function(){
 					var usuario_avatar = $(".imagemSeletion",frame).attr("id");
 					$.ajax({
 						'type':'POST',
@@ -91,13 +91,13 @@ $(document).ready(function(){
 						}
 					});
 				})
-				$(".imagem", frame).click(function(){
+				$(".imagem", frame).live('click',function(){
 					$(".imagem", frame).css("border-color","transparent").removeClass("imagemSeletion")
 					$("input", frame).attr("disabled","disabled")
 					$(this).css("border-color","#F00").addClass("imagemSeletion");
 					$(this).parent().find("input").removeAttr("disabled");
 				})
-			},600);
+			},1000);
 		}
 	});
 	
