@@ -41,6 +41,7 @@ class game extends defaultClass{
 			JOIN	tb_game_categoria gc ON g.game_categoria_id = gc.game_categoria_id
 			JOIN	tb_game_midia gm ON g.game_midia_id = gm.game_midia_id
 			JOIN	tb_game_tipo gt ON g.game_tipo_id = gt.game_tipo_id
+			LEFT JOIN	tb_usuario u ON u.usuario_id = g.game_criador_is_user
 			WHERE 1=1
 			AND g.game_categoria_id = 2
 			ORDER BY game_qtd_jogado DESC
@@ -67,6 +68,7 @@ class game extends defaultClass{
 			JOIN	tb_game_categoria gc ON g.game_categoria_id = gc.game_categoria_id
 			JOIN	tb_game_midia gm ON g.game_midia_id = gm.game_midia_id
 			JOIN	tb_game_tipo gt ON g.game_tipo_id = gt.game_tipo_id
+			LEFT JOIN	tb_usuario u ON u.usuario_id = g.game_criador_is_user
 			WHERE 1=1
 			AND game_id != (SELECT gv.game_id FROM tb_game gv WHERE 1=1 AND gv.game_categoria_id = 2 ORDER BY gv.game_qtd_jogado DESC LIMIT 1)
 			ORDER BY total DESC
@@ -100,6 +102,7 @@ class game extends defaultClass{
 			JOIN	tb_game_categoria gc ON g.game_categoria_id = gc.game_categoria_id
 			JOIN	tb_game_midia gm ON g.game_midia_id = gm.game_midia_id
 			JOIN	tb_game_tipo gt ON g.game_tipo_id = gt.game_tipo_id
+			LEFT JOIN	tb_usuario u ON u.usuario_id = g.game_criador_is_user
 			WHERE 1=1
 			AND game_id != (SELECT gv.game_id FROM tb_game gv WHERE 1=1 AND gv.game_categoria_id = 2 ORDER BY gv.game_qtd_jogado DESC LIMIT 1)
 			ORDER BY game_qtd_jogado DESC

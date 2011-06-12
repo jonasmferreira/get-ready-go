@@ -104,9 +104,20 @@
 							<p class="data">Jogado <?php echo "{$aGameMaisJogado['game_qtd_jogado']}" ?> vezes</p>
                             <p class="autor">
                             	Criado por<br />
-								<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" align="absmiddle" />
+								
+								<?php
+									$file =  "{$linkAbsolute}imgs/avatares/1.jpg";
+									if($aGameMaisJogado['game_criador_is_user']){
+										if(@file_get_contents("{$linkAbsolute}avatars/{$aGameMaisJogado['usuario_avatar']}")==true){
+											$file = "{$linkAbsolute}avatars/{$aGameMaisJogado['usuario_avatar']}";
+										}else{
+											$file = "{$linkAbsolute}avatar_user/{$aGameMaisJogado['usuario_avatar']}";
+										}
+									}
+								?>
+								<img src="<?php echo $file ?>" align="absmiddle" />
 								<?php if($aGame['game_criador_is_user']){ ?>
-								<a href="#">
+								<a href="<?php echo "{$linkAbsolute}perfil_usuario/{$aGame['game_criador_is_user']}"; ?>">
 									<strong><?php echo "{$aGameMaisJogado['game_criador_nome']}" ?></strong>
 								</a>
 								<?php }else{ ?>

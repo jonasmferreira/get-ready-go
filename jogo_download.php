@@ -41,7 +41,7 @@
 					<?php if($aGame['usuario_avatar']==''){ ?>
 						<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" style="width:60px;border:1px solid #000;" />
 					<?php }else{ ?>
-					<a href="<?php echo "{$linkAbsolute}/perfil_usuario/{$aGame['usuario_id']}" ?>">
+					<a href="<?php echo "{$linkAbsolute}perfil_usuario/{$aGame['usuario_id']}" ?>">
 						<?php
 							$file =  "{$linkAbsolute}imgs/avatares/1.jpg";
 							if($aGame['game_criador_is_user']){
@@ -59,9 +59,9 @@
 				</div>
 				<div style="float:left; margin:15px 5px 5px 5px">
 					<h3>
-						<?php if($aGame['game_criador_is_user']){ ?>
-							<a href="perfil.html"><?php echo $aGame['game_criador_nome'] ?></a>
-							<p><a href="busca.html">veja mais jogos desse autor</a></p>
+						<?php if($aGame['game_criador_is_user']!=0){ ?>
+							<a href="<?php echo "{$linkAbsolute}perfil_usuario/{$aGame['usuario_id']}" ?>"><?php echo $aGame['game_criador_nome'] ?></a>
+							<!--p><a href="busca.html">veja mais jogos desse autor</a></p-->
 						<?php }else{ ?>
 							<?php echo $aGame['game_criador_nome'] ?>
 						<?php } ?>
