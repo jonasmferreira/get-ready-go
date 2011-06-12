@@ -122,10 +122,14 @@
 				setThumb(id);
 			});
 			$('.anterior').click(function(){
-				 $(".paginacao a.ativoPaginacao").prev().trigger("click");
+				if($(".paginacao a.ativoPaginacao").prev().html() != $(this).html()){
+					$(".paginacao a.ativoPaginacao").prev().trigger("click");
+				}
 			});
 			$('.proximo').click(function(){
-				$(".paginacao a.ativoPaginacao").next().trigger("click");
+				if($(".paginacao a.ativoPaginacao").next().html() != $(this).html()){
+					$(".paginacao a.ativoPaginacao").next().trigger("click");
+				}
 			});
 			$('.inicio').click(function(){
 				$(".paginacao a.paginacaoPage").fadeIn();

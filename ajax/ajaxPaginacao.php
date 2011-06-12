@@ -92,6 +92,47 @@
 			</div>
 <?php
 		break;
+		case 'jogos':
+			require_once "{$path_root_postController}class/game.class.php";
+			$obj = new game();
+			$obj->setValues($_POST);
+			$obj->setLimitMax(24);
+			$obj->setLimitStart($_POST['limit']);
+			$aGames = $obj->getGames();
+			$aGamesChuck = array_chunk($aGames, 2);
+?>
+			<div id="listagem_<?php echo $_POST['limit']; ?>">
+				<?php
+					if(is_array($aGames) && count($aGames)>0){
+						foreach($aGamesChuck as $key => $value){
+				?>
+				<table id="twoCol" style="width: 100%!important;">
+					<tr>
+						<?php foreach($value as $k => $v){ ?>
+						<td style="width: 50%!important;">
+							 <div class="itemJogos">
+								<div class="imgItemJogos">
+									<a href="<?php echo "@LINKABSOLUTO@{$v['linkDetalhe']}" ?>">
+										<img src="<?php echo "@LINKABSOLUTO@games/{$v['game_thumb']}" ?>" />
+									</a>
+								</div>
+								<div>
+									<a href="<?php echo "@LINKABSOLUTO@{$v['linkDetalhe']}"; ?>"><?php echo $v['game_titulo']; ?></a>
+									<br /><?php echo $v['game_tipo_nome']; ?> - <?php echo $v['game_categoria_nome']; ?>
+									<br /><strong><?php echo $v['game_criador_nome']; ?></strong>
+									<br /><?php echo ($v['game_categoria_id']==1)?"Baixado ".$v['game_qtd_download']:"Jogado ".$v['game_qtd_jogado']; ?> vezes
+								</div>
+							</div>
+						</td>
+						<?php } ?>
+					</tr>
+				</table>
+				<?php
+						}
+					}
+				?>
+<?php
+		break;
 		case 'getConteudoDestaque':
 			require_once "{$path_root_postController}class/home.class.php";
 			echo $_SESSION['arrConteudo'][$_REQUEST['id']];

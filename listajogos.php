@@ -1,23 +1,31 @@
 <?php
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
+	
+	require_once "class/game.class.php";
 
-	require_once "class/home.class.php";
-
-	$obj = new home();
-	$obj->setCategoria_id($_GET['categoria_id']);
-	$obj->setLimitMax(15);
+	$obj = new game();
+	$aGameMaisJogado = $obj->getJogoMaisJogado();
+	$aGamePopular = $obj->getPopulares();
+	$aGameVotado = $obj->getMaisVotados();
+	$obj->setLimitMax(24);
 	$obj->setLimitStart(0);
-	$aLista = $obj->getLastPost();
-
+	$aGames = $obj->getGames();
+	$totalGame = $obj->getTotal();
+	$aGamesChuck = array_chunk($aGames, 2);
+	//echo "<pre>".print_r($aGamesChuck,true)."</pre>";
 ?>
 			<script type="text/javascript">
 				$(document).ready(function(){
 					$('.anterior').click(function(){
-						 $(".paginacao a.ativoPaginacao").prev().trigger("click");
+						if($(".paginacao a.ativoPaginacao").prev().html() != $(this).html()){
+							$(".paginacao a.ativoPaginacao").prev().trigger("click");
+						}
 					});
 					$('.proximo').click(function(){
-						$(".paginacao a.ativoPaginacao").next().trigger("click");
+						if($(".paginacao a.ativoPaginacao").next().html() != $(this).html()){
+							$(".paginacao a.ativoPaginacao").next().trigger("click");
+						}
 					});
 					$('.inicio').click(function(){
 						$(".paginacao a.paginacaoPage").fadeIn();
@@ -42,8 +50,7 @@
 								'url':'<?php echo $linkAbsolute;?>ajax/ajaxPaginacao',
 								'dataType':'html',
 								'data':{
-									'action':'listagem',
-									'categoria_id':<?php echo $_GET['categoria_id']?>,
+									'action':'jogos',
 									'limit':paginacao
 								},
 								success:function(resp){
@@ -67,72 +74,83 @@
             <div id="leftCol">
             
                 <!-- Conteúdo -->
-                <img src="imgs/content_top.png" align="absbottom" />
+                <img src="<?php echo $linkAbsolute ?>imgs/content_top.png" align="absbottom" />
                 <div id="conteudo">
 					<!-- Mais Jogado -->
 					<h2><b class="title">Mais Jogado</b></h2>
                     
                     <!-- Jogo mais popular (maior número de visualizações no mês) -->
                     <div id="mostPlayed">
-                    	<div id="gameImg"><a href="jogo_download.html"><img src="imgs/jogos/jogo1_big.jpg" /></a></div>
+                    	<div id="gameImg">
+							<a href="<?php echo "{$linkAbsolute}{$aGameMaisJogado['linkDetalhe']}" ?>">
+								<img src="<?php echo "{$linkAbsolute}games/{$aGameMaisJogado['game_imagem_destaque']}" ?>" />
+							</a>
+						</div>
                         <div id="gameInfo">
 							<p class="data">Para Download</p>
-                        	<h3><a href="jogo_download.html">Lorem ipsum dolor sit amet</a></h3>
+                        	<h3>
+								<a href="<?php echo "{$linkAbsolute}{$aGameMaisJogado['linkDetalhe']}" ?>"><?php echo "{$aGameMaisJogado['game_titulo']}" ?></a>
+							</h3>
                             <p><img src="imgs/nota_09.jpg" /></p>
-							<p class="data">Jogado 57 vezes</p>
+							<p class="data">Jogado <?php echo "{$aGameMaisJogado['game_qtd_jogado']}" ?> vezes</p>
                             <p class="autor">
                             	Criado por<br />
-								<img src="imgs/avatares/1.jpg" align="absmiddle" /> <a href="#"><strong>Fulano de tal</strong></a>
+								<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" align="absmiddle" />
+								<?php if($aGame['game_criador_is_user']){ ?>
+								<a href="#">
+									<strong><?php echo "{$aGameMaisJogado['game_criador_nome']}" ?></strong>
+								</a>
+								<?php }else{ ?>
+								<?php echo "{$aGameMaisJogado['game_criador_nome']}" ?>
+								<?php } ?>
                             </p>
                         </div>
                     </div>
 					<div style="clear:both"></div>
 					<!-- Últimos jogos -->
-                    
+                    <?php if(is_array($aGameVotado) && count($aGameVotado)>0){ ?>
                     <div id="twoCol">
                     	<h2><b class="title">mais votados</b></h2>
 
+	                    <?php foreach($aGameVotado as $k => $v){  ?>
 	                    <!-- item -->
     	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo1.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo2.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo3.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>                        
+        	            	<div class="imgItemJogos">
+								<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}" ?>">
+									<img src="<?php echo "{$linkAbsolute}games/{$v['game_thumb']}" ?>" />
+								</a>
+							</div>
+            	            <div>
+								<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['game_titulo']; ?></a>
+								<br /><?php echo $v['game_tipo_nome']; ?> - <?php echo $v['game_categoria_nome']; ?>
+								<br /><strong><?php echo $v['game_criador_nome']; ?></strong>
+								<br /><?php echo ($v['game_categoria_id']==1)?"Baixado ".$v['game_qtd_download']:"Jogado ".$v['game_qtd_jogado']; ?> vezes
+							</div>
+                	    </div>    
+						<?php } ?>                
                     </div>
-
+					<?php } ?>
+					<?php if(is_array($aGamePopular) && count($aGamePopular)>0){ ?>
                     <div id="twoCol">
                     	<h2><b class="title">Populares</b></h2>
-
+						<?php foreach($aGamePopular as $k => $v){  ?>
 	                    <!-- item -->
     	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo4.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo5.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo6.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-                        
+        	            	<div class="imgItemJogos">
+								<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}" ?>">
+									<img src="<?php echo "{$linkAbsolute}games/{$v['game_thumb']}" ?>" />
+								</a>
+							</div>
+            	            <div>
+								<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['game_titulo']; ?></a>
+								<br /><?php echo $v['game_tipo_nome']; ?> - <?php echo $v['game_categoria_nome']; ?>
+								<br /><strong><?php echo $v['game_criador_nome']; ?></strong>
+								<br /><?php echo ($v['game_categoria_id']==1)?"Baixado ".$v['game_qtd_download']:"Jogado ".$v['game_qtd_jogado']; ?> vezes
+							</div>
+                	    </div>    
+						<?php } ?>
                     </div>
+					<?php } ?>
                     <div style="clear:both"></div>
                 
                 </div>
@@ -142,160 +160,62 @@
                 <img src="imgs/content_top.png" align="absbottom" />
                 <div id="conteudo">
 					<h2><b class="title">últimos</b></h2>
+					<div id="listagem">
+						<div id="listagem_0">
+							<?php
+								if(is_array($aGames) && count($aGames)>0){
+									foreach($aGamesChuck as $key => $value){
+							?>
+							<table id="twoCol" style="width: 100%!important;">
+								<tr>
+									<?php	foreach($value as $k => $v){ ?>
+									<td style="width: 50%!important;">
+										 <div class="itemJogos">
+											<div class="imgItemJogos">
+												<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}" ?>">
+													<img src="<?php echo "{$linkAbsolute}games/{$v['game_thumb']}" ?>" />
+												</a>
+											</div>
+											<div>
+												<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['game_titulo']; ?></a>
+												<br /><?php echo $v['game_tipo_nome']; ?> - <?php echo $v['game_categoria_nome']; ?>
+												<br /><strong><?php echo $v['game_criador_nome']; ?></strong>
+												<br /><?php echo ($v['game_categoria_id']==1)?"Baixado ".$v['game_qtd_download']:"Jogado ".$v['game_qtd_jogado']; ?> vezes
+											</div>
+										</div>
+									</td>
+									<?php } ?>
+								</tr>
+							</table>
+							<?php
+									}
+								}
+							?>
+						</div>
+					</div>
+					<?php if($totalGame>=24){ ?>
+						<p class="paginacao">
+							«<a href="javascript:void(0)" class="inicio">Início</a>
+							<a href="javascript:void(0)" class="anterior">Anterior</a>
+							<?php
+								$porPage = 0;
+								for($i=1;$i<=ceil($totalGame/24);$i++):
 
-                    <div id="twoCol">
+								$displayNone = ($i<=5)?'':'displayNone';
+								$actActive = ($i==1)?'ativoPaginacao':'';
+							?>
+								<a href="javascript:void(0)" id="limit_<?php echo $porPage ?>" class="paginacaoPage <?php echo "{$displayNone} {$actActive}"?>"><?php echo $i; ?></a>
+							<?php
+								$porPage += 24;
+								endfor;
+							?>
 
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo1.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo2.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo3.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>                        
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo4.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo5.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo6.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo1.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo2.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo3.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>                        
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo4.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo5.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo6.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-                        
-                    </div>
-                    <div id="twoCol">
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo1.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo2.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo3.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>                        
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo4.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo5.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo6.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo1.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo2.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo3.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>                        
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo4.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_browser.html"><img src="imgs/jogos/jogo5.jpg" /></a></div>
-            	            <div><a href="jogo_browser.html">Nome do jogo</a><br />Aventura | Browser Game<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-
-	                    <!-- item -->
-    	                <div class="itemJogos">
-        	            	<div class="imgItemJogos"><a href="jogo_download.html"><img src="imgs/jogos/jogo6.jpg" /></a></div>
-            	            <div><a href="jogo_download.html">Nome do jogo</a><br />Aventura | Para Download<br /><strong>Nome do criador do jogo</strong><br />Jogado 10 vezes</div>
-                	    </div>
-                        
-                    </div>
-
-						<p class="paginacao">«<a href="#">Início</a> <a href="#">Anterior</a> <a href="#">1</a> <strong>2</strong> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> <a href="#">Próximo</a> <a href="#">Fim</a>»</p>
-
+							<a href="javascript:void(0)" class="proximo">Próximo</a>
+							<a href="javascript:void(0)" class="fim">Fim</a>
+							»
+						</p>
+					<?php } ?>
+					<div style="clear:both"></div>
                 </div>
                 <img src="imgs/content_bot.png" align="top" />
                  
