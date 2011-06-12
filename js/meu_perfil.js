@@ -97,7 +97,7 @@ $(document).ready(function(){
 					$(this).css("border-color","#F00").addClass("imagemSeletion");
 					$(this).parent().find("input").removeAttr("disabled");
 				})
-			},300);
+			},600);
 		}
 	});
 	
