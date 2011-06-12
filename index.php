@@ -231,7 +231,7 @@
 		<div id="conteudo">
 			<!-- Últimas Notícias -->
 			<h2><b class="title">Últimas notícias</b></h2>
-			<div id="listagem">
+			<div id="listagem" style="height:650px; overflow: visible;">
 				<div id="listagem_0">
 			<?php 
 				if(is_array($aNoticias) && count($aNoticias)>0){
