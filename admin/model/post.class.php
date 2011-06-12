@@ -122,8 +122,8 @@ class post extends defaultClass{
 		}
 		$rs = array();
 		if($result['total'] > 0){
-			$rs['galerias'] = $this->galeriaPost($rs['post_id']);
-			$rs['comentarios'] = $this->comentarioPost($rs['post_id']);
+			$rs['galerias'] = $this->galeriaPost($this->values['post_id']);
+			$rs['comentarios'] = $this->comentarioPost($this->values['post_id']);
 			$rs = $this->dbConn->db_fetch_assoc($result['result']);
 		}
 		return $this->utf8_array_encode($rs);
@@ -167,7 +167,7 @@ class post extends defaultClass{
 					,ig.imagem_galeria_dtcomp_criacao
 					,ig.imagem_galeria_dt_alteracao
 					,ig.imagem_galeria_dtcomp_alteracao
-					,g.galeria_nome
+					,g.galeria_titulo
 			FROM	tb_imagem_galeria ig
 		
 			JOIN	tb_post_galeria pg
@@ -189,7 +189,7 @@ class post extends defaultClass{
 		if($result['total'] > 0){
 			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
 				$res[$rs['galeria_id']]['galeria_id'] = $rs['galeria_id'];
-				$res[$rs['galeria_id']]['galeria_nome'] = $rs['galeria_nome'];
+				$res[$rs['galeria_id']]['galeria_nome'] = $rs['galeria_titulo'];
 				$res[$rs['galeria_id']]['imagens'][] = $rs;
 			}
 		}
