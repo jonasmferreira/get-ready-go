@@ -42,7 +42,7 @@ $(document).ready(function(){
 				'action':'logoff'
 			},
 			'success':function(resp){
-				window.location.href = $("#linkAbsolute").val()+"inicio"
+				window.location.href = $("#linkAbsolute").val()+"index"
 			}
 		});
 	});
