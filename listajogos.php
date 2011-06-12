@@ -13,10 +13,19 @@
 	$aGames = $obj->getGames();
 	$totalGame = $obj->getTotal();
 	$aGamesChuck = array_chunk($aGames, 2);
+	if($aGameMaisJogado['game_qtd_votacao']>0){
+		$pont = ($aGameMaisJogado['game_total_votacao']/$aGameMaisJogado['game_qtd_votacao']);
+	}
 	//echo "<pre>".print_r($aGamesChuck,true)."</pre>";
 ?>
 			<script type="text/javascript">
 				$(document).ready(function(){
+					$('.avalia').raty({
+						half: true,
+						path:$("#linkAbsolute").val()+"js/img",
+						start: <?=$pont?>,
+						readOnly:  true
+					});
 					$('.anterior').click(function(){
 						if($(".paginacao a.ativoPaginacao").prev().html() != $(this).html()){
 							$(".paginacao a.ativoPaginacao").prev().trigger("click");
@@ -91,7 +100,7 @@
                         	<h3>
 								<a href="<?php echo "{$linkAbsolute}{$aGameMaisJogado['linkDetalhe']}" ?>"><?php echo "{$aGameMaisJogado['game_titulo']}" ?></a>
 							</h3>
-                            <p><img src="imgs/nota_09.jpg" /></p>
+                            <div class="avalia"></div>
 							<p class="data">Jogado <?php echo "{$aGameMaisJogado['game_qtd_jogado']}" ?> vezes</p>
                             <p class="autor">
                             	Criado por<br />
