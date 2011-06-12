@@ -9,6 +9,19 @@
 	$obj->setLimitMax(15);
 	$obj->setLimitStart(0);
 	$aLista = $obj->getLastPost();
+	$rssTipo = "";
+	switch($_GET['categoria_id']){
+		case '1':
+		default:
+			$rssTipo = "rss_noticias";
+		break;
+		case '2':
+			$rssTipo = "rss_artigos";
+		break;
+		case '3':
+			$rssTipo = "rss_analises";
+		break;
+	}
 
 ?>
 			<script type="text/javascript">
@@ -62,7 +75,7 @@
 					});
 					$("#feedRss").click(function(e){
 						e.preventDefault();
-						window.location.href = $("#linkAbsolute").val()+"rss/rss_noticias";
+						window.location.href = $("#linkAbsolute").val()+"rss/<?=$rssTipo?>";
 					});
 				});
 			</script>

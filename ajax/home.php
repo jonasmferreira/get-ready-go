@@ -53,12 +53,29 @@ switch($_REQUEST['action']){
 	case 'rss_noticias':
 		// Define o tipo de conteúdo e o charset
 		header("content-type: application/rss+xml; charset=utf-8");
-		echo $obj->createRssNoticias();
+		echo $obj->createRss(1);
+	break;
+	case 'rss_artigos':
+		// Define o tipo de conteúdo e o charset
+		header("content-type: application/rss+xml; charset=utf-8");
+		echo $obj->createRss(2);
+	break;
+	case 'rss_analises':
+		// Define o tipo de conteúdo e o charset
+		header("content-type: application/rss+xml; charset=utf-8");
+		echo $obj->createRss(3);
 	break;
 	case 'rss_destaque':
 		// Define o tipo de conteúdo e o charset
 		header("content-type: application/rss+xml; charset=utf-8");
 		echo $obj->createRssDestaque();
 	break;
+	case 'rss_indicamos':
+		// Define o tipo de conteúdo e o charset
+		header("content-type: application/rss+xml; charset=utf-8");
+		echo $obj->createRssIndicamos();
+	break;
+
+
 }
 ?>

@@ -276,40 +276,127 @@ class home extends defaultClass{
 		}
 		return $this->utf8_array_encode($res);
 	}
-	public function createRssNoticias(){
-		// Instanciamos/chamamos a classe
-		$rss = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss></rss>');
-		$rss->addAttribute('version', '2.0');
+	public function getGamesRss(){
+		$sql = array();
+		$sql[] = "
+			SELECT 
+				g.game_id,
+				g.game_titulo,
+				g.game_descricao,
+				g.game_thumb,
+				g.game_imagem_destaque,
+				g.game_tipo_id,
+				g.game_categoria_id,
+				g.game_midia_id,
+				g.game_link,
+				g.game_qtd_download,
+				g.game_qtd_jogado,
+				g.game_qtd_votacao,
+				g.game_total_votacao,
+				g.game_criador_is_user,
+				g.game_criador_nome,
+				g.game_width,
+				g.game_height,
+				gc.game_categoria_nome,
+				gm.game_midia_nome,
+				gt.game_tipo_nome
+			FROM  tb_game g
+			JOIN  tb_game_categoria gc ON g.game_categoria_id = gc.game_categoria_id
+			JOIN  tb_game_midia gm ON g.game_midia_id = gm.game_midia_id
+			JOIN  tb_game_tipo gt ON g.game_tipo_id = gt.game_tipo_id
+			ORDER BY game_id DESC
+		";
+		$this->setTotal($this->getMaxCount(implode("\n",$sql)));
+		//echo $this->getTotal();
+		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
+			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
+		}
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				$cat_nome = str_replace(' ', '_',$this->retiraAcentos($rs['game_categoria_nome']));
+				$game_nome = str_replace(' ', '+', $this->retiraAcentos($rs['game_titulo']));
+				if($rs['game_categoria_id']==1){
+					$rs['linkDetalhe'] = "jogoDownload/{$cat_nome}/{$rs['game_categoria_id']}/{$game_nome}/{$rs['game_id']}";
+				}else{
+					$rs['linkDetalhe'] = "jogoBrowser/{$cat_nome}/{$rs['game_categoria_id']}/{$game_nome}/{$rs['game_id']}";
+				}
 
-		// Cria o elemento <channel> dentro de <rss>
-		$canal = $rss->addChild('channel');
-		// Adiciona sub-elementos ao elemento <channel>
-		$canal->addChild('title', 'Get Ready Go... Notícias');
-		$canal->addChild('link', "{$this->linkAbsolute}");
-		$canal->addChild('description', 'Rss de Notícias');
-		$this->categoria_id = 1;
+				array_push($res, $rs);
+			}
+		}
+		return $this->utf8_array_encode($res);
+	}
+	public function createRss($categoria_id='1'){
+		
+		$rssType = "";
+		switch($categoria_id){
+			case '1':
+				$rssType = "Notícias";
+			break;
+			case '2':
+				$rssType = "Artigos";
+			break;
+			case '3':
+				$rssType = "Análises";
+			break;
+		}
+		$rss = array();
+		$rss[] = '<?xml version="1.0" encoding="UTF-8"?>';
+		$rss[]= '<rss version="2.0">';
+		$rss[]= '<channel>';
+		$rss[]= "<title>Get Ready Go... {$rssType}</title>";
+		$rss[]= "<description>Rss de {$rssType}</description>";
+		$rss[]= "<link>{$this->linkAbsolute}</link>";
+		$rss[]= '<language>pt-br</language>';
+		$this->categoria_id = $categoria_id;
 		$aNoticias = $this->getLastPost();
-
-		// Inclui um <item> para cada resultado encontrado
 		foreach($aNoticias AS $dados) {
-			// Cria um elemento <item> dentro de <channel>
-			$item = $canal->addChild('item');
-			// Adiciona sub-elementos ao elemento <item>
-			$item->addChild('title', html_entity_decode($dados['post_titulo']));
-			$item->addChild('link', "{$this->linkAbsolute}{$dados['linkDetalhe']}");
-			$item->addChild('description', html_entity_decode($this->cutHTML(($dados['post_conteudo']),500), ENT_QUOTES, 'UTF-8'));
 			$aDt = explode(" ",$dados['post_dt_criacao2']);
-			
 			$dia = explode("/",$aDt[0]);
 			$hora = explode(":",$aDt[1]);
-			$item->addChild('pubDate',date("r",mktime ($hora[0],$hora[1],$hora[2], $dia[1] , $dia[0], $dia[2])));
+			$rss[]= '<item>';
+			$rss[]= "<title><![CDATA[".html_entity_decode($dados['post_titulo'])."]]></title>";
+			$rss[]= "<description><![CDATA[".$this->cutHTML((html_entity_decode($dados['post_conteudo'], ENT_QUOTES, 'UTF-8')),500)."]]></description>";
+			$rss[]= "<link>{$this->linkAbsolute}{$dados['linkDetalhe']}</link>";
+			$rss[]= "<pubDate>".date("r",mktime ($hora[0],$hora[1],$hora[2], $dia[1] , $dia[0], $dia[2]))."</pubDate>";
+			$rss[]= '</item>';
 		}
-		// Entrega o conteúdo do RSS completo:
-		$rss_complete = $rss->asXML();
-		return $rss_complete;
+		$rss[]="</channel>";
+		$rss[]="</rss>";
+		return implode("\n",$rss);
 	}
 	public function createRssDestaque(){
-		// Instanciamos/chamamos a classe
+		$rss = array();
+		$rss[] = '<?xml version="1.0" encoding="UTF-8"?>';
+		$rss[]= '<rss version="2.0">';
+		$rss[]= '<channel>';
+		$rss[]= "<title>Get Ready Go... Destaques</title>";
+		$rss[]= "<description>Rss de Destaques</description>";
+		$rss[]= "<link>{$this->linkAbsolute}</link>";
+		$rss[]= '<language>pt-br</language>';
+		$aNoticias = $this->getOutdoorDestaque();
+		foreach($aNoticias AS $dados) {
+			$aDt = explode(" ",$dados['post_dt_criacao2']);
+			$dia = explode("/",$aDt[0]);
+			$hora = explode(":",$aDt[1]);
+			$rss[]= '<item>';
+			$rss[]= "<title><![CDATA[".html_entity_decode($dados['post_titulo'])."]]></title>";
+			$rss[]= "<description><![CDATA[".$this->cutHTML((html_entity_decode($dados['post_conteudo'], ENT_QUOTES, 'UTF-8')),500)."]]></description>";
+			$rss[]= "<link>{$this->linkAbsolute}{$dados['linkDetalhe']}</link>";
+			$rss[]= "<pubDate>".date("r",mktime ($hora[0],$hora[1],$hora[2], $dia[1] , $dia[0], $dia[2]))."</pubDate>";
+			$rss[]= '</item>';
+		}
+		$rss[]="</channel>";
+		$rss[]="</rss>";
+		return implode("\n",$rss);
+	}
+	public function createRssIndicamos(){
+		/*// Instanciamos/chamamos a classe
 		$rss = new SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><rss></rss>');
 		$rss->addAttribute('version', '2.0');
 
@@ -337,7 +424,26 @@ class home extends defaultClass{
 		}
 		// Entrega o conteúdo do RSS completo:
 		$rss_complete = $rss->asXML();
-		return $rss_complete;
+		return $rss_complete;*/
+		$rss = array();
+		$rss[] = '<?xml version="1.0" encoding="UTF-8"?>';
+		$rss[]= '<rss version="2.0">';
+		$rss[]= '<channel>';
+		$rss[]= "<title>Get Ready Go... Indicamos</title>";
+		$rss[]= "<description>Rss de Indicamos</description>";
+		$rss[]= "<link>{$this->linkAbsolute}</link>";
+		$rss[]= '<language>pt-br</language>';
+		$aNoticias = $this->getGamesRss();
+		foreach($aNoticias AS $dados) {
+			$rss[]= '<item>';
+			$rss[]= "<title><![CDATA[".html_entity_decode("{$dados['game_tipo_nome']} - {$dados['game_categoria_nome']} {$dados['game_titulo']}")."]]></title>";
+			$rss[]= "<description><![CDATA[".$this->cutHTML((html_entity_decode($dados['game_descricao'], ENT_QUOTES, 'UTF-8')),500)."]]></description>";
+			$rss[]= "<link>{$this->linkAbsolute}{$dados['linkDetalhe']}</link>";
+			$rss[]= '</item>';
+		}
+		$rss[]="</channel>";
+		$rss[]="</rss>";
+		return implode("\n",$rss);
 	}
 	
 }
