@@ -13,6 +13,7 @@
 	$aGames = $obj->getGames();
 	$totalGame = $obj->getTotal();
 	$aGamesChuck = array_chunk($aGames, 2);
+	$pont=0;
 	if($aGameMaisJogado['game_qtd_votacao']>0){
 		$pont = ($aGameMaisJogado['game_total_votacao']/$aGameMaisJogado['game_qtd_votacao']);
 	}
@@ -180,7 +181,7 @@
                 <img src="imgs/content_top.png" align="absbottom" />
                 <div id="conteudo">
 					<h2><b class="title">últimos</b></h2>
-					<div id="listagem">
+					<div id="listagem" style="height:650px; overflow: visible;">
 						<div id="listagem_0">
 							<?php
 								if(is_array($aGames) && count($aGames)>0){
@@ -195,6 +196,7 @@
 												<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}" ?>">
 													<img src="<?php echo "{$linkAbsolute}games/{$v['game_thumb']}" ?>" />
 												</a>
+												<div style="clear:both;"></div>
 											</div>
 											<div>
 												<a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['game_titulo']; ?></a>
@@ -203,6 +205,7 @@
 												<br /><?php echo ($v['game_categoria_id']==1)?"Baixado ".$v['game_qtd_download']:"Jogado ".$v['game_qtd_jogado']; ?> vezes
 											</div>
 										</div>
+										<div style="clear:both;"></div>
 									</td>
 									<?php } ?>
 								</tr>
@@ -211,6 +214,7 @@
 									}
 								}
 							?>
+							<div style="clear:both;"></div>
 						</div>
 					</div>
 					<?php if($totalGame>=24){ ?>
