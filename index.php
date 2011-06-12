@@ -198,7 +198,10 @@
 					}
 				});
 			});
-			
+			$("#feedRss").click(function(e){
+				e.preventDefault();
+				window.location.href = $("#linkAbsolute").val()+"rss/rss_destaque";
+			});
 		});
 	</script>
 	<!-- Coluna Esquerda -->
