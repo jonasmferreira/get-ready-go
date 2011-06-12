@@ -1,6 +1,13 @@
 <?php
 require_once "default.class.php";
 class meu_perfil extends defaultClass{
+	
+	private $usuario_id;
+	
+	public function setUsuario_id($usuario_id) {
+		$this->usuario_id = $usuario_id;
+	}
+
 	public function __construct() {
 		$this->dbConn = new DataBaseClass();
 	}
@@ -63,8 +70,6 @@ class meu_perfil extends defaultClass{
 		return true;
 	}
 	public function perfil(){
-		$login = $this->antiInjection($this->values['login']);
-		$senha = $this->antiInjection(md5($this->values['password']));
 		$sql = array();
 		$sql[] = "
 			SELECT	u.*
@@ -73,15 +78,14 @@ class meu_perfil extends defaultClass{
 			JOIN	tb_usuario_nivel un
 			ON		un.usuario_nivel_id = u.usuario_nivel_id
 			WHERE	1 = 1
-			AND		u.usuario_id = ''
+			AND		u.usuario_id = '{$this->usuario_id}'
 		";
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']||$result['total']!=1){
 			return false;
 		}
 		$rs = $this->dbConn->db_fetch_assoc($result['result']);
-		$this->setSession($rs);
-		return true;
+		return $rs;
 	}
 	
 	public function getAvatares(){
