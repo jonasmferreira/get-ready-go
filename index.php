@@ -6,7 +6,7 @@
 	$objPubl->setPublicidadeTipo('fullbanner');
 	$aFullBanner = $objPubl->getPublicidadeByTipo();
 	
-	$objPubl->setPublicidadeTipo('bg banner');
+	$objPubl->setPublicidadeTipo('custom bg');
 	$aBgBanner = $objPubl->getPublicidadeByTipo();
 	
 	$objPubl->setPublicidadeTipo('banner lateral');
