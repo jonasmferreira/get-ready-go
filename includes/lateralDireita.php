@@ -66,7 +66,7 @@
 	<?php } ?>
 	
 	<? if(is_array($aSideBanner) && count($aSideBanner)>0){ ?>
-		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
+		<!--img src="<?php //echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" /-->
 		<!-- Banner 300x250 -->
 		<div id="sideBanner">
 			<!-- Publicidade - banner 728x90 -->
@@ -87,7 +87,7 @@
 		?>
 		<!--img src="banners/banner_300x250.jpg" /-->
 		</div>
-		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
+		<!--img src="<?php //echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" /-->
 	<? } ?>
 	
 	<?php if(is_array($aTopArtigos) && count($aTopArtigos)>0){ ?>
