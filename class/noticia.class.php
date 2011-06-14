@@ -187,6 +187,9 @@ class noticia extends defaultClass{
 		return $this->utf8_array_encode($res);
 	}
 	public function saveComentario(){
+		
+		#deixar default o status 1 (publicado) na hora da criação
+		
 		$this->values = $this->antiInjection($this->values);
 		$email = ($this->values['usuario_id'])?"(SELECT usuario_email FROM tb_usuario where usuario_id = '{$this->values['usuario_id']}')":"'sem-email@sem-email.com.br'";
 		$sql = "
@@ -197,7 +200,8 @@ class noticia extends defaultClass{
 			comentario_conteudo = '{$this->values['comentario']}',
 			usuario_id = '{$this->values['usuario_id']}',
 			comentario_dt_criacao = DATE_FORMAT(NOW(),'%Y-%m-%d'),
-			comentario_dtcomp_criacao = NOW()
+			comentario_dtcomp_criacao = NOW(),
+			comentario_status = 1
 		";
 		$result = $this->dbConn->db_execute($sql);
 
