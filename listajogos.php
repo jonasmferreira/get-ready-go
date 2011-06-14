@@ -121,8 +121,9 @@
 									}
 								?>
 								<img src="<?php echo $file ?>" align="absmiddle" />
-								<?php if($aGame['game_criador_is_user']){ ?>
-								<a href="<?php echo "{$linkAbsolute}perfil_usuario/{$aGame['game_criador_is_user']}"; ?>">
+								<?php if($aGameMaisJogado['game_criador_is_user']!=0){ ?>
+								
+								<a href="<?php echo "{$linkAbsolute}perfil_usuario/{$aGameMaisJogado['game_criador_is_user']}"; ?>">
 									<strong><?php echo "{$aGameMaisJogado['game_criador_nome']}" ?></strong>
 								</a>
 								<?php }else{ ?>

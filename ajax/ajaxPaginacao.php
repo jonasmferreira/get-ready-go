@@ -92,6 +92,28 @@
 			</div>
 <?php
 		break;
+		case 'games_user':
+			require_once "{$path_root_postController}class/busca_result.class.php";
+			$obj = new busca_result();
+			$obj->setValues($_POST);
+			$obj->setLimitMax(10);
+			$obj->setLimitStart($_POST['limit']);
+			$aBusca = $obj->getBuscaGamesUser();
+?>
+			<div id="listagem_<?php echo $_POST['limit']; ?>">
+				<?	if(is_array($aBusca) && count($aBusca) > 0):?>
+				<?		foreach($aBusca AS $v):?>
+				<!-- Item -->
+				<div id="itemBusca">
+					<h3><a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>"><?php echo $v['game_titulo']; ?></a></h3>
+					<p class="data"><strong><?php echo $v['game_tipo_nome']; ?> - <?php echo $v['game_categoria_nome']; ?></strong></p>
+					<p><?php echo preg_replace("/<img(.+?)>/",'',$obj->cutHTML($v['game_descricao'],150)); ?></p>
+				</div>
+				<?		endforeach;?>
+				<?	endif;?>
+			</div>
+<?php
+		break;
 		case 'jogos':
 			require_once "{$path_root_postController}class/game.class.php";
 			$obj = new game();

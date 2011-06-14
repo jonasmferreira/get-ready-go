@@ -21,6 +21,8 @@
 	RewriteRule ^rss/([^/]+)/?$ ajax/home.php?action=$1
 
 	RewriteRule ^perfil_usuario/([^/]+)/?$ perfil.php?usuario_id=$1
+
+	RewriteRule ^usuario_game/([^/]+)/([^/]+)/?$ usuario_games.php?usuario_id=$1&usuario_nome=$2
 	
 	
 </IfModule>

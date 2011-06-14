@@ -11,6 +11,7 @@
 	if($aGame['game_qtd_votacao']>0){
 		$pont = ($aGame['game_total_votacao']/$aGame['game_qtd_votacao']);
 	}
+	$usuario_nome = str_replace(' ', '+',$obj->retiraAcentos($aGame['usuario_nome']));
 	//echo "<pre>".print_r($aGame,true)."</pre>";
 ?>
 
@@ -90,7 +91,7 @@
                             	<h3>
 									<?php if($aGame['game_criador_is_user']){ ?>
 										<a href="<?php echo "{$linkAbsolute}perfil_usuario/{$aGame['usuario_id']}" ?>"><?php echo $aGame['game_criador_nome'] ?></a>
-										<!--p><a href="busca.html">veja mais jogos desse autor</a></p-->
+										<p><a href="<?php echo "{$linkAbsolute}usuario_games/{$aGame['usuario_id']}/{$usuario_nome}" ?>">veja mais jogos desse autor</a></p>
 									<?php }else{ ?>
 										<?php echo $aGame['game_criador_nome'] ?>
 									<?php } ?>

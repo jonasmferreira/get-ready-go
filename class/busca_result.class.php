@@ -56,5 +56,60 @@ class busca_result extends defaultClass{
 		}
 		return $this->utf8_array_encode($res);
 	}
+	public function getBuscaGamesUser(){
+		$busca = $this->values['usuario_id'];
+		$sql = array();
+		$sql[] = "
+			SELECT 
+				g.game_id,
+				g.game_titulo,
+				g.game_descricao,
+				g.game_thumb,
+				g.game_imagem_destaque,
+				g.game_tipo_id,
+				g.game_categoria_id,
+				g.game_midia_id,
+				g.game_link,
+				g.game_qtd_download,
+				g.game_qtd_jogado,
+				g.game_qtd_votacao,
+				g.game_total_votacao,
+				g.game_criador_is_user,
+				g.game_criador_nome,
+				g.game_width,
+				g.game_height,
+				gc.game_categoria_nome,
+				gm.game_midia_nome,
+				gt.game_tipo_nome
+			FROM  tb_game g
+			JOIN  tb_game_categoria gc ON g.game_categoria_id = gc.game_categoria_id
+			JOIN  tb_game_midia gm ON g.game_midia_id = gm.game_midia_id
+			JOIN  tb_game_tipo gt ON g.game_tipo_id = gt.game_tipo_id
+			WHERE 1=1
+			AND	  game_criador_is_user = {$busca}
+			ORDER BY game_id DESC
+		";
+		$res = array();
+		$this->setTotal($this->getMaxCount(implode("\n",$sql)));
+		if(isset($this->limit_start)&&trim($this->limit_start)!=''){
+			$sql[] = "LIMIT {$this->limit_start}, {$this->limit_max}";
+		}
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		
+		if($result['total'] > 0){
+			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
+				$cat_nome = str_replace(' ', '_',$this->retiraAcentos($rs['categoria_nome']));
+				$post_nome = str_replace(' ', '+', $this->retiraAcentos($rs['post_titulo']));
+
+				$rs['linkDetalhe'] = "detalhe/{$cat_nome}/{$rs['categoria_id']}/{$post_nome}/{$rs['post_id']}";
+
+				array_push($res, $rs);
+			}
+		}
+		return $this->utf8_array_encode($res);
+	}
 }
 ?>
