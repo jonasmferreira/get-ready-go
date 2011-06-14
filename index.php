@@ -1,17 +1,5 @@
 <?php
 
-	require_once 'class/publicidade.class.php';
-
-	$objPubl = new publicidade();
-	$objPubl->setPublicidadeTipo(4); //fullbanner
-	$aFullBanner = $objPubl->getPublicidadeByTipo();
-	
-	$objPubl->setPublicidadeTipo(6); //custom bg
-	$aBgBanner = $objPubl->getPublicidadeByTipo();
-	
-	$objPubl->setPublicidadeTipo(5); //lateral
-	$aSideBanner = $objPubl->getPublicidadeByTipo();
-	
 	//echo "<pre>" . "raios == " . print_r($aFullBanner,true) . "</pre>";
 
 	include_once 'includes/cabecalho.php';
@@ -153,7 +141,7 @@
 				,cleartypeNoBg:  true
 				,pause:   1
 				,pager:  '#destaqueThumbs'
-				,after:function(currSlideElement, nextSlideElement, options, forwardFlag){
+				,before:function(currSlideElement, nextSlideElement, options, forwardFlag){
 					var imgId = nextSlideElement.id;
 					imgId = imgId.toString();
 					imgId = imgId.split("_");

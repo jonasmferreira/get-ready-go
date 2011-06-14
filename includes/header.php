@@ -1,4 +1,15 @@
 <?php
+	require_once 'class/publicidade.class.php';
+
+	$objPubl = new publicidade();
+	$objPubl->setPublicidadeTipo(4); //fullbanner
+	$aFullBanner = $objPubl->getPublicidadeByTipo();
+	
+	$objPubl->setPublicidadeTipo(6); //custom bg
+	$aBgBanner = $objPubl->getPublicidadeByTipo();
+	
+	$objPubl->setPublicidadeTipo(5); //lateral
+	$aSideBanner = $objPubl->getPublicidadeByTipo();
 	$bgDoidao = '';
 	if(is_array($aBgBanner) && count($aBgBanner)>0){
 		foreach($aBgBanner as $k => $v){
