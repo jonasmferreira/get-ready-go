@@ -6,7 +6,6 @@ class busca_result extends defaultClass{
 	}
 	public function getBusca(){
 		$busca = $this->values['busca'];
-		echo $busca;
 		$sql = array();
 		$sql[] = "
 			SELECT	p.post_id
