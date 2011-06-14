@@ -262,8 +262,7 @@
 
 				<div id="destaqueInfo">
 					<a href="noticia.html" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/bg_destaque_info.png);">
-						<strong>Lorem ipsum dolor sit amet</strong> 
-						Existe uma grande chance de que você tenha estudado com algum retardado que disse isso ou mesmo que você próprio tenha dito…
+						<strong></strong>
 					</a>
 				</div>
 				<div style="clear:both"></div>
