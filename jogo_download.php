@@ -21,6 +21,13 @@
 	});
 </script>
 <?	endif;?>
+<?php if(!isset($_SESSION['GET_READY_GO_2011_SITE']['usuario_id']) && empty($_SESSION['GET_READY_GO_2011_SITE']['usuario_id'])): ?>
+<script type="text/javascript">
+	$(document).ready(function(){
+		$.fn.raty.readOnly(true, '.avalia');
+	});
+</script>
+<?	endif;?>
 <input type="hidden" name="game_id" id="game_id" value="<?php echo $aGame['game_id'] ?>" />
 <input type="hidden" name="pontuacao" id="pontuacao" value="<?php echo $pont ?>" />
 <!-- Coluna Esquerda -->
@@ -80,7 +87,6 @@
 </div>
 <!-- Coluna Direita -->
 <div id="rightCol">
-	<?php if(isset($_SESSION['GET_READY_GO_2011_SITE']['usuario_id']) && !empty($_SESSION['GET_READY_GO_2011_SITE']['usuario_id'])){ ?>
 	<!-- Estatísticas -->
 	<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
 	<div id="rightBox" class="stats">
@@ -106,7 +112,6 @@
 		</p>
 	</div>
 	<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
-	<?php } ?>
 
 	<!-- Banner 300x250 -->
 	<div id="sideBanner"><img src="<?php echo "{$linkAbsolute}"?>banners/banner_300x250.jpg" /></div>
