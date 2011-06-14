@@ -49,7 +49,7 @@ class publicidade extends defaultClass{
 			JOIN tb_publicidade p
 			ON pt.publicidade_tipo_id = p.publicidade_tipo_id
 			WHERE 0=0
-			AND  pt.publicidade_tipo_titulo = '{$this->publicidade_tipo}'
+			AND  pt.publicidade_tipo_id = '{$this->publicidade_tipo}'
 			AND	 NOW() BETWEEN p.publicidade_dt_ativacao AND p.publicidade_dt_desativacao 
 			ORDER BY RAND()
 			LIMIT 1
