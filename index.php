@@ -146,6 +146,7 @@
 					imgId = imgId.toString();
 					imgId = imgId.split("_");
 					imgId = imgId[2];
+					jQuery("#destaqueInfo a").attr("href",arrLink[imgId]);
 					jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[imgId]+'</strong>'+getConteudo(imgId));
 				}
 				,pagerAnchorBuilder: function(idx, slide) { 

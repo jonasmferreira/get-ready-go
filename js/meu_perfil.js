@@ -75,6 +75,7 @@ $(document).ready(function(){
 		,onComplete:function(){
 			window.setTimeout(function(){
 				var frame = $("iframe")[0].contentDocument;
+				
 				$(".selectAvatar", frame).live('click',function(){
 					var usuario_avatar = $(".imagemSeletion",frame).attr("id");
 					$.ajax({

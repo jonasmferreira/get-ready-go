@@ -51,7 +51,7 @@
 					<a href="<?php echo "{$linkAbsolute}perfil_usuario/{$aGame['usuario_id']}" ?>">
 						<?php
 							$file =  "{$linkAbsolute}imgs/avatares/1.jpg";
-							if($aGame['game_criador_is_user']){
+							if($aGame['game_criador_is_user']>0){
 								if(@file_get_contents("{$linkAbsolute}avatars/{$aGame['usuario_avatar']}")==true){
 									$file = "{$linkAbsolute}avatars/{$aGame['usuario_avatar']}";
 								}else{

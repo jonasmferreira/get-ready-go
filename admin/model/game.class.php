@@ -169,6 +169,7 @@ class game extends defaultClass{
 		
 		$this->dbConn->db_start_transaction();
 		$sql = array();
+		$this->values['game_criador_is_user'] = (isset($this->values['usuario_id'])&&trim($this->values['usuario_id'])!='outro')?1:0;
 		$sql[] = "
 			UPDATE	tb_game SET
 					game_titulo = '{$this->values['game_titulo']}'
@@ -183,6 +184,7 @@ class game extends defaultClass{
 					,game_criador_nome = '{$this->values['game_criador_nome']}'
 					,game_width = '{$this->values['game_width']}'
 					,game_height = '{$this->values['game_height']}'
+					,usuario_id = '{$this->values['usuario_id']}'
 		";
 		if(isset($this->values['game_thumb'])&&trim($this->values['game_thumb'])!=''){
 			$sql[] = ",game_thumb = '{$this->values['game_thumb']}'";
@@ -222,6 +224,7 @@ class game extends defaultClass{
 		
 		$this->dbConn->db_start_transaction();
 		$sql = array();
+		$this->values['game_criador_is_user'] = (isset($this->values['usuario_id'])&&trim($this->values['usuario_id'])!='outro')?1:0;
 		$sql[] = "
 			INSERT INTO	tb_game SET
 				game_titulo = '{$this->values['game_titulo']}'
@@ -236,6 +239,7 @@ class game extends defaultClass{
 				,game_criador_nome = '{$this->values['game_criador_nome']}'
 				,game_width = '{$this->values['game_width']}'
 				,game_height = '{$this->values['game_height']}'
+				,usuario_id = '{$this->values['usuario_id']}'
 				
 		";
 		if(isset($this->values['game_thumb'])&&trim($this->values['game_thumb'])!=''){

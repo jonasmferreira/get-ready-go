@@ -138,8 +138,15 @@
 										<td align="center" valign="top" width="135px">
 											<?php if($v['usuario_avatar']==''){ ?>
 											<img src="<?php echo $linkAbsolute ?>imgs/avatares/1.jpg" class="avatar" />
-											<?php }else{ ?>
-											<img src="<?php echo "{$linkAbsolute}avatars/{$v['usuario_avatar']}" ?>" class="avatar" />
+											<?php }else{ 
+													if(@file_get_contents("{$linkAbsolute}avatars/{$v['usuario_avatar']}")==true){
+														$file = "{$linkAbsolute}avatars/{$v['usuario_avatar']}";
+													}else{
+														$file = "{$linkAbsolute}avatar_user/{$v['usuario_avatar']}";
+													}
+											?>
+											
+											<img src="<?php echo "{$file}" ?>" class="avatar" />
 											<?php } ?>
 											<!--p style="font-size:14px; font-weight: bold">15<p>
 											<a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/pos.gif" /></a>
