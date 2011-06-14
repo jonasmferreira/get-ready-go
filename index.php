@@ -94,8 +94,14 @@
 		}
 		function setThumb(id){
 			jQuery("#destaqueThumbs_"+id).addClass('selected');
-			jQuery("#container").css({
+			/*jQuery("#container").css({
 				'background':'url('+arrImg[id]+')'
+			});*/
+			$('#container')
+				.animate({opacity: 0}, 'slow', function() {
+					$(this)
+						.css({'background-image': 'url('+arrImg[id]+')'})
+						.animate({opacity: 1});
 			});
 			jQuery("#destaqueInfo a").attr("href",arrLink[id]);
 			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[id]+'</strong>'+getConteudo(id));
@@ -209,8 +215,9 @@
 
 		<!-- Destaque rotativo -->
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
-		<div id="destaque">
-			<div id="container" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/destaque/01.jpg)">
+		<div id="destaque" style="height:270px;">
+			<div id="container" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/destaque/01.jpg)"></div>
+			<div id="containerInfos" style="position:absolute;top:281px;">
 				<div id="destaqueThumbs">
 					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/01_tb.jpg" /></a></div>
 					<div class="selected"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/02_tb.jpg" /></a></div>
