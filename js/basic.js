@@ -18,4 +18,16 @@ $(document).ready(function(){
 		e.preventDefault();
 		$("#frmbusca").submit();
 	});
+	$("#busca").focus(function(){
+		if($.trim($(this).val()) == "PESQUISAR"){
+			$(this).val('');
+		}else{
+			$(this).val($(this).val());
+		}
+	}).blur(function(){
+		if($.trim($(this).val()) == ""){
+			$(this).val('PESQUISAR');
+		}
+	});
+	
 });

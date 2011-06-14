@@ -58,7 +58,7 @@
             	<form id="frmbusca" action="<?php echo $linkAbsolute ?>/busca_result.php" method="post">
 					<table cellpadding="0" cellspacing="0" border="0">
 						<tr>
-							<td><input type="text" class="busca" align="top" name="busca" id="busca" value="<?=$_POST['busca']?>" /></td>
+							<td><input type="text" class="busca" align="top" name="busca" id="busca" value="<?=(!isset($_POST['busca']) && empty($_POST['busca']))?'PESQUISAR':''?>" /></td>
 							<td>
 								<input type="image" src="<?php echo $linkAbsolute ?>imgs/bt_go.gif" id="button_busca" />
 							</td>
