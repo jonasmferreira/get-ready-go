@@ -56,6 +56,7 @@
 	}
 	$_SESSION['arrConteudo'] = $arrConteudo;
 ?>
+	<script type="text/javascript" src="<?php echo $linkAbsolute?>js/jquery.cycle.all.min.js"></script>
 	<script type="text/javascript">
 		var sImg = '<?=implode("|",$arrImg)?>';
 		var sImgThum = '<?=implode("|",$arrImgThum)?>';
@@ -92,6 +93,25 @@
 			jQuery("#destaqueInfo a").attr("href",arrLink[0]);
 			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[0]+'</strong>'+getConteudo(0));
 		}
+		function createThumbsForPlugin(){
+			var arrDestaqueThumbs = new Array();
+			var arrDestaqueImg = new Array();
+			for(var j=0;j<arrImgThum.length;j++){
+				//arrDestaqueThumbs.push('<div id="destaqueThumbs_'+j+'" style="cursor:pointer;"><img src="'+arrImgThum[j]+'" /></div>');
+				arrDestaqueImg.push('<img id="imagem_destaque_'+j+'" src="'+arrImg[j]+'" />');
+			}
+			//jQuery("#destaqueThumbs").html(arrDestaqueThumbs.join("\n"));
+			jQuery("#container").html(arrDestaqueImg.join("\n"));
+			jQuery("#destaqueThumbs div:first").addClass('selected');
+			
+			
+			/*jQuery("#container").css({
+				'background':'url('+arrImg[0]+')'
+			});
+			jQuery("#destaqueInfo a").attr("href",arrLink[0]);
+			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[0]+'</strong>'+getConteudo(0));*/
+
+		}
 		function setThumb(id){
 			jQuery("#destaqueThumbs_"+id).addClass('selected');
 			/*jQuery("#container").css({
@@ -116,17 +136,43 @@
 		}
 		
 		$(document).ready(function(){
-			createThumbs();
+			/*createThumbs();
 			window.setInterval(function(){
 				changeThumbs();
-			}, 5000);
-			$("#destaqueThumbs div").live("click",function(){
+			}, 5000);*/
+			createThumbsForPlugin();
+			jQuery.fn.cycle.updateActivePagerLink = function(pager, currSlideIndex) {
+				jQuery(pager).find('div').removeClass('selected');
+				jQuery(pager).find('li:eq('+currSlideIndex+') div').addClass('selected');
+			};
+			$('#container').cycle({ 
+				fx:     'scrollLeft' 
+				/*,speed: 500*/
+				,timeout:5000
+				,cleartype:  true
+				,cleartypeNoBg:  true
+				,pause:   1
+				,pager:  '#destaqueThumbs'
+				,after:function(currSlideElement, nextSlideElement, options, forwardFlag){
+					var imgId = nextSlideElement.id;
+					imgId = imgId.toString();
+					imgId = imgId.split("_");
+					imgId = imgId[2];
+					jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[imgId]+'</strong>'+getConteudo(imgId));
+				}
+				,pagerAnchorBuilder: function(idx, slide) { 
+					var img = arrImgThum[idx];
+					return '<li style="list-style-type:none"><div style="padding: 3px 12px 5px;"><a href="javascript:void(0)"><img src="' + img + '" /></a></div></li>'; 
+				} 
+			});
+			
+			/*$("#destaqueThumbs div").live("click",function(){
 				jQuery("#destaqueThumbs div").removeClass('selected');
 				var id = jQuery(this).attr('id');
 				id = id.split("_");
 				id = ((id[1]*1));
 				setThumb(id);
-			});
+			});*/
 			$('.anterior').click(function(){
 				if($(".paginacao a.ativoPaginacao").prev().html() != $(this).html()){
 					$(".paginacao a.ativoPaginacao").prev().trigger("click");
@@ -216,13 +262,14 @@
 		<!-- Destaque rotativo -->
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
 		<div id="destaque" style="height:270px;">
-			<div id="container" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/destaque/01.jpg)"></div>
-			<div id="containerInfos" style="position:absolute;top:281px;">
+			<!-- div id="container" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/destaque/01.jpg)"></div -->
+			<div id="container"></div>
+			<div id="containerInfos" style="position:absolute;top:281px;z-index:10000">
 				<div id="destaqueThumbs">
-					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/01_tb.jpg" /></a></div>
+					<!--div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/01_tb.jpg" /></a></div>
 					<div class="selected"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/02_tb.jpg" /></a></div>
 					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/03_tb.jpg" /></a></div>
-					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/04_tb.jpg" /></a></div>
+					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/04_tb.jpg" /></a></div -->
 				</div>
 
 				<div id="destaqueInfo">
