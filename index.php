@@ -3,13 +3,13 @@
 	require_once 'class/publicidade.class.php';
 
 	$objPubl = new publicidade();
-	$objPubl->setPublicidadeTipo('fullbanner');
+	$objPubl->setPublicidadeTipo(4); //fullbanner
 	$aFullBanner = $objPubl->getPublicidadeByTipo();
 	
-	$objPubl->setPublicidadeTipo('custom bg');
+	$objPubl->setPublicidadeTipo(6); //custom bg
 	$aBgBanner = $objPubl->getPublicidadeByTipo();
 	
-	$objPubl->setPublicidadeTipo('banner lateral');
+	$objPubl->setPublicidadeTipo(5); //lateral
 	$aSideBanner = $objPubl->getPublicidadeByTipo();
 	
 	//echo "<pre>" . "raios == " . print_r($aFullBanner,true) . "</pre>";
