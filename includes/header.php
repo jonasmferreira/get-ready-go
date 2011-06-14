@@ -66,7 +66,7 @@
             </div>
             <!-- Busca -->
             <div id="search">
-				<form id="frmbusca" action="<?php echo $linkAbsolute ?>/busca_result.php" method="post">
+				<form id="frmbusca" action="<?php echo $linkAbsolute ?>/busca_result" method="post">
 					<table cellpadding="0" cellspacing="0" border="0">
 						<tr>
 							<td><input type="text" class="busca" align="top" name="busca" id="busca" value="<?=(!isset($_POST['busca']) && empty($_POST['busca']))?'PESQUISAR':''?>" /></td>
