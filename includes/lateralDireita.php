@@ -2,13 +2,13 @@
 	require_once 'class/publicidade.class.php';
 
 	$objPubl = new publicidade();
-	$objPubl->setPublicidadeTipo('fullbanner');
+	$objPubl->setPublicidadeTipo(4);//fullbanner
 	$aFullBanner = $objPubl->getPublicidadeByTipo();
 	
-	$objPubl->setPublicidadeTipo('bg banner');
+	$objPubl->setPublicidadeTipo(6);//bg banner
 	$aBgBanner = $objPubl->getPublicidadeByTipo();
 	
-	$objPubl->setPublicidadeTipo('banner lateral');
+	$objPubl->setPublicidadeTipo(5);//banner lateral
 	$aSideBanner = $objPubl->getPublicidadeByTipo();
 	
 	$aTopNoticias = $obj->getTopPost(1);
