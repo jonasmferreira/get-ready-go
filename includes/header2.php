@@ -8,12 +8,12 @@
 			$h = $v['publicidade_altura'];
 
 			if($v['publicidade_tipomedia']==0){ 
-				$bgDoidao = 'style="background-image:url('.$arq.')">';
+				$bgDoidao = 'style="background-image:url('.$arq.')"';
 			}
 		}
 	}
 ?>
-<div class="custom" <?echo $bgDoidao;?>>
+<div class="custom" <?echo $bgDoidao;?> >
 	<div id="all">
     	<!-- Topo -->
         <div id="topo">
