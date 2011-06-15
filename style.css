@@ -47,7 +47,7 @@ h4 a:hover {text-decoration:underline;}
 	
 #miolo {width:1000px; display:block; margin:auto;}
 	
-	#leftCol {float:left; width:700px;}
+	#leftCol {float:left; width:700px;height:100%;}
 		
 		#destaque, #conteudo {background:url(imgs/bg_content.png) repeat-y;}
 		
@@ -62,7 +62,7 @@ h4 a:hover {text-decoration:underline;}
 				#destaqueInfo a {color:#FFFFFF; padding:10px; display:block; border-top:2px solid #FFFFFF}
 				#destaqueInfo a strong {font-size:15px; display:block; margin:0 0 5px 0}
 		
-		#conteudo {padding:5px 15px;}
+		#conteudo {padding:5px 15px;height: 100%;}
 			#conteudo p {margin: 7px 5px}
 			
 			#newsItem {margin:0 5px; clear:both}
@@ -152,7 +152,7 @@ h4 a:hover {text-decoration:underline;}
 		
 		#sideBanner {margin: 5px 0;}
 
-#rodape {background:url(imgs/bg_rodape.jpg) repeat-x top; padding:16px 0 0 0; height:90px; clear:both}
+#rodape {background:url(imgs/bg_rodape.jpg) repeat-x top; padding:16px 0 0 0; height:90px; clear:both;float:left;display:inline;width:100%}
 	#rodape div {width:950px; margin:auto}
 	#rodape div div {width:475px; float:left}
 	#rodape a {color:#FFFFFF;}

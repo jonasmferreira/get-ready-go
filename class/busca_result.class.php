@@ -86,7 +86,7 @@ class busca_result extends defaultClass{
 			JOIN  tb_game_midia gm ON g.game_midia_id = gm.game_midia_id
 			JOIN  tb_game_tipo gt ON g.game_tipo_id = gt.game_tipo_id
 			WHERE 1=1
-			AND	  game_criador_is_user = {$busca}
+			AND	  usuario_id = '{$busca}'
 			ORDER BY game_id DESC
 		";
 		$res = array();

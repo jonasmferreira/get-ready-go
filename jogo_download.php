@@ -11,7 +11,7 @@
 		$pont = ($aGame['game_total_votacao']/$aGame['game_qtd_votacao']);
 	}
 	//echo "<pre>".print_r($aGame,true)."</pre>";
-	$usuario_nome = str_replace(' ', '+',$obj->retiraAcentos($aGame['usuario_nome']));
+	$usuario_nome_criador = str_replace(' ', '+',$obj->retiraAcentos($aGame['usuario_nome']));
 ?>
 <script type="text/javascript" src="<?php echo $linkAbsolute ?>js/game.js"></script>
 <?	if(is_array($aVoted)&&count($aVoted) >0):?>
@@ -69,7 +69,7 @@
 					<h3>
 						<?php if($aGame['game_criador_is_user']){ ?>
 							<a href="<?php echo "{$linkAbsolute}perfil_usuario/{$aGame['usuario_id']}" ?>"><?php echo $aGame['game_criador_nome'] ?></a>
-							<p><a href="<?php echo "{$linkAbsolute}usuario_games/{$aGame['usuario_id']}/{$usuario_nome}" ?>">veja mais jogos desse autor</a></p>
+							<p><a href="<?php echo "{$linkAbsolute}usuario_games/{$aGame['usuario_id']}/{$usuario_nome_criador}" ?>">veja mais jogos desse autor</a></p>
 						<?php }else{ ?>
 							<?php echo $aGame['game_criador_nome'] ?>
 						<?php } ?>
@@ -114,8 +114,30 @@
 	</div>
 	<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
-	<!-- Banner 300x250 -->
-	<div id="sideBanner"><img src="<?php echo "{$linkAbsolute}"?>banners/banner_300x250.jpg" /></div>
+	<? if(is_array($aSideBanner) && count($aSideBanner)>0){ ?>
+		<!--img src="<?php //echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" /-->
+		<!-- Banner 300x250 -->
+		<div id="sideBanner">
+			<!-- Publicidade - banner 728x90 -->
+			<? 
+				foreach($aSideBanner as $k => $v){
+					$link = $v['publicidade_link'];
+					$arq = $linkAbsolute . 'publicidade/' . $v['publicidade_arquivo'];
+					$w = $v['publicidade_tipo_largura'];
+					$h = $v['publicidade_tipo_altura'];
+
+					if($v['publicidade_tipomedia']==0){ 
+			?>
+						<a href="<?=$link;?>" target="_blank"><img src="<?=$arq;?>" width="<?=$w;?>"  height="<?=$h;?>" /></a>			
+			<?		} else { ?>
+						<script type="text/javascript">buildFlash('<?=$arq;?>','<?=$w;?>','<?=$h;?>','opaque');</script> 
+			<?		} 
+				}
+		?>
+		<!--img src="banners/banner_300x250.jpg" /-->
+		</div>
+		<!--img src="<?php //echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" /-->
+		<? } ?>
 
 </div>
 <?php

@@ -87,7 +87,7 @@
 			<!-- Resultado da Busca -->
 			<div class="newsHeader">
 				<input type="hidden" id="totalBusca" value="<?=$totalBusca?>" />
-				<h3>Resultado da busca pelo usuario "<?=$_REQUEST['usuario_nome']?>"</h3>
+				<h3>Resultado da busca pelo usuario "<?=str_replace(".php","",$_REQUEST['usuario_nome'])?>"</h3>
 				<p class="autor small" id="countBusca">Resultados 1 a 10 de <?=$totalBusca?></p>
 			</div>
 			<div id="listagem">
