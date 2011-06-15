@@ -396,6 +396,7 @@
 			<div id="sideBanner">
 				<!-- Publicidade - banner 728x90 -->
 				<? 
+					
 					foreach($aSideBanner as $k => $v){
 						$link = $v['publicidade_link'];
 						$arq = $linkAbsolute . 'publicidade/' . $v['publicidade_arquivo'];
