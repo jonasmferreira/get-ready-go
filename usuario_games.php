@@ -2,14 +2,6 @@
 	include_once 'includes/cabecalho.php';
 	include_once 'includes/header.php';
 	require_once 'class/busca_result.class.php';
-
-	require_once "class/home.class.php";
-
-	$obj = new home();
-	$obj->setCategoria_id($_GET['categoria_id']);
-	$obj->setLimitMax(15);
-	$obj->setLimitStart(0);
-	$aLista = $obj->getLastPost();
 	
 	$obj = new busca_result();
 	$obj->setValues($_GET);
