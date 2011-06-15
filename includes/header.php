@@ -15,8 +15,8 @@
 		foreach($aBgBanner as $k => $v){
 			$link = $v['publicidade_link'];
 			$arq = $linkAbsolute . 'publicidade/' . $v['publicidade_arquivo'];
-			$w = $v['publicidade_largura'];
-			$h = $v['publicidade_altura'];
+			$w = $v['publicidade_tipo_largura'];
+			$h = $v['publicidade_tipo_altura'];
 
 			if($v['publicidade_tipomedia']==0){ 
 				$bgDoidao = 'style="background-image:url('.$arq.')"';
@@ -89,8 +89,8 @@
 					foreach($aFullBanner as $k => $v){
 						$link = $v['publicidade_link'];
 						$arq = $linkAbsolute . 'publicidade/' . $v['publicidade_arquivo'];
-						$w = $v['publicidade_largura'];
-						$h = $v['publicidade_altura'];
+						$w = $v['publicidade_tipo_largura'];
+						$h = $v['publicidade_tipo_altura'];
 
 						if($v['publicidade_tipomedia']==0){ 
 				?>

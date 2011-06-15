@@ -140,7 +140,7 @@
 				,cleartype:  true
 				,cleartypeNoBg:  true
 				,pause:   1
-				,pager:  '#destaqueThumbs'
+				,pager:  '#destaqueThumbs ul'
 				,before:function(currSlideElement, nextSlideElement, options, forwardFlag){
 					var imgId = nextSlideElement.id;
 					imgId = imgId.toString();
@@ -151,7 +151,7 @@
 				}
 				,pagerAnchorBuilder: function(idx, slide) { 
 					var img = arrImgThum[idx];
-					return '<li style="list-style-type:none"><div style="padding: 3px 12px 5px;"><a href="javascript:void(0)"><img src="' + img + '" /></a></div></li>'; 
+					return '<li style="list-style-type:none;width:100%;height:100%;"><div style="padding: 3px 12px 5px;"><a href="javascript:void(0)"><img src="' + img + '" /></a></div></li>'; 
 				} 
 			});
 			
@@ -243,6 +243,15 @@
 				e.preventDefault();
 				window.location.href = $("#linkAbsolute").val()+"rss/rss_destaque";
 			});
+			if ($.browser.msie && $.browser.version == 7) {
+				$("#containerInfos").css({
+					'top':'290px'
+				});
+				$("#destaqueThumbs").css({
+					'display':"inline"
+				});
+				
+			}
 		});
 	</script>
 	<!-- Coluna Esquerda -->
@@ -259,8 +268,8 @@
 					<div class="selected"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/02_tb.jpg" /></a></div>
 					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/03_tb.jpg" /></a></div>
 					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/04_tb.jpg" /></a></div -->
+					<ul></ul>
 				</div>
-
 				<div id="destaqueInfo">
 					<a href="noticia.html" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/bg_destaque_info.png);">
 						<strong></strong>
@@ -400,8 +409,8 @@
 					foreach($aSideBanner as $k => $v){
 						$link = $v['publicidade_link'];
 						$arq = $linkAbsolute . 'publicidade/' . $v['publicidade_arquivo'];
-						$w = $v['publicidade_largura'];
-						$h = $v['publicidade_altura'];
+						$w = $v['publicidade_tipo_largura'];
+						$h = $v['publicidade_tipo_altura'];
 
 						if($v['publicidade_tipomedia']==0){ 
 				?>

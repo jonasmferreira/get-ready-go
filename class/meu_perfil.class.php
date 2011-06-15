@@ -24,8 +24,7 @@ class meu_perfil extends defaultClass{
 		$sql = array();
 		$sql[] = "
 			UPDATE tb_usuario SET
-				usuario_nivel_id = '3'
-				,usuario_nome = '{$usuario_nome}'
+				usuario_nome = '{$usuario_nome}'
 				,usuario_email = '{$usuario_email}'
 				,usuario_country = '{$usuario_country}'
 				,usuario_city = '{$usuario_city}'

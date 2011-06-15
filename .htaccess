@@ -14,6 +14,7 @@
 	RewriteRule ^jogoDownload/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ jogo_download.php?game_categoria_titulo=$1&game_categoria_id=$2&game_titulo=$3&game_id=$4
 
 	RewriteRule ^listagem/([^/]+)/([^/]+)/?$ listanoticias.php?categoria_nome=$1&categoria_id=$2
+
 	RewriteRule ^listagem/jogos/?$ listajogos.php
 
 	RewriteRule ^galeria/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ galerias.php?id_imagem=$1&galeria_id=$2&post_titulo=$3&post_id=$4
@@ -22,7 +23,7 @@
 
 	RewriteRule ^perfil_usuario/([^/]+)/?$ perfil.php?usuario_id=$1
 
-	RewriteRule ^usuario_game/([^/]+)/([^/]+)/?$ usuario_games.php?usuario_id=$1&usuario_nome=$2
+	RewriteRule ^usuario_games/([^/]+)/([^/]+)/([^/]+)/([^/]+)/?$ usuario_games.php?usuario_id=$1&usuario_nome=$2
 	
 	
 </IfModule>

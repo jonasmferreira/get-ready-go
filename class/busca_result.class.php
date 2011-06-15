@@ -101,10 +101,13 @@ class busca_result extends defaultClass{
 		
 		if($result['total'] > 0){
 			while($rs = $this->dbConn->db_fetch_assoc($result['result'])){
-				$cat_nome = str_replace(' ', '_',$this->retiraAcentos($rs['categoria_nome']));
-				$post_nome = str_replace(' ', '+', $this->retiraAcentos($rs['post_titulo']));
-
-				$rs['linkDetalhe'] = "detalhe/{$cat_nome}/{$rs['categoria_id']}/{$post_nome}/{$rs['post_id']}";
+				$cat_nome = str_replace(' ', '_',$this->retiraAcentos($rs['game_categoria_nome']));
+				$game_nome = str_replace(' ', '+', $this->retiraAcentos($rs['game_titulo']));
+				if($rs['game_categoria_id']==1){
+					$rs['linkDetalhe'] = "jogoDownload/{$cat_nome}/{$rs['game_categoria_id']}/{$game_nome}/{$rs['game_id']}";
+				}else{
+					$rs['linkDetalhe'] = "jogoBrowser/{$cat_nome}/{$rs['game_categoria_id']}/{$game_nome}/{$rs['game_id']}";
+				}
 
 				array_push($res, $rs);
 			}

@@ -1,5 +1,8 @@
 @charset "utf-8";
-
+*{
+	margin:0;
+	padding:0;
+}
 /* TAGS GERAIS */
 
 body {background: url(imgs/bg.jpg) repeat-x #FFFFFF top fixed; margin:0; padding:0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:11px; color:#000000}

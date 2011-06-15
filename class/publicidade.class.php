@@ -32,6 +32,7 @@ class publicidade extends defaultClass{
 	public function getPublicidadeByTipo(){
 		$sql = array();
 		$sql[] = "
+			
 			SELECT   pt.publicidade_tipo_id
 					,pt.publicidade_tipo_titulo
 					,pt.publicidade_tipo_altura
@@ -41,8 +42,8 @@ class publicidade extends defaultClass{
 					,p.publicidade_arquivo
 					,p.publicidade_link
 					,p.publicidade_dtcomp_criacao
-					,p.publicidade_dt_ativacao
-					,p.publicidade_dt_desativacao
+					,IF(p.publicidade_dt_ativacao='0000-00-00 00:00:00',NOW(),p.publicidade_dt_ativacao) AS publicidade_dt_ativacao
+					,IF(p.publicidade_dt_desativacao='0000-00-00 00:00:00',NOW(),p.publicidade_dt_desativacao) AS publicidade_dt_desativacao
 					,p.publicidade_numclique
 
 			FROM tb_publicidade_tipo pt
@@ -50,8 +51,9 @@ class publicidade extends defaultClass{
 			ON pt.publicidade_tipo_id = p.publicidade_tipo_id
 			WHERE 0=0
 			AND  pt.publicidade_tipo_id = '{$this->publicidade_tipo}'
-			AND	 NOW() BETWEEN p.publicidade_dt_ativacao AND p.publicidade_dt_desativacao 
+			HAVING DATE_FORMAT(NOW(),'%Y-%m-%d') BETWEEN DATE_FORMAT(publicidade_dt_ativacao,'%Y-%m-%d') AND DATE_FORMAT(publicidade_dt_desativacao ,'%Y-%m-%d')
 			ORDER BY RAND()
+			
 			LIMIT 1
 		";
 		$res = array();
