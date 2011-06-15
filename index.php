@@ -449,14 +449,7 @@
 			<h2><b class="title">enquete - resultado</b></h2>
 			<p><?php echo $aEnquete['enquete_titulo']; ?></p><br />
 			<ul>
-				<?php foreach($aEnqueteOpcao as $k => $v){ ?>
-					<li id="<?php echo 'enq_opt_' . $v['enquete_opcao_id']; ?>">
-						<?php echo $v['enquete_opcao_titulo']; ?><br />
-						<img src="<?php echo "{$linkAbsolute}"?>imgs/enquete_result1.gif" />
-						<img src="<?php echo "{$linkAbsolute}"?>imgs/enquete_result3.gif" width="218" height="5" />
-						<img src="<?php echo "{$linkAbsolute}"?>imgs/enquete_result2.gif" /> 100%
-					</li>
-				<?php } ?>
+				
 			</ul>
 			<br />
 		</div>
