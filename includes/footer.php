@@ -1,4 +1,5 @@
 			<!-- Fim Miole -->
+			<div style="clear:both;"></div>
 			</div>
 			<!-- Rodapé -->
 			<div id="rodape">
