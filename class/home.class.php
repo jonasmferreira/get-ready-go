@@ -184,6 +184,35 @@ class home extends defaultClass{
 		return false;
 	}
 	
+	public function showEnqueteResult($aEnqRes){
+
+			$aEnqRes['success'] = true;
+			$li = '';
+			//totalizando
+			$tot = 0;
+			foreach($aEnqRes['data'] as $k => $v){
+				$tot += $v['total'];
+			}
+			foreach($aEnqRes['data'] as $k => $v){
+				if($v['total']==0){
+					$w = 0;
+					$per = 0;
+				}else{
+					$per = (100 * $v['total'] / $tot);
+					$w = (210 / 100 * $per);
+				}
+				$per = number_format($per,2);
+				$w = number_format($w,0);
+				
+				$li.= "<li>";
+				$li.= $v['enquete_opcao_titulo'] . "<br />";
+				$li.= "<img src='{$linkAbsolute}imgs/enquete_result1.gif' /><img src='{$linkAbsolute}imgs/enquete_result3.gif' width='$w' height='5' /><img src='{$linkAbsolute}imgs/enquete_result2.gif' />&nbsp;" . $per ."%";
+				$li.= "</li> ";
+			}
+			$aEnqRes['result'] = $li;
+			return $aEnqRes;
+	}
+	
 	public function getEnqueteResult($enquete_id){
 		$sql = array();
 		$sql[] = "
@@ -227,7 +256,8 @@ class home extends defaultClass{
 			$rsEnq['data']= $this->utf8_array_encode($res);
 		}
 
-		return $rsEnq;
+		return $this->showEnqueteResult($rsEnq);
+		
 	}
 	public function getOutdoorDestaque(){
 		$sql = array();
