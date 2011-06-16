@@ -3,11 +3,20 @@ class DataBaseClass{
 	private $dbChaveReferencia = ""; //CHAVE QUE IDENTIFICA OS OBJETOS QUE COMPARTILHAM A MESMA CONEXÃO
 
     private $dbConnection = null;
-    private $dbHost = "localhost";
+    
+	/*
+	private $dbHost = "localhost";
     private $dbUser = "root";
-    private $dbPassword = "cat200200";
+    private $dbPassword = "";
     private $dbName = "get_ready_go";
 	private $dbDriver = "mysql";
+	*/
+	
+    private $dbHost = "186.202.13.2";
+    private $dbUser = "pixelink7";
+    private $dbPassword = "babuinos";
+    private $dbName = "pixelink7";
+	private $dbDriver = "mysql";	
 
     public $refdir = ""; //INCLUIDO POR MARCELO RAMOS EM 17/05/2010
     public $SCRIPT_NAME = "";
