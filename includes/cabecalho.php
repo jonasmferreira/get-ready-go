@@ -24,7 +24,7 @@
 		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/jquery.colorbox-min.js"></script>
 		
 		<!--  NÃO HABILITAR ANTES DE SUBIR NO SERVIDOR DEFINITIVO -->
-		<!--script type="text/javascript" src="<?//=$linkAbsolute;?>js/analytics.js"></script-->
+		<script type="text/javascript" src="<?=$linkAbsolute;?>js/analytics.js"></script>
 		
 	</head>
 	<body>
