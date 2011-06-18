@@ -83,6 +83,7 @@ class home extends defaultClass{
 			JOIN  tb_game_categoria gc ON g.game_categoria_id = gc.game_categoria_id
 			JOIN  tb_game_midia gm ON g.game_midia_id = gm.game_midia_id
 			JOIN  tb_game_tipo gt ON g.game_tipo_id = gt.game_tipo_id
+			ORDER BY game_id DESC
 		";
 		$result = $this->dbConn->db_query(implode("\n",$sql));
 		if(!$result['success']){
