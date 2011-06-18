@@ -64,7 +64,7 @@ function teste(){
 $(document).ready(function(){
 	
 	$("#newAvatar").colorbox({
-		width:"685px",
+		width:"645px",
 		height:"600px",
 		iframe:true,
 		close: "Fechar",
@@ -75,9 +75,12 @@ $(document).ready(function(){
 		,onComplete:function(){
 			window.setTimeout(function(){
 				var frame = $("iframe")[0].contentDocument;
-				
-				$(".selectAvatar", frame).live('click',function(){
-					var usuario_avatar = $(".imagemSeletion",frame).attr("id");
+				$(".imagem", frame).live('click',function(){
+					
+					if(!confirm("Deseja realmente trocar o avatar?!"))
+						return false;
+					
+					var usuario_avatar = $(this).attr("id");
 					$.ajax({
 						'type':'POST',
 						'async':false,
@@ -91,12 +94,6 @@ $(document).ready(function(){
 							$("#cboxClose").trigger("click");
 						}
 					});
-				})
-				$(".imagem", frame).live('click',function(){
-					$(".imagem", frame).css("border-color","transparent").removeClass("imagemSeletion")
-					$("input", frame).attr("disabled","disabled")
-					$(this).css("border-color","#F00").addClass("imagemSeletion");
-					$(this).parent().find("input").removeAttr("disabled");
 				})
 			},1000);
 		}
@@ -133,8 +130,8 @@ $(document).ready(function(){
 		}
 		var usuario_nome = $.trim($("#nome").val());
 		var usuario_email = $.trim($("#email").val());
-		var pais = $.trim($("#nome").val());
-		var cidade = $.trim($("#email").val());
+		var pais = $.trim($("#pais").val());
+		var cidade = $.trim($("#cidade").val());
 		var dataNascimento = $("#ano").val()+"-"+$("#mes").val()+"-"+$("#dia").val();
 		var meuperfil = $.trim($("#meuperfil").val());
 		var sexo = $.trim($("#sexo").val());
