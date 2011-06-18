@@ -180,10 +180,10 @@
                     <div style="clear:both"></div>
                 
                 </div>
-                <img src="imgs/content_bot.png" align="top" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
 
                 <!-- Conteúdo -->
-                <img src="imgs/content_top.png" align="absbottom" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
                 <div id="conteudo">
 					<h2><b class="title">últimos</b></h2>
 					<div id="listagem" style="height:650px; overflow: visible;">
@@ -246,7 +246,7 @@
 					<?php } ?>
 					<div style="clear:both"></div>
                 </div>
-                <img src="imgs/content_bot.png" align="top" />
+                <img src="<?php echo "{$linkAbsolute}"?>imgs/content_bot.png" align="top" />
                  
             </div>
             <!-- Coluna Direita -->
