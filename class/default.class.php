@@ -434,6 +434,48 @@ class defaultClass {
 		";
 		$result = $this->dbConn->db_execute($sql);
 	}
+	public function getNameCategoriaPost($idPost){
+		$sql = array();
+		$sql[] = "
+				SELECT	CONCAT(' - ',c.categoria_nome,' - ',p.post_titulo) as title
+				FROM	tb_post p
+
+				JOIN	tb_categoria c
+				ON		p.categoria_id = c.categoria_id
+
+				WHERE	1 = 1
+				AND		p.post_status = 1
+				AND		p.post_id = {$idPost}
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		$rs = array();
+		if($result['total'] > 0){
+			$rs = $this->dbConn->db_fetch_assoc($result['result']);
+		}
+		return $this->utf8_array_encode($rs);
+	}
+	public function getNameJogo($gameId){
+		$sql = array();
+		$sql[] = "
+			SELECT CONCAT(' - ',game_categoria_nome,' - ',game_titulo) as title
+			FROM	tb_game g
+			JOIN	tb_game_categoria gc ON g.game_categoria_id = gc.game_categoria_id
+			WHERE 1=1
+			AND game_id = {$gameId}
+		";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		if(!$result['success']){
+			return false;
+		}
+		$res = array();
+		if($result['total'] > 0){
+			$rs = $this->dbConn->db_fetch_assoc($result['result']);
+		}
+		return $this->utf8_array_encode($rs);
+	}	
 	public function getTopPost($categoria){
 		$sql = array();
 		$sql[] = "

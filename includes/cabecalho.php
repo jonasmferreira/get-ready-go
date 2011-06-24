@@ -7,6 +7,16 @@
 	//include para o LINK ABSOLUTO pois toda hora eu errava o link na hora de subir.
 	//assim a gente naum precisa se preocupar em mexer mais no cabeçalho
 	include_once 'absLink.php';
+	
+	require_once 'class/default.class.php';
+	
+	$objCab = new defaultClass;
+	
+	if(isset($_GET['post_id']) && !empty($_GET['post_id'])){
+		$aTitle = $objCab->getNameCategoriaPost($_GET['post_id']);
+	}else if(isset($_GET['game_id']) && !empty($_GET['game_id'])){
+		$aTitle = $objCab->getNameJogo($_GET['game_id']);
+	}
 
 ?>
 
@@ -14,7 +24,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>Get Ready... Go!</title>
+		<title>Get Ready... Go!<?php echo $aTitle['title']; ?></title>
 		<link href="<?php echo $linkAbsolute?>style.css" media="screen" rel="stylesheet" type="text/css" />
 		<link href="<?php echo $linkAbsolute?>css/colorbox.css" media="screen" rel="stylesheet" type="text/css" />
 		<script type="text/javascript" src="<?php echo $linkAbsolute?>js/jquery.js"></script>
