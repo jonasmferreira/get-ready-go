@@ -17,8 +17,8 @@
 
 	$aAnalises = $obj->getTopPost(3);
 
-	$obj->setLimitMax(null);
-	$obj->setLimitStart(null);
+	$obj->setLimitMax(7);
+	$obj->setLimitStart(0);
 	$obj->setCategoria_id(4);
 	$aIndicados = $obj->getLastPost();
 
