@@ -4,20 +4,18 @@ class DataBaseClass{
 
     private $dbConnection = null;
     
-	/*
 	private $dbHost = "localhost";
     private $dbUser = "root";
     private $dbPassword = "";
     private $dbName = "get_ready_go";
 	private $dbDriver = "mysql";
-	*/
-	
+/*	
     private $dbHost = "186.202.13.2";
     private $dbUser = "pixelink7";
     private $dbPassword = "babuinos";
     private $dbName = "pixelink7";
 	private $dbDriver = "mysql";	
-
+*/
     public $refdir = ""; //INCLUIDO POR MARCELO RAMOS EM 17/05/2010
     public $SCRIPT_NAME = "";
 	private $DS = "";
@@ -154,7 +152,7 @@ class DataBaseClass{
             $result['result'] = $qry;
             $result['message'] = '';
             $result['total'] = $this->db_num_rows($qry);
-			$this->db_log('../log/dblog.txt', $sql, 'Query executada com sucesso', $result['total'], $result['message']);
+			//$this->db_log('../log/dblog.txt', $sql, 'Query executada com sucesso', $result['total'], $result['message']);
         } else{
             $result['success'] = false;
             $result['message'] = $this->db_error();
@@ -201,7 +199,7 @@ class DataBaseClass{
 			$result['message'] = '';
 			$result['total'] = $this->db_num_rows($qry);
 			$result['last_id'] = $id;
-			$this->db_log('../log/dblog.txt', $sql, 'Query executada com sucesso', $result['total'], $result['message']);
+			//$this->db_log('../log/dblog.txt', $sql, 'Query executada com sucesso', $result['total'], $result['message']);
 		} else{
 			$result['success'] = false;
 			$result['message'] =  $this->db_error_execute();
