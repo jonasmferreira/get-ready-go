@@ -167,7 +167,30 @@
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" />
 
 		<!-- Banner 300x250 -->
-		<div id="sideBanner"><img src="<?php echo "{$linkAbsolute}"?>banners/banner_300x250.jpg" /></div>
+		<? if(is_array($aSideBanner) && count($aSideBanner)>0){ ?>
+		<!--img src="<?php //echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" /-->
+		<!-- Banner 300x250 -->
+		<div id="sideBanner">
+			<!-- Publicidade - banner 728x90 -->
+			<? 
+				foreach($aSideBanner as $k => $v){
+					$link = $v['publicidade_link'];
+					$arq = $linkAbsolute . 'publicidade/' . $v['publicidade_arquivo'];
+					$w = $v['publicidade_tipo_largura'];
+					$h = $v['publicidade_tipo_altura'];
+
+					if($v['publicidade_tipomedia']==0){ 
+			?>
+						<a href="<?=$link;?>" target="_blank"><img src="<?=$arq;?>" width="<?=$w;?>"  height="<?=$h;?>" /></a>			
+			<?		} else { ?>
+						<script type="text/javascript">buildFlash('<?=$arq;?>','<?=$w;?>','<?=$h;?>','opaque');</script> 
+			<?		} 
+				}
+		?>
+		<!--img src="banners/banner_300x250.jpg" /-->
+		</div>
+		<!--img src="<?php //echo "{$linkAbsolute}"?>imgs/box_bot.png" align="top" style="clear:both" /-->
+		<? } ?>
 
 
 	</div>
