@@ -164,7 +164,7 @@ class noticia extends defaultClass{
 			AND	({$andClau})
 			AND p.post_id != '{$this->post_id}'
 			ORDER BY post_dt_criacao DESC
-			LIMIT 10
+			LIMIT 4
 		";
 
 		
