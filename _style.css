@@ -1,0 +1,184 @@
+@charset "utf-8";
+*{
+	margin:0;
+	padding:0;
+}
+/* TAGS GERAIS */
+
+body {background: url(imgs/bg.jpg) repeat-x #FFFFFF top fixed; margin:0; padding:0; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:11px; color:#000000}
+
+a img {border:0;}
+
+a {color:#0066cc; text-decoration:none}
+
+h1 {font-size: 30px; margin:0 0 10px 0; padding:0; font-weight:normal}
+
+h2 {border-top:1px solid #cb3f1e; margin:0 0 5px 0; color:#FFFFFF; font-size:10px; text-transform:lowercase; padding:3px 0;}
+h2 b.title {background:#cb3f1e; padding: 3px 10px; font-weight:normal;}
+
+h3 {font-size:16px; margin:0; clear:both}
+h3 a:hover {text-decoration:underline;}
+
+h4 {font-size:11px; margin:0}
+h4 a:hover {text-decoration:underline;}
+
+/* ESTRUTURA E POSICIONAMENTO */
+#all {background:url(imgs/bg_top.gif) repeat-x;}
+
+#topo {width:1000px; margin:auto;}
+
+	#logo {display:block; width:259px; float:left; display:block; float:left; width:364px; heigth:83px;}
+	
+	#user {text-align:right; display:block; float:left; height:65px; padding:10px 10px 0 0; color:#FFF; font-size:11px; width:626px;}
+		#user a {color:#FFFFFF; text-decoration:underline}
+		#user input.login {background: url(imgs/input_login.png); width:96px; padding: 0 2px; border:0;}
+		#user img.avatar {border:1px solid #FFF; width:55px; height:55px;}
+	
+	#search {text-align:right; background:url(imgs/bg_search_top.png) bottom right no-repeat; display:block; float:left; height:25px; padding:5px 14px 4px 278px;}
+		#search input.busca {background: none repeat scroll 0 0 transparent;border: 0 none;color: #A7A7A7;font-style: italic;font-weight: bold;padding-left: 15px;padding-right: 2px;width: 289px;}
+
+	#menu {background: url(imgs/bg_menu_top.png) no-repeat ; display:block; clear:both; height:22px; padding:7px 0 26px 0; font-size:10px; color:#FFFFFF; text-transform:uppercase;}
+		#menu ul {padding:0 11px; margin:0;}
+		#menu ul li {list-style-type: none;  padding:5px 0; margin:0; display:block; border-right:1px solid #68a4ad; float:left;}
+		#menu ul li a {text-decoration: none; color: #FFFFFF; border-right:1px solid #03434d; padding:5px 20px;}
+
+#fullBanner {text-align:center; color:#ffffff; font-size:9px}
+	#fullBanner div {border:1px solid #FFFFFF; width:728px; margin:1px auto 6px auto;}
+	
+#miolo {width:1000px; display:block; margin:auto;}
+	
+	#leftCol {float:left; width:700px;height:100%;}
+		
+		#destaque, #conteudo {background:url(imgs/bg_content.png) repeat-y;}
+		
+		#destaque {padding:0 10px}
+			#container {height:268px; border:1px solid #fff}
+				#destaqueThumbs {float:left; width:140px; padding:5px 0}
+				#destaqueThumbs div {padding:3px 12px 5px 12px}
+				#destaqueThumbs div img {border:1px solid #fff}
+				#destaqueThumbs div.selected {background:url(imgs/selected.png) no-repeat right top}
+				#destaqueThumbs div.selected img {border:1px solid #000}
+				#destaqueInfo {float:left; height:69px; width:514px; padding:197px 0 0 0;}
+				#destaqueInfo a {color:#FFFFFF; padding:10px; display:block; border-top:2px solid #FFFFFF}
+				#destaqueInfo a strong {font-size:15px; display:block; margin:0 0 5px 0}
+		
+		#conteudo {padding:5px 15px;height: 100%;}
+			#conteudo p {margin: 7px 5px}
+			
+			#newsItem {margin:0 5px; clear:both}
+				#newsImg {width:152px; float:left; margin:0 7px 7px 0}
+				#newsImg a img {border:1px solid #000000}
+				#newsInfo {float:left; width:500px; margin:5px 0 0 0 }
+				#newsInfo p {margin:0}
+				
+			#topAnalisesHome {list-style-type:none; margin:0; padding:0}
+			#topAnalisesHome li {display:inline; width:152px; float:left; margin:0 7px}
+			#topAnalisesHome li p {margin:0}
+			#topAnalisesHome li a img {border:1px solid #000000}
+			
+			#newsContent {margin:5px 5px 25px 5px;}
+				#newsContent p {margin:10px 0; font-size:12px;}
+				
+				#newsContent div.newsHeader {padding:0 0 10px 0; border-bottom:1px solid #999999; margin:0 0 10px 0;}
+				#newsContent div.newsHeader p {margin:0;}
+			
+			#newsGallery a.img {display:block; width:152px; float:left; margin:0 7px 5px 7px;}
+			#newsGallery a.img img {width:150px; border:1px solid #000000;}
+			
+			#comentarios table.smiles {border:1px solid #999999; margin:0 0 0 4px}
+			#comentarios table.smiles tr td {width:34px; text-align:center}
+			#comentarios img.avatar {border:1px solid #000; width:55px; height:55px; margin:10px 0}
+			#comentarios table.comentario {margin:15px auto 0 auto; border-top:2px solid #cccccc; width:580px}
+
+			#mostPlayed {margin:0 5px; clear:both}
+				#gameImg {width:232px; float:left; margin:0 7px 7px 0}
+				#gameImg a img {border:1px solid #000000}
+				#gameInfo {float:left; width:414px; margin:10px 7px 0 0 }
+				#gameInfo p {margin:0}
+			
+			#twoCol {margin:0 5px; width:325px; float:left}
+			#twoCol div.itemJogos {margin:0px 5px 5px 5px; clear:both}
+			#twoCol div.itemJogos div {float:left; font-size:10px; color:#666666;}
+			#twoCol div.itemJogos div a {font-size:12px; font-weight:bold;}
+			#twoCol div.itemJogos div strong {font-weight:normal; color:#000000; font-size:11px}
+			#twoCol div.itemJogos div.imgItemJogos {width:62px; margin:0 7px 5px 0}
+			#twoCol div.itemJogos div.imgItemJogos a img {border:1px solid #000000}
+
+			.imgGaleria {border:1px solid #000; background-position:center; background-repeat:no-repeat;}
+			
+			#itemBusca {margin:15px 5px;}
+			#itemBusca p {margin:0px;}
+			
+			#perfil {margin:0 25px 15px 25px; padding-bottom:5px} 
+				#imgPerfil {width:142px; padding:10px; border:1px solid #666666; text-align:center; float:left}
+				#imgPerfil img {border:1px solid #000000;}
+				
+				#infoPerfil {float:left; margin:0 0 0 15px; width:441px}
+				#infoPerfil p {margin:0}
+						
+		#conteudo.sistema {background:url(imgs/bg_content.png) repeat-y; width:670px; margin:auto}
+		
+		#conteudo.gameArea {background:url(imgs/bg_full_content.png) repeat-y; width:970px; margin:auto}
+	
+	#rightCol {width:300px; float:left;}
+		
+		#rightBox {background:url(imgs/bg_box.png) repeat-y; padding:5px 15px;}
+
+		#rightBox.indiecados div.itemJogos {margin:0px 5px 5px 5px; clear:both}
+		#rightBox.indiecados div.itemJogos div {float:left; font-size:10px; color:#666666;}
+		#rightBox.indiecados div.itemJogos div a {font-size:12px; font-weight:bold;}
+		#rightBox.indiecados div.itemJogos div strong {font-weight:normal; color:#000000; font-size:11px}
+		#rightBox.indiecados div.itemJogos div.imgItemJogos {width:62px; margin:0 7px 5px 0}
+		#rightBox.indiecados div.itemJogos div.imgItemJogos a img {border:1px solid #000000}
+		
+		#rightBox.enquetes p {margin:0 5px; text-align:center; font-weight:bold}
+		#rightBox.enquetes ul {margin:0 5px; padding:0; list-style-type:none} 
+		#rightBox.enquetes ul li {margin:2px 0 8px 0;}
+		
+		#rightBox.topArtigos ul {margin:0 5px 0 15px; padding:0; list-style-type: square} 
+		#rightBox.topArtigos ul li {margin:2px 0 8px 0; color:#cb3f1e;}
+		#rightBox.topArtigos ul li a {font-weight:bold;}
+		#rightBox.topArtigos ul li span {font-size:10px}
+		
+		#rightBox.topNoticias div.item {margin:0 5px 5px 5px; clear:both; height:51px}
+		#rightBox.topNoticias div.item div.img {width: 94px; margin:0 5px 0 0; display:block; float:left}
+		#rightBox.topNoticias div.item div.img a img {width: 92px; border:1px solid #000;}
+		#rightBox.topNoticias div.item div.info {float:left; margin:0; padding:6px 0 7px 0; width:161px;}
+		#rightBox.topNoticias div.item div.info a {font-weight:bold;}
+		#rightBox.topNoticias div.item div.info span {font-size:10px}
+		
+		#rightBox.thubsGaleria a.img {display:block; width:84px; float:left; margin:4px 3px 4px 3px;}
+		#rightBox.thubsGaleria a.img img {width:82px; border:1px solid #000000;}
+		
+		#sideBanner {margin: 5px 0;}
+
+#rodape {background:url(imgs/bg_rodape.jpg) repeat-x top; padding:16px 0 0 0; height:90px; clear:both;float:left;display:inline;width:100%}
+	#rodape div {width:950px; margin:auto}
+	#rodape div div {width:475px; float:left}
+	#rodape a {color:#FFFFFF;}
+
+/* CLASSES E ESTILOS */
+
+.custom {background-position:center; background-attachment:fixed;}
+.paginacao {text-align:center; clear:both;}
+.data {color:#666666; font-style:italic;}
+.comments a {text-decoration:underline; color:#cb3f1e; font-size:10px;}
+
+input.text, textarea {border:1px solid #999999; background:#CCCCCC}
+.green {color:#006600}
+.red {color:#990000}
+.small {font-size: 10px}
+
+.autor {font-size:11px; color:#024d98}
+.autor a {text-decoration:underline; color:#024d98}
+.autor img {border:1px solid #000; width:20px; margin:5px 4px 5px 0}
+
+.avalia {height:20px; width:100px; margin:0}
+
+.displayNone{
+	display: none;
+}
+a.ativoPaginacao{
+	color: #000000 !important;
+    text-decoration: underline !important;
+}
