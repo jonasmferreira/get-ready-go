@@ -286,7 +286,7 @@ class home extends defaultClass{
 			AND		p.post_status = 1
 			AND		c.categoria_id IN (2,3)
 			ORDER BY post_dtcomp_criacao DESC
-			LIMIT 4
+			LIMIT 5
 		";
 		$res = array();
 		$this->setTotal($this->getMaxCount(implode("\n",$sql)));
