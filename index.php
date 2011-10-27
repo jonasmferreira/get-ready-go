@@ -47,18 +47,18 @@
 	<script type="text/javascript" src="<?php echo $linkAbsolute?>js/jquery.cycle.all.min.js"></script>
 	<script type="text/javascript">
 		
-		/*
+		
 		var sImg = '<?=implode("|",$arrImg)?>';
 		var sImgThum = '<?=implode("|",$arrImgThum)?>';
 		var sLink = '<?=implode("|",$arrLink)?>';
 		var sTitulo = '<?=implode("|",$arrTitulo)?>';
-		*/
-	   
+		
+/*	   
 		var sImg = 'http://localhost/GetReadyGo/teste/imgs/destaque/01.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/03.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/04.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02.jpg';
 		var sImgThum = 'http://localhost/GetReadyGo/teste/imgs/destaque/01_tb.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02_tb.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/03_tb.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/04_tb.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02_tb.jpg';
 		var sLink = 'http://getready.net.br/detalhe/Analises/3/A+Game+of+Thrones:+Genesis/274|http://getready.net.br/detalhe/Analises/3/Amnesia:+The+Dark+Descent+/272|http://getready.net.br/detalhe/Artigos/2/Concurso+Batman:+Arkham+City/267|http://getready.net.br/detalhe/Analises/3/Call+of+Juarez:+The+Cartel/264|http://getready.net.br/detalhe/Analises/3/Call+of+Juarez:+The+Cartel/264';
 		var sTitulo = 'A Game of Thrones: Genesis|Amnesia: The Dark Descent |Concurso Batman: Arkham City|Call of Juarez: The Cartel|TESTE';	   
-	   
+*/	   
 		var arrImg = sImg.split("|");
 		var arrImgThum = sImgThum.split("|");
 		var arrLink = sLink.split("|");
