@@ -46,11 +46,19 @@
 ?>
 	<script type="text/javascript" src="<?php echo $linkAbsolute?>js/jquery.cycle.all.min.js"></script>
 	<script type="text/javascript">
+		
+		/*
 		var sImg = '<?=implode("|",$arrImg)?>';
 		var sImgThum = '<?=implode("|",$arrImgThum)?>';
 		var sLink = '<?=implode("|",$arrLink)?>';
 		var sTitulo = '<?=implode("|",$arrTitulo)?>';
-		
+		*/
+	   
+		var sImg = 'http://localhost/GetReadyGo/teste/imgs/destaque/01.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/03.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/04.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02.jpg';
+		var sImgThum = 'http://localhost/GetReadyGo/teste/imgs/destaque/01_tb.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02_tb.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/03_tb.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/04_tb.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02_tb.jpg';
+		var sLink = 'http://getready.net.br/detalhe/Analises/3/A+Game+of+Thrones:+Genesis/274|http://getready.net.br/detalhe/Analises/3/Amnesia:+The+Dark+Descent+/272|http://getready.net.br/detalhe/Artigos/2/Concurso+Batman:+Arkham+City/267|http://getready.net.br/detalhe/Analises/3/Call+of+Juarez:+The+Cartel/264|http://getready.net.br/detalhe/Analises/3/Call+of+Juarez:+The+Cartel/264';
+		var sTitulo = 'A Game of Thrones: Genesis|Amnesia: The Dark Descent |Concurso Batman: Arkham City|Call of Juarez: The Cartel|TESTE';	   
+	   
 		var arrImg = sImg.split("|");
 		var arrImgThum = sImgThum.split("|");
 		var arrLink = sLink.split("|");
@@ -86,7 +94,7 @@
 			var arrDestaqueImg = new Array();
 			for(var j=0;j<arrImgThum.length;j++){
 				//arrDestaqueThumbs.push('<div id="destaqueThumbs_'+j+'" style="cursor:pointer;"><img src="'+arrImgThum[j]+'" /></div>');
-				arrDestaqueImg.push('<img id="imagem_destaque_'+j+'" src="'+arrImg[j]+'" />');
+				arrDestaqueImg.push('<img height="325" id="imagem_destaque_'+j+'" src="'+arrImg[j]+'" />');
 			}
 			//jQuery("#destaqueThumbs").html(arrDestaqueThumbs.join("\n"));
 			jQuery("#container").html(arrDestaqueImg.join("\n"));
@@ -151,7 +159,7 @@
 				}
 				,pagerAnchorBuilder: function(idx, slide) { 
 					var img = arrImgThum[idx];
-					return '<li style="list-style-type:none;width:100%;height:100%;"><div style="padding: 3px 12px 5px;"><a href="javascript:void(0)"><img src="' + img + '" /></a></div></li>'; 
+					return '<li style="list-style-type:none;width:134px;height:100%; float:left;"><div style="padding: 12px 3px 3px 3px;overflow:hidden;"><a href="javascript:void(0)"><img width="126" height="50" src="' + img + '" /></a></div></li>'; 
 				} 
 			});
 			
@@ -245,7 +253,7 @@
 			});
 			if ($.browser.msie && $.browser.version == 7) {
 				$("#containerInfos").css({
-					'top':'290px'
+					'top':'0px'
 				});
 				$("#destaqueThumbs").css({
 					'display':"inline"
@@ -259,19 +267,19 @@
 
 		<!-- Destaque rotativo -->
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
-		<div id="destaque" style="height:270px;">
+		<div id="destaque">
 			<!-- div id="container" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/destaque/01.jpg)"></div -->
 			<div id="container"></div>
-			<div id="containerInfos" style="position:absolute;top:281px;z-index:10000">
+			<div id="containerInfos">
 				<div id="destaqueThumbs">
 					<!--div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/01_tb.jpg" /></a></div>
 					<div class="selected"><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/02_tb.jpg" /></a></div>
 					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/03_tb.jpg" /></a></div>
 					<div><a href="#"><img src="<?php echo "{$linkAbsolute}"?>imgs/destaque/04_tb.jpg" /></a></div -->
-					<ul></ul>
+					<ul style="padding:0;margin-top:0;"></ul>
 				</div>
-				<div id="destaqueInfo">
-					<a href="noticia.html" style="background:url(<?php echo "{$linkAbsolute}"?>imgs/bg_destaque_info.png);">
+				<div id="destaqueInfo" style="position:absolute; top:194px;">
+					<a href="noticia.html">
 						<strong></strong>
 					</a>
 				</div>
