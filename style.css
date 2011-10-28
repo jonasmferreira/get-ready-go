@@ -63,13 +63,13 @@ h4 a:hover {text-decoration:underline;}
 					background:url(imgs/bg_destaque_info2.png) repeat-x top;
 				}
 			
-				#destaqueThumbs {float:left; width:674px; margin-top:55px; padding:0 0 4px 4px; background-color: #000;}
+				#destaqueThumbs {float:left; width:674px; margin-top:61px; padding:0 0 4px 4px; background-color: #000;}
 				#destaqueThumbs div {padding:3px 1px 1px 1px; margin-left:1px;}
 				#destaqueThumbs div img {border:1px solid #fff}
 				#destaqueThumbs div.selected {background:url(imgs/selected2.png) no-repeat right top}
 				#destaqueThumbs div.selected img {border:1px solid #000}			
 			
-				#destaqueInfo {width:677px; padding:0px 0 0 0; text-align:right;}
+				#destaqueInfo {width:677px; height: 50px; padding:0px 0 0 0; text-align:right;}
 				#destaqueInfo a {color:#FFFFFF; padding:10px; display:block;}
 				#destaqueInfo a strong {font-size:15px; display:block; margin:0 0 5px 0}
 				#Thumbs {background:#000000; width:670px; height:68px; margin:-11px 0 0 0; padding:0 4px}
