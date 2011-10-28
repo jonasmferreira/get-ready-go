@@ -230,7 +230,7 @@ class home extends defaultClass{
 			ON		eo.enquete_id = e.enquete_id
 
 			WHERE	0=0
-			AND		e.enquete_id = $enquete_id
+			AND		e.enquete_id = '{$enquete_id}'
 
 			GROUP BY 
 					e.enquete_id, eo.enquete_opcao_id
@@ -260,6 +260,14 @@ class home extends defaultClass{
 
 		return $this->showEnqueteResult($rsEnq);
 		
+	}
+	public function getConteudoDestaque($id){
+		$sql = array();
+		$sql[] = "SELECT post_conteudo FROM	tb_post WHERE post_id = '{$id}'";
+		$result = $this->dbConn->db_query(implode("\n",$sql));
+		$rs = $this->dbConn->db_fetch_assoc($result['result']);
+		$rs['post_conteudo'] = preg_replace("/( +)/", " ",trim($this->cutHTML(strip_tags($rs['post_conteudo']),180)));
+		return $rs['post_conteudo'];
 	}
 	public function getOutdoorDestaque(){
 		$sql = array();
