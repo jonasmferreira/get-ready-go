@@ -35,12 +35,14 @@
 	$arrConteudo = array();
 	$arrLink = array();
 	$arrTitulo = array();
+	$arrID = array();
 	foreach($aOutdoor AS $k=>$v){
 		array_push($arrTitulo,substr($v['post_titulo'],0,50));
 		array_push($arrImg,"{$linkAbsolute}posts/{$v['post_imagem']}");
 		array_push($arrImgThum,"{$linkAbsolute}posts/{$v['post_thumb_imagem']}");
 		array_push($arrConteudo,$v['post_conteudo']);
 		array_push($arrLink,"{$linkAbsolute}{$v['linkDetalhe']}");
+		array_push($arrID,$v['post_id']);
 	}
 	$_SESSION['arrConteudo'] = $arrConteudo;
 ?>
@@ -52,6 +54,7 @@
 		var sImgThum = '<?=implode("|",$arrImgThum)?>';
 		var sLink = '<?=implode("|",$arrLink)?>';
 		var sTitulo = '<?=implode("|",$arrTitulo)?>';
+		var sIDS = '<?=implode("|",$arrID)?>';
 		
 /*	   
 		var sImg = 'http://localhost/GetReadyGo/teste/imgs/destaque/01.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/03.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/04.jpg|http://localhost/GetReadyGo/teste/imgs/destaque/02.jpg';
@@ -63,12 +66,13 @@
 		var arrImgThum = sImgThum.split("|");
 		var arrLink = sLink.split("|");
 		var arrTitulo = sTitulo.split("|");
+		var arrIDS = sIDS.split("|");
 		var i = 0;
 		function getConteudo(id){
 			return $.ajax({
 				'type':'POST',
 				'async':false,
-				'url':'<?php echo $linkAbsolute;?>ajax/ajaxPaginacao',
+				'url':'<?php echo $linkAbsolute;?>ajax/ajaxPaginacao.php',
 				'dataType':'html',
 				'data':{
 					'action':'getConteudoDestaque',
@@ -87,14 +91,14 @@
 				'background':'url('+arrImg[0]+')'
 			});
 			jQuery("#destaqueInfo a").attr("href",arrLink[0]);
-			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[0]+'</strong>'+getConteudo(0));
+			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[0]+'</strong>'+getConteudo(arrIDS[0]));
 		}
 		function createThumbsForPlugin(){
 			var arrDestaqueThumbs = new Array();
 			var arrDestaqueImg = new Array();
 			for(var j=0;j<arrImgThum.length;j++){
 				//arrDestaqueThumbs.push('<div id="destaqueThumbs_'+j+'" style="cursor:pointer;"><img src="'+arrImgThum[j]+'" /></div>');
-				arrDestaqueImg.push('<img height="325" id="imagem_destaque_'+j+'" src="'+arrImg[j]+'" />');
+				arrDestaqueImg.push('<img id="imagem_destaque_'+j+'" src="'+arrImg[j]+'" />');
 			}
 			//jQuery("#destaqueThumbs").html(arrDestaqueThumbs.join("\n"));
 			jQuery("#container").html(arrDestaqueImg.join("\n"));
@@ -120,7 +124,7 @@
 						.animate({opacity: 1});
 			});
 			jQuery("#destaqueInfo a").attr("href",arrLink[id]);
-			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[id]+'</strong>'+getConteudo(id));
+			jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[id]+'</strong>'+getConteudo(arrIDS[id]));
 		}
 		function changeThumbs(){
 			var id = jQuery("#destaqueThumbs div.selected").attr('id');
@@ -155,7 +159,7 @@
 					imgId = imgId.split("_");
 					imgId = imgId[2];
 					jQuery("#destaqueInfo a").attr("href",arrLink[imgId]);
-					jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[imgId]+'</strong>'+getConteudo(imgId));
+					jQuery("#destaqueInfo a").html('<strong>'+arrTitulo[imgId]+'</strong>'+getConteudo(arrIDS[imgId]));
 				}
 				,pagerAnchorBuilder: function(idx, slide) { 
 					var img = arrImgThum[idx];
@@ -292,7 +296,7 @@
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/content_top.png" align="absbottom" />
 		<div id="conteudo">
 			<!-- Últimas Notícias -->
-			<h2><b class="title">Últimas notícias</b></h2>
+			<h2><b class="title">Power-Ups</b></h2>
 			<div id="listagem" style="height:100%; overflow: hidden;">
 				<div id="listagem_0">
 			<?php 
@@ -313,7 +317,7 @@
 						</a>
 					</h3>
 					<p class="data"><?php echo $v['post_dt_criacao']; ?></p>
-					<p><?php echo $obj->cutHTML($v['post_conteudo'],150); ?></p>
+					<p><?php echo strip_tags($obj->cutHTML($v['post_conteudo'],150),'<p><a><b><strong><br/>'); ?></p>
 					<p class="comments"><img src="<?php echo "{$linkAbsolute}"?>imgs/icon_comentario.gif" align="absmiddle" /> <a href="<?php echo "{$linkAbsolute}{$v['linkDetalhe']}"; ?>#comentarios"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 				</div>
 			</div>
@@ -381,7 +385,7 @@
 		<!-- Jogos indicados -->
 		<img src="<?php echo "{$linkAbsolute}"?>imgs/box_top.png" align="absbottom" />
 		<div id="rightBox" class="indiecados">
-			<h2><b class="title">Indicamos</b></h2>
+			<h2><b class="title">Jogos Online</b></h2>
 			<?php 
 			if(is_array($aGame) && count($aGame)>0){
 				foreach($aGame as $k => $v){ ?>
