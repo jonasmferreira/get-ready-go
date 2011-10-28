@@ -26,7 +26,7 @@
 									</a>
 								</h3>
 								<p class="data"><?php echo $v['post_dt_criacao']; ?></p>
-								<p><?php echo $obj->cutHTML($v['post_conteudo'],120); ?></p>
+								<p><?php echo $obj->cutHTML(strip_tags($v['post_conteudo'],'<p><a><b><strong><br/>'),150); ?></p>
 								<p class="comments"><img src="@LINKABSOLUTO@imgs/icon_comentario.gif" align="absmiddle" /> <a href="#"><?php echo $v['qtdComentario']; ?> comentários</a></p>
 							</div>
 						</div>
@@ -157,7 +157,8 @@
 		break;
 		case 'getConteudoDestaque':
 			require_once "{$path_root_postController}class/home.class.php";
-			echo $_SESSION['arrConteudo'][$_REQUEST['id']];
+			$obj = new home();
+			echo $obj->getConteudoDestaque($_REQUEST['id']);
 		break;
 	}
 
