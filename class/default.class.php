@@ -368,18 +368,18 @@ class defaultClass {
 	public function enviaEmail(){
 		$mail = new PHPMailer(true); // the true param means it will throw exceptions on errors, which we need to catch
 		$mail->CharSet = 'utf-8';
-		$mail->IsSMTP(); // telling the class to use SMTP
+		$mail->IsMail(); // telling the class to use SMTP
 		/*echo "<pre>".print_r($this->emails,true)."</pre>";
 		echo "<pre>".print_r($this->email_resposta,true)."</pre>";
 		echo "<pre>".print_r($this->email_remetente,true)."</pre>";*/
 		try {
 			
-			$mail->SMTPDebug  = 0;
+			/*$mail->SMTPDebug  = 0;
 			$mail->SMTPAuth   = true;
 			$mail->Host       = $this->email_host;
 			$mail->Port       = $this->email_port;
 			$mail->Username   = $this->email_username;
-			$mail->Password   = $this->email_pass;
+			$mail->Password   = $this->email_pass;*/
 			if(is_array($this->email_resposta)&&count($this->email_resposta)>0){
 				$mail->AddReplyTo($this->email_resposta['email'], $this->email_resposta['nome']);
 			}

@@ -79,7 +79,7 @@ class cadastro extends defaultClass{
 			$isEnvio = $this->enviaEmail();
 			if($isEnvio!==true){
 				$this->dbConn->db_rollback();
-				return $this->utf8Encode2Decode('<p align="center" class="red"><strong>Falha no Cadastro de Usuário</strong></p>');
+				return $this->utf8Encode2Decode('<p align="center" class="red"><strong>Falha no Cadastro de Usuário</strong></p><p>'.$isEnvio.'</p>');
 				//return $this->utf8Encode2Decode('<p align="center" class="red"><strong>'.$isEnvio.'.</strong></p>');
 			}else{
 				$this->dbConn->db_commit();
